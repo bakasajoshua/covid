@@ -98,10 +98,10 @@
 
 
 	<script src="/highmaps/highcharts.js" type='text/javascript'></script>
-	<script src="/'highmaps/highcharts-more.js" type='text/javascript'></script>
-	<script src="/'highmaps/modules/map.js" type='text/javascript'></script>
-	<script src="/'highmaps/modules/data.js" type='text/javascript'></script>
-	<script src="/'highmaps/modules/drilldown.js" type='text/javascript'></script>
+	<script src="/highmaps/highcharts-more.js" type='text/javascript'></script>
+	<script src="/highmaps/modules/map.js" type='text/javascript'></script>
+	<script src="/highmaps/modules/data.js" type='text/javascript'></script>
+	<script src="/highmaps/modules/drilldown.js" type='text/javascript'></script>
 
 	<script src='//cdn.datatables.net/1.10.12/js/jquery.dataTables.js' type='text/javascript'></script>
 	<script src='//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js' type='text/javascript'></script>
