@@ -26,7 +26,7 @@
 		<!-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}" /> -->
 		<!-- <link rel="stylesheet" href="{{ asset('css/custom-2.css') }}" /> -->
 
-		<link rel=icon href="{{ asset('img/kenya-coat-of-arms.png') }}" type="image/png" />
+		<link rel=icon href="/img/kenya-coat-of-arms.png" type="image/png" />
 		<title> Dashboard </title>
 	</head>
 	<body>
@@ -40,7 +40,7 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto justify-content-center">					
-						<li class="nav-item active"> <a class="nav-link" href="{{ url('/') }}">Home</a> </li>
+						<li class="nav-item active"> <a class="nav-link" href="/">Home</a> </li>
 					</ul>
 
 				</div>
@@ -97,11 +97,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 
 
-	<script src="{{ asset('highmaps/highcharts.js') }}" type='text/javascript'></script>
-	<script src="{{ asset('highmaps/highcharts-more.js') }}" type='text/javascript'></script>
-	<script src="{{ asset('highmaps/modules/map.js') }}" type='text/javascript'></script>
-	<script src="{{ asset('highmaps/modules/data.js') }}" type='text/javascript'></script>
-	<script src="{{ asset('highmaps/modules/drilldown.js') }}" type='text/javascript'></script>
+	<script src="/highmaps/highcharts.js" type='text/javascript'></script>
+	<script src="/'highmaps/highcharts-more.js" type='text/javascript'></script>
+	<script src="/'highmaps/modules/map.js" type='text/javascript'></script>
+	<script src="/'highmaps/modules/data.js" type='text/javascript'></script>
+	<script src="/'highmaps/modules/drilldown.js" type='text/javascript'></script>
 
 	<script src='//cdn.datatables.net/1.10.12/js/jquery.dataTables.js' type='text/javascript'></script>
 	<script src='//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js' type='text/javascript'></script>
@@ -111,7 +111,7 @@
 	<script src='//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' type='text/javascript'></script>
 
 	<!-- <script src="{{ url('js/customFunctions1.4.js') }}"></script> -->
-	<script src="{{ asset('mymap.js') }}"></script>
+	<script src="/mymap.js"></script>
 
 	<script type="text/javascript">
 	    $(function() {
