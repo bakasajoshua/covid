@@ -52,7 +52,7 @@
 				<div class="col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row">
-				<div class="col-md-4">Date of 1<sup>st</sup> case: {{ date('Y-m-d') }} </div>
+				<div class="col-md-4">Date of 1<sup>st</sup> case: </div>
 				<div class="col-md-4">Confirmed Case: </div>				
 				<div class="col-md-4">Deaths: </div>				
 			</div>
