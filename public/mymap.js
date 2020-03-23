@@ -1,5 +1,5 @@
 	$(function() {
-        $.get("/maps/kenya.json", function(datam, status){
+        $.get("/geomaps/kenya.json", function(datam, status){
         	var api_data=datam.data;
         	mapDIV = 'mapdiv';
 
@@ -46,7 +46,7 @@
 		                        // Show the spinner
 		                        chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
 
-		                        $.get('/maps/counties/' + county_name + '.json', function(datam, status){
+		                        $.get('/geomaps/counties/' + county_name + '.json', function(datam, status){
 		                            data = Highcharts.geojson(datam.data);
 		                            //Get facility count
 		                            $.each(data, function (i, v) {
