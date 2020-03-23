@@ -1,7 +1,6 @@
-	$(function() {
-        $.get("/maps/kenya.json", function(datam, status){
+
+            $.get("json/kenya.json", function(datam, status){
         	var api_data=datam.data;
-        	mapDIV = 'mapdiv';
 
 		    var data = Highcharts.geojson(api_data),
 		        separators = Highcharts.geojson(api_data, 'mapline'),
@@ -14,9 +13,9 @@
 		        var county_name = this.properties['name'].replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 		        //Get facility count 
 		        this.value = 0;
-		        /*if(county_name in chart_data){
+		        if(county_name in chart_data){
 		        	this.value = chart_data[county_name]['total'];
-		    	}*/
+		    	}
 		    });
 
 		    var chart;
@@ -26,11 +25,10 @@
 		        chart: {
 		            events: {
 		                drilldown: function (e) {
-		                	// console.log(e)
 		                    if (!e.seriesOptions) {
 		                        var county_name = e.point.name.replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 		                        chart = this,
-		                            mapKey = 'maps/counties/' + county_name + '.json' ,
+		                            mapKey = 'json/counties/' + county_name + '.json' ,
 		                            // Handle error, the timeout is cleared on success
 		                            fail = setTimeout(function () {
 		                                if (mapKey) {
@@ -41,23 +39,21 @@
 		                                }
 		                            }, 3000);
 
-
-
 		                        // Show the spinner
 		                        chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
 
-		                        $.get('/maps/counties/' + county_name + '.json', function(datam, status){
+		                        $.get('json/counties/' + county_name + '.json', function(datam, status){
 		                            data = Highcharts.geojson(datam.data);
 		                            //Get facility count
 		                            $.each(data, function (i, v) {
 		                            	var subcounty_name = v.properties.name.replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 		                            	this.value = 0;
-		                                /*if(county_name in chart_data){
+		                                if(county_name in chart_data){
 		                                	//Confirm subcounty
 		                                	if(subcounty_name in chart_data[county_name]['subcounties']){
 								        		this.value = chart_data[county_name]['subcounties'][subcounty_name]['total'];
 								        	}
-								    	}*/
+								    	}
 								    });
 
 		                            // Hide loading and add series
@@ -78,7 +74,7 @@
 									      	formatter: function() {
 									      		var subcounty_name = this.key.replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 									      		var rV = '<b>' + this.key + '</b><br/>';
-		                                		/*if(county_name in chart_data){
+		                                		if(county_name in chart_data){
 		                                			//Confirm subcounty
 		                                			if(subcounty_name in chart_data[county_name]['subcounties']){
 								        				$.each(chart_data[county_name]['subcounties'][subcounty_name]['facilities'], function(i, facility_name){
@@ -90,7 +86,7 @@
 								        			}else{
 								        				rV += '<span><b>Total</b></span>: 0 <br/>';
 								        			}
-								    			}*/
+								    			}
 							                    return rV;
 									      	}
 									    }
@@ -107,11 +103,11 @@
 							      	formatter: function() {
 							      		var county_name = this.key.replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 							      		var rV = '<b>' + this.key + '</b><br/>';
-                                		/*if(county_name in chart_data){
+                                		if(county_name in chart_data){
                                 			rV += '<span><b>Total</b></span>: ' + Highcharts.numberFormat(chart_data[county_name]['total'], 0)+'<br/>';
 						    			}else{
 					        				rV += '<span><b>Total</b></span>: 0 <br/>';
-					        			}*/
+					        			}
 					                    return rV;
 							      	}
 							    }
@@ -121,11 +117,11 @@
 		        },
 
 		        title: {
-		            text: 'Covid-19 in Kenya '
+		            text: ' '
 		        },
 
 		        subtitle: {
-		            text: 'Source:www.covid-19.org'
+		            text: 'Source:www.prep.nascop.org'
 		        },
 
 		        legend: small ? {} : {
@@ -154,14 +150,7 @@
 		                        color: '#ee6e6e'
 		                    }
 		                }
-		            },
-		            series: {
-		            	events: {
-		            		click: function(p){
-		            			console.log(p.point.properties)
-		            		}
-		            	}
-		            },
+		            }
 		        },
 
 		        series: [{
@@ -169,12 +158,8 @@
 		            name: 'Kenya',
 		            dataLabels: {
 		                enabled: true,
-		                format: '{point.properties.name}'
-		            },
-		            /*mapData: data,
-		            data: plot_data,
-		            joinBy: ['OBJECTID', 'id']*/
-
+		                format: '{point.properties.postal-code}'
+		            }
 		        }, {
 		            type: 'mapline',
 		            data: separators,
@@ -201,4 +186,3 @@
 		        }
 		    });
 		});
-	});
