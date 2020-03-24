@@ -188,7 +188,7 @@
 		        },
 
 		        subtitle: {
-		            text: 'Source:www.covid-19.org'
+		            text: ''
 		        },
 
 		        legend: small ? {} : {
