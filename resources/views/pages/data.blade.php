@@ -9,11 +9,11 @@
 			</div>
 			<div class="row text-center">
 				<div class="card p-3 mb-3 col-md-3">
-					Date of 1st case: Mar 5
+					<b> Date of 1st case </b> <br /> Mar 5
 				</div>
-				<div class="card p-3 mb-3 col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
-				<div class="card p-3 mb-3 col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
-				<div class="card p-3 mb-3 col-md-3">Deaths: 0</div>	
+				<div class="card p-3 mb-3 col-md-3"> <b> Suspected Cases </b> <br /> {{ number_format($total) }} </div>				
+				<div class="card p-3 mb-3 col-md-3"> <b> Confirmed Cases </b> <br /> {{ number_format($positives) }} </div>				
+				<div class="card p-3 mb-3 col-md-3"> <b> Deaths </b> <br /> 0</div>	
 			</div>
 			<div class="row">
 				<div class="card mb-4 col-md-12">
