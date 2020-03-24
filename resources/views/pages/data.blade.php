@@ -20,7 +20,7 @@
 				<br />
 			</div>
 			<div class="row">
-				<div class="card  border-secondary mb-3 col-md-12">
+				<div class="card  border-secondary mx-3 col-md-12">
 					<h5 class="card-header">Confirmed Cases By County</h5>
 					<div class="card-body">
 						<div class="row">
