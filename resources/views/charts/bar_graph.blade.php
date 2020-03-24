@@ -49,7 +49,7 @@
                     ' '
                 @endif
                  + '</td></tr>',
-                footerFormat: '<tr><th>Total:</th>'+'<td style="text-align:right"><b>{point.total}</b></td></tr>'+'</tbody></table>'
+                // footerFormat: '<tr><th>Total:</th>'+'<td style="text-align:right"><b>{point.total}</b></td></tr>'+'</tbody></table>'
             },
             legend: {
                 layout: 'horizontal',
