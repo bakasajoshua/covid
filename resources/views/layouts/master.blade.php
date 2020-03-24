@@ -44,7 +44,7 @@
 				</div>				
 			</nav>
 
-			<div>
+			<div class="bg-secondary">
 				@yield('content')
 			</div>
 		</div>
