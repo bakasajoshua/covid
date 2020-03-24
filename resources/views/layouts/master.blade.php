@@ -30,7 +30,7 @@
 		<title> Covid Dashboard </title>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container-fluid bg-light">
 
 			<nav class="nav navbar sticky-top navbar-expand-lg navbar-light bg-secondary">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 				</div>				
 			</nav>
 
-			<div class="bg-secondary">
+			<div>
 				@yield('content')
 			</div>
 		</div>
