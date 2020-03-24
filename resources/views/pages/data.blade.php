@@ -61,7 +61,7 @@
 		        this.drilldown = this.properties['code'];
 		        var county_name = this.properties['name'].replace(" ", "_").replace("'", "").replace("-", "_").toLowerCase();
 		        //Get facility count 
-		        this.value = 0;
+		        // this.value = 0;
 		        /*if(county_name in chart_data){
 		        	this.value = chart_data[county_name]['total'];
 		    	}*/
