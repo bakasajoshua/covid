@@ -7,7 +7,7 @@
 				<div class="card p-3 col-md-4 my-3 text-white bg-info"> Kenya Covid-19 Situation  </div>
 				<div class="card p-1 my-3 col-md-4"><b> Last Updated </b> <br /> {{ date('Y-m-d') }} </div>				
 			</div>
-			<div class="row text-center">
+			<div class="row text-center text-dark">
 				<div class="card p-3 mb-3 col-md-3">
 					<b> Date of 1st Case </b> <br /> Mar 5
 				</div>
@@ -15,7 +15,7 @@
 				<div class="card p-3 mb-3 col-md-3"> <b> Confirmed Cases </b> <br /> {{ number_format($positives) }} </div>				
 				<div class="card p-3 mb-3 col-md-3"> <b> Deaths </b> <br /> 0</div>	
 			</div>
-			<div class="row">
+			<div class="row text-dark">
 				<div class="card mb-4 col-md-12">
 					<h5 class="card-header">Confirmed Cases By County</h5>
 					<div class="card-body">
@@ -46,7 +46,7 @@
 				</div>			
 			</div>
 
-			<div class="row">
+			<div class="row text-dark">
 				<div class="card mb-3 col-md-12">
 					<h5 class="card-header">Confirmed Cases</h5>
 					<div class="card-body">
