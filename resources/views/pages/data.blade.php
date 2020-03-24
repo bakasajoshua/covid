@@ -2,7 +2,7 @@
 
 @section('content')
 
-			<div class="row text-center">
+			<div class="row text-center text-dark">
 				<div class="card p-1 my-3 col-md-4"><b> Date </b> <br /> {{ date('Y-m-d') }} </div>
 				<div class="card p-3 col-md-4 my-3 text-white bg-info"> Kenya Covid-19 Situation  </div>
 				<div class="card p-1 my-3 col-md-4"><b> Last Updated </b> <br /> {{ date('Y-m-d') }} </div>				
