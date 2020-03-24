@@ -102,6 +102,7 @@ class ChartController extends Controller
 		}
 
 		$chart['div'] = Str::random(15);
+		$chart['yAxis'] = 'Cases';
 		return view('charts.bar_graph', $chart);
 	}
 }
