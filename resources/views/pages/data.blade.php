@@ -8,6 +8,9 @@
 				<div class="col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row">
+				<br />
+			</div>
+			<div class="row">
 				<div class="col-md-3">Date of 1<sup>st</sup> case: 5<sup>th</sup> March </div>
 				<div class="col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
 				<div class="col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
