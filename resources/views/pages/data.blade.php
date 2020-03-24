@@ -22,7 +22,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th> Cases By County </th>
+								<th> Confirmed Cases By County </th>
 								<th>  </th>
 							</tr>
 						</thead>
@@ -210,7 +210,7 @@
 
 		        series: [{
 		            // data: data,
-		            name: 'Kenya',
+		            name: 'Confirmed Cases',
 		            dataLabels: {
 		                enabled: true,
 		                format: '{point.properties.name}'
