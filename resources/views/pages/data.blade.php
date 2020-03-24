@@ -34,6 +34,8 @@
 							@endforeach
 						</tbody>
 					</table>
+
+					{{ print_r($my_data) }}
 					
 				</div>
 
