@@ -13,7 +13,6 @@
 				<div class="col-md-4">Deaths: </div>				
 			</div>
 			<div class="row">
-
 				<div class="col-md-9" style="height: 500px;" id="mapdiv">
 					
 				</div>
@@ -28,20 +27,13 @@
 						<tbody>
 							@foreach($my_data as $row)
 								<tr>
-									<td> {{ $row->name ?? '' }} </td>
-									<td> {{ $row->value ?? '' }} </td>
+									<td> {{ $row['name'] }} </td>
+									<td> {{ $row['value'] }} </td>
 								</tr>
 							@endforeach
 						</tbody>
-					</table>
-
-					{{ print_r($my_data) }}
-					
-				</div>
-
-
-					
-				</div>
+					</table>					
+				</div>					
 			</div>
 @endsection
 
