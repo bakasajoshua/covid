@@ -27,7 +27,7 @@
 		<!-- <link rel="stylesheet" href="{{ asset('css/custom-2.css') }}" /> -->
 
 		<link rel=icon href="/img/kenya-coat-of-arms.png" type="image/png" />
-		<title> Dashboard </title>
+		<title> Covid Dashboard </title>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -169,6 +169,7 @@
 				}
 			}*/
 	    });
+
 	</script>
 
 

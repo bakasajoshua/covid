@@ -15,27 +15,45 @@
 
 			</div>
 			<div class="row">
-				<div class="col-md-9" style="height: 700px;" id="mapdiv">
-					
-				</div>
-				<div class="col-md-3">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th> Confirmed Cases By County </th>
-								<th>  </th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($data as $row)
-								<tr>
-									<td> {{ $row['name'] }} </td>
-									<td> {{ $row['value'] }} </td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>					
-				</div>					
+				<div class="card col-md-12">
+					<h5 class="card-header">Confirmed Cases By County</h5>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-9" style="height: 700px;" id="mapdiv">
+								
+							</div>
+							<div class="col-md-3">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th> Confirmed Cases By County </th>
+											<th>  </th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($data as $row)
+											<tr>
+												<td> {{ $row['name'] }} </td>
+												<td> {{ $row['value'] }} </td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>					
+							</div>	
+						</div>	
+					</div>	
+				</div>			
+			</div>
+
+			<div class="row">
+				<div class="card col-md-12">
+					<h5 class="card-header">Confirmed Cases</h5>
+					<div class="card-body">
+						<div class="col-md-12" id="confirmed_cases">
+							
+						</div>
+					</div>	
+				</div>			
 			</div>
 @endsection
 
@@ -245,6 +263,8 @@
 		        }
 		    });
 		});
+
+		$("#confirmed_cases").load("/charts/daily_view");
 	});
 </script>
 @endsection

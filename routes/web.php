@@ -19,5 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', 'ChartController@index')->name('index');
-Route::get('/', 'ChartController@test')->name('test');
+Route::prefix('charts')->name('charts.')->group(function(){
+	Route::get('daily_view', 'ChartController@daily_view')->name('daily_view');
+});
+
+Route::get('/first', 'ChartController@index')->name('index');
+Route::get('/test', 'ChartController@test')->name('test');
+Route::get('/', 'ChartController@main')->name('main');
