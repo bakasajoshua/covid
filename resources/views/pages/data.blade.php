@@ -4,7 +4,7 @@
 
 			<div class="row">
 				<div class="card p-3 my-3 mx-1 col-md-4"> Date: {{ date('Y-m-d') }} </div>
-				<div class="col-md-4 my-3"></div>
+				<div class="col-md-2 my-3"></div>
 				<div class="card p-3 my-3 mx-1 col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row">
