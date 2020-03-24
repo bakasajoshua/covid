@@ -32,8 +32,7 @@
 	<body>
 		<div class="container-fluid">
 
-			<nav class="nav navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-				<!-- <a class="navbar-brand" href="#">Home</a> -->
+			<!-- <nav class="nav navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				    <span class="navbar-toggler-icon"></span>
 				</button>
@@ -42,10 +41,9 @@
 					<ul class="navbar-nav mr-auto justify-content-center">					
 						<li class="nav-item active"> <a class="nav-link" href="/">Home</a> </li>
 					</ul>
-
-				</div>
-				
-			</nav>
+				</div>				
+			</nav> -->
+			
 			<div>
 				@yield('content')
 			</div>
