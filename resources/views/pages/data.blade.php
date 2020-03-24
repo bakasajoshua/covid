@@ -24,7 +24,7 @@
 								
 							</div>
 							<div class="col-md-3">
-								<table class="table table-striped">
+								<table class="table table-striped text-dark">
 									<thead>
 										<tr>
 											<th> Confirmed Cases By County </th>
