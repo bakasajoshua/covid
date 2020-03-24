@@ -15,7 +15,8 @@
 
 			</div>
 			<div class="row">
-				<div class="col-md-9" style="height: 500px;" id="mapdiv">
+				<!-- <div class="col-md-9" style="height: 500px;" id="mapdiv"> -->
+				<div class="col-md-9 mh-100" id="mapdiv">
 					
 				</div>
 				<div class="col-md-3">
