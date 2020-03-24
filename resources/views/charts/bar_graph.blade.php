@@ -48,7 +48,8 @@
                 @else
                     ' '
                 @endif
-                 + '</td></tr> </table>',
+                + '</td></tr>',
+                footerFormat: '</table>'
                 // footerFormat: '<tr><th>Total:</th>'+'<td style="text-align:right"><b>{point.total}</b></td></tr>'+'</tbody></table>'
             },
             legend: {
