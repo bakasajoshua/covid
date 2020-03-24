@@ -23,6 +23,7 @@ class ChartController extends Controller
 			->get();
 
 		$data = [];
+		$positives = 0;
 
 		foreach ($rows as $key => $row) {
 			$data[] = [
@@ -30,8 +31,11 @@ class ChartController extends Controller
 				'name' => $row->name,
 				'value' => (int) $row->value,
 			];
+			$positives += $row->value;
 		}
 
-		return view('pages.data', ['my_data' => $data]);
+		$total = CovidSample::selectRaw("count(covid_samples.id) as value")->first()->value;
+
+		return view('pages.data', compact('data', 'positives', 'total'));
 	}
 }

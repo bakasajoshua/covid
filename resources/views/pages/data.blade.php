@@ -8,9 +8,11 @@
 				<div class="col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row">
-				<div class="col-md-4">Date of 1<sup>st</sup> case: </div>
-				<div class="col-md-4">Confirmed Cases: </div>				
-				<div class="col-md-4">Deaths: </div>				
+				<div class="col-md-3">Date of 1<sup>st</sup> case: </div>
+				<div class="col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
+				<div class="col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
+				<div class="col-md-3">Deaths: 0</div>	
+
 			</div>
 			<div class="row">
 				<div class="col-md-9" style="height: 500px;" id="mapdiv">
@@ -25,7 +27,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($my_data as $row)
+							@foreach($data as $row)
 								<tr>
 									<td> {{ $row['name'] }} </td>
 									<td> {{ $row['value'] }} </td>
@@ -214,7 +216,7 @@
 		                format: '{point.properties.name}'
 		            },
 		            mapData: data,
-		            data: {!! json_encode($my_data) !!},
+		            data: {!! json_encode($data) !!},
 		            joinBy: ['OBJECTID', 'id']
 
 		        }, {
