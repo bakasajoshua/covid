@@ -3,24 +3,18 @@
 @section('content')
 
 			<div class="row">
-				<br />
+				<div class="card p-3 my-3 col-md-4"> Date: {{ date('Y-m-d') }} </div>
+				<div class="col-md-4 my-3"></div>
+				<div class="card p-3 my-3 col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row">
-				<div class="card p-3 mb-3 col-md-4"> Date: {{ date('Y-m-d') }} </div>
-				<div class="col-md-4 mb-3"></div>
-				<div class="card p-3 mb-3 col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
+				<div class="card p-3 mb-3 col-md-3">Date of 1<sup>st</sup> case: 5<sup>th</sup> March </div>
+				<div class="card p-3 mb-3 col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
+				<div class="card p-3 mb-3 col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
+				<div class="card p-3 mb-3 col-md-3">Deaths: 0</div>	
 			</div>
 			<div class="row">
-				<div class="col-md-3">Date of 1<sup>st</sup> case: 5<sup>th</sup> March </div>
-				<div class="col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
-				<div class="col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
-				<div class="col-md-3">Deaths: 0</div>	
-			</div>
-			<div class="row">
-				<br />
-			</div>
-			<div class="row">
-				<div class="card mb-3 col-md-12">
+				<div class="card mb-4 col-md-12">
 					<h5 class="card-header">Confirmed Cases By County</h5>
 					<div class="card-body">
 						<div class="row">
@@ -48,10 +42,6 @@
 						</div>	
 					</div>	
 				</div>			
-			</div>
-
-			<div class="row">
-				<br />
 			</div>
 
 			<div class="row">
