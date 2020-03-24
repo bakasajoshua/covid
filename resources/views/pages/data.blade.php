@@ -9,7 +9,7 @@
 			</div>
 			<div class="row">
 				<div class="card p-3 mb-3 col-md-3">
-					Date of 1<sup>st</sup> case: Mar 5
+					Date of 1st case: Mar 5
 				</div>
 				<div class="card p-3 mb-3 col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
 				<div class="card p-3 mb-3 col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
