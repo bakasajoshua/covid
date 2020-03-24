@@ -89,12 +89,14 @@ class ChartController extends Controller
 
 		foreach ($period as $key => $day) {
 			$chart['categories'][$key] = $day->toDateString();
-			$chart["outcomes"][0]["data"][$key] = (int) $row->below1;
 
 			if(isset($pos_rows[$i]) && $pos_rows[$i]->datetested == $day->toDateString()){
 				$chart["outcomes"][0]["data"][$key] = (int) $pos_rows[$i]->value;
 				$cumulative += (int) $pos_rows[$i]->value;
 				$i++;
+			}
+			else{
+				$chart["outcomes"][0]["data"][$key] = 0;				
 			}
 			$chart["outcomes"][1]["data"][$key] = $cumulative;
 		}
