@@ -2,12 +2,12 @@
 
 @section('content')
 
-			<div class="row">
-				<div class="card p-3 my-3 mx-1 col-md-4"> Date: {{ date('Y-m-d') }} </div>
-				<div class="col-md-2 my-3"></div>
-				<div class="card p-3 my-3 mx-1 col-md-4">Last Updated: {{ date('Y-m-d') }} </div>				
+			<div class="row text-center">
+				<div class="card p-3 my-3 col-md-4"><b> Date </b> <br /> {{ date('Y-m-d') }} </div>
+				<div class="col-md-4 my-3"></div>
+				<div class="card p-3 my-3 col-md-4"><b> Last Updated </b> <br /> {{ date('Y-m-d') }} </div>				
 			</div>
-			<div class="row">
+			<div class="row text-center">
 				<div class="card p-3 mb-3 col-md-3">
 					Date of 1st case: Mar 5
 				</div>
