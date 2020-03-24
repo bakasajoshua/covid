@@ -26,7 +26,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($data as $row)
+							@foreach($my_data as $row)
 								<tr>
 									<td> {{ $row->name ?? '' }} </td>
 									<td> {{ $row->value ?? '' }} </td>
@@ -220,7 +220,7 @@
 		                format: '{point.properties.name}'
 		            },
 		            mapData: data,
-		            data: {!! json_encode('data') !!},
+		            data: {!! json_encode($my_data) !!},
 		            joinBy: ['OBJECTID', 'id']
 
 		        }, {
