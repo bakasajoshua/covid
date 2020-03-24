@@ -94,7 +94,7 @@
 			},
 			"properties": {
 				"code": "59",
-				"name": "SOUTH IMENTI",
+				"name": "IMENTI SOUTH",
 				"bound": {
 					"type": "Polygon",
 					"coordinates": [
@@ -229,7 +229,7 @@
 			},
 			"properties": {
 				"code": "58",
-				"name": "CENTRAL IMENTI",
+				"name": "IMENTI CENTRAL",
 				"bound": {
 					"type": "Polygon",
 					"coordinates": [
@@ -544,7 +544,7 @@
 			},
 			"properties": {
 				"code": "56",
-				"name": "NORTH IMENTI",
+				"name": "IMENTI NORTH",
 				"bound": {
 					"type": "Polygon",
 					"coordinates": [

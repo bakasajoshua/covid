@@ -91,7 +91,6 @@
 	<script src='//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js' type='text/javascript'></script>
 
 	<!-- <script src="{{ url('js/customFunctions1.4.js') }}"></script> -->
-	<script src="/mymap.js"></script>
 
 	<script type="text/javascript">
 	    $(function() {

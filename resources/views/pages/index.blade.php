@@ -34,3 +34,7 @@
 				</div>
 			</div>
 @endsection
+
+@section('scripts')
+	<script src="/mymap.js"></script>
+@endsection

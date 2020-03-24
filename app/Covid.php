@@ -15,12 +15,15 @@ class Covid
     	foreach ($counties as $county) {
     		$name = strtolower($county->name);
     		$name = str_replace(' ', '_', $name);
-    		file_get_contents(public_path('maps/kenya.json'));
+    		// file_get_contents(public_path('maps/kenya.json'));
 
     		$county_data = file_get_contents(public_path('maps/counties/' . $name . '.json'));
     		if(!$county_data) echo $name . " not found \n ";
     		else{
 		    	$subcounties = DB::table('districts')->get();
+
+		    	$county_data = json_decode($county_data);
+		    	// dd($county_data);
 
 		    	foreach ($county_data->data->features as $key => $value) {
 		    		$subcounty = DB::table('districts')->where('name', $value->properties->name)->first();
@@ -32,7 +35,7 @@ class Covid
 		    		}
 		    	}
 
-		    	file_put_contents(file_get_contents(public_path('maps/counties/' . $name . '.json')), $county_data);
+		    	// file_put_contents(file_get_contents(public_path('maps/counties/' . $name . '.json')), $county_data);
     		}
     	}
     }

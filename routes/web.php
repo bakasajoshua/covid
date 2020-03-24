@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'ChartController@index')->name('index');
+Route::get('/test', 'ChartController@test')->name('test');

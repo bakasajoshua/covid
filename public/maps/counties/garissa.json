@@ -520,7 +520,7 @@
 			},
 			"properties": {
 				"code": "30",
-				"name": "DAADAB",
+				"name": "DADAAB",
 				"bound": {
 					"type": "Polygon",
 					"coordinates": [
@@ -1195,7 +1195,7 @@
 			},
 			"properties": {
 				"code": "27",
-				"name": "GARISSA TOWNSHIP",
+				"name": "GARISSA",
 				"bound": {
 					"type": "Polygon",
 					"coordinates": [
