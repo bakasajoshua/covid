@@ -28,8 +28,8 @@
 						<tbody>
 							@foreach($data as $row)
 								<tr>
-									<td> {{ $row->name }} </td>
-									<td> {{ $row->totals }} </td>
+									<td> {{ $row->name ?? '' }} </td>
+									<td> {{ $row->value ?? '' }} </td>
 								</tr>
 							@endforeach
 						</tbody>

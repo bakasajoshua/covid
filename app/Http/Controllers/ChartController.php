@@ -32,8 +32,6 @@ class ChartController extends Controller
 			];
 		}
 
-		dd($data);
-
 		return view('pages.data', ['data' => $data]);
 	}
 }
