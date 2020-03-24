@@ -12,7 +12,6 @@
 				<div class="col-md-3">Suspected Cases: {{ number_format($total) }} </div>				
 				<div class="col-md-3">Confirmed Cases: {{ number_format($positives) }} </div>				
 				<div class="col-md-3">Deaths: 0</div>	
-
 			</div>
 			<div class="row">
 				<div class="card col-md-12">
