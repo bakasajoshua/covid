@@ -1,19 +1,17 @@
-@extends('layouts.master')
+@extends('layouts.main')
 
 @section('content')
 
 			<div class="row text-center text-dark">
-				<div class="card p-1 my-3 col-md-4"><b> Date </b> <br /> {{ date('Y-m-d') }} </div>
+				<div class="card p-1 my-3 col-md-4"><b> Date </b> {{ date('Y-m-d') }} </div>
 				<div class="card p-3 col-md-4 my-3 text-white bg-info"> Kenya Covid-19 Situation  </div>
-				<div class="card p-1 my-3 col-md-4"><b> Last Updated </b> <br /> {{ date('Y-m-d') }} </div>				
+				<div class="card p-1 my-3 col-md-4"><b> Last Updated </b> {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row text-center text-dark">
-				<div class="card p-3 mb-3 col-md-3">
-					<b> Date of 1st Case </b> <br /> Mar 5
-				</div>
-				<div class="card p-3 mb-3 col-md-3"> <b> Suspected Cases </b> <br /> {{ number_format($total) }} </div>				
-				<div class="card p-3 mb-3 col-md-3"> <b> Confirmed Cases </b> <br /> {{ number_format($positives) }} </div>				
-				<div class="card p-3 mb-3 col-md-3"> <b> Deaths </b> <br /> 0</div>	
+				<div class="card p-2 mb-3 col-md-3"> <b> Date of 1st Case </b> Mar 5 </div>
+				<div class="card p-2 mb-3 col-md-3"> <b> Suspected Cases </b> {{ number_format($total) }} </div>				
+				<div class="card p-2 mb-3 col-md-3"> <b> Confirmed Cases </b> {{ number_format($positives) }} </div>				
+				<div class="card p-2 mb-3 col-md-3"> <b> Deaths </b> 0</div>	
 			</div>
 			<div class="row text-dark">
 				<div class="card mb-4 col-md-12">
@@ -199,8 +197,8 @@
 		        credits: false,
 		        colorAxis: {
 		            min: 0,
-		            minColor: '#aaaebc',
-		            maxColor: '#008080'
+		            minColor: '#F1EEF6',
+		            maxColor: '#500007'
 		        },
 
 		        mapNavigation: {
