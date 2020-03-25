@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<!-- <link href="{{ asset('fontawesome-free/css/all.min.css') }}" rel="stylesheet"> -->
-	<link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+	<link href="/css/sb-admin-2.css" rel="stylesheet">
 
 	@yield('css')
 
@@ -189,11 +189,11 @@
 	<!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
 
 	<!-- Custom scripts for all pages-->
-	<script src="{{ asset('js/app.js') }}"></script>
+	<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 	<!-- <script src="{{ asset('datatables/js/datatables.min.js') }}"></script> -->
 
 
-	<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+	<script src="/js/sb-admin-2.min.js"></script>
 
 
 	<script src="/highmaps/highcharts.js" type='text/javascript'></script>
