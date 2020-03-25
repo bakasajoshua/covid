@@ -3,12 +3,12 @@
 @section('content')
 
 			<div class="row text-center text-dark">
-				<div class="card p-1 my-3 col-md-4"><b> Date </b> {{ date('Y-m-d') }} </div>
-				<div class="card p-3 col-md-4 my-3 text-white bg-info"> Kenya Covid-19 Situation  </div>
-				<div class="card p-1 my-3 col-md-4"><b> Last Updated </b> {{ date('Y-m-d') }} </div>				
+				<div class="card p-1 my-1 col-md-4"><b> Date </b> {{ date('Y-m-d') }} </div>
+				<div class="card p-3 col-md-4 my-1 text-white bg-info"> Kenya Covid-19 Situation  </div>
+				<div class="card p-1 my-1 col-md-4"><b> Last Updated </b> {{ date('Y-m-d') }} </div>				
 			</div>
 			<div class="row text-center text-dark">
-				<div class="card p-2 mb-3 col-md-3"> <b> Date of 1st Case </b> Mar 5 </div>
+				<div class="card p-2 mb-3 col-md-3"> <b> Date of 1st Case </b> Mar 13 </div>
 				<div class="card p-2 mb-3 col-md-3"> <b> Suspected Cases </b> {{ number_format($total) }} </div>				
 				<div class="card p-2 mb-3 col-md-3"> <b> Confirmed Cases </b> {{ number_format($positives) }} </div>				
 				<div class="card p-2 mb-3 col-md-3"> <b> Deaths </b> 0</div>	
