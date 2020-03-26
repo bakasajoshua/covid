@@ -19,7 +19,7 @@ class ChartController extends Controller
 
 	public function main()
 	{
-		$rows = CovidSample::join('countys', 'countys.id', '=', 'covid_samples.county_id')
+		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where('result', 2)
 			->where('repeatt', 0)
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
@@ -45,7 +45,7 @@ class ChartController extends Controller
 
 	public function test()
 	{
-		$rows = CovidSample::join('countys', 'countys.id', '=', 'covid_samples.county_id')
+		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where('result', 2)
 			->where('repeatt', 0)
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
