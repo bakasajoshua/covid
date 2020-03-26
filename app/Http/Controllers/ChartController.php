@@ -21,6 +21,7 @@ class ChartController extends Controller
 	{
 		$rows = CovidSample::join('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where('result', 2)
+			->where('repeatt', 0)
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
 			->groupBy('county_id')
 			->get();
@@ -46,6 +47,7 @@ class ChartController extends Controller
 	{
 		$rows = CovidSample::join('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where('result', 2)
+			->where('repeatt', 0)
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
 			->groupBy('county_id')
 			->orderBy('value', 'desc')
@@ -73,6 +75,7 @@ class ChartController extends Controller
 	{
 		$pos_rows = CovidSample::where('result', 2)
 			->selectRaw("datetested, count(covid_samples.id) as value")
+			->where('repeatt', 0)
 			->groupBy('datetested')
 			->orderBy('datetested', 'asc')
 			->get();
