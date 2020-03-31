@@ -19,7 +19,7 @@ class CreateCovidSampleViewsTable extends Migration
           SELECT s.*, p.facility_id, p.case_id, p.identifier_type, p.identifier, p.patient_name, p.occupation, p.justification, p.county, p.subcounty, p.ward, p.residence, p.hospital_admitted, p.dob, p.sex, p.current_health_status, p.date_symptoms, p.date_admission, p.date_isolation, date_death, `f`.`facilitycode`,`f`.`name` as facilityname
           FROM covid_samples s
             JOIN covid_patients p ON p.id=s.patient_id
-            LEFT JOIN facilitys f ON f.id=p.facility_id
+            LEFT JOIN national_db.facilitys f ON f.id=p.facility_id
         );
         ");
     }
