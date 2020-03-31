@@ -16,16 +16,30 @@ class CreateCovidPatientsTable extends Migration
         Schema::create('covid_patients', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('original_patient_id')->index()->nullable();
+            $table->tinyInteger('nationality_id')->nullable();
             $table->integer('facility_id')->nullable();
             $table->integer('case_id')->nullable();
-            $table->tinyInteger('identifier_type_id')->nullable();
-            $table->string('identifier');
-            $table->string('patient_name');
+            $table->tinyInteger('nationality')->nullable();
+            $table->tinyInteger('identifier_type')->nullable();
+            $table->string('identifier', 30)->index();
+            $table->string('occupation', 80)->nullable();
+
+
+            $table->string('patient_name', 50)->nullable();
+            $table->string('email_address', 40)->nullable();
+            $table->string('phone_no', 20)->nullable();
+
+            $table->string('contact_email_address', 40)->nullable();
+            $table->string('contact_phone_no', 20)->nullable();
+
+            $table->tinyInteger('justification')->nullable();
 
             $table->string('county', 20)->nullable();
             $table->string('subcounty', 30)->nullable();
             $table->string('ward', 30)->nullable();
             $table->string('residence', 40)->nullable();
+
+            $table->string('hospital_admitted', 40)->nullable();
 
             $table->date('dob')->nullable();
             $table->tinyInteger('sex')->nullable();
@@ -36,6 +50,9 @@ class CreateCovidPatientsTable extends Migration
             $table->date('date_admission')->nullable();
             $table->date('date_isolation')->nullable();
             $table->date('date_death')->nullable();
+
+            $table->tinyInteger('synched')->default(0)->nullable();
+            $table->date('datesynched')->nullable();
 
             $table->timestamps();
         });

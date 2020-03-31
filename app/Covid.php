@@ -39,4 +39,17 @@ class Covid
     		}
     	}
     }
+
+    public static function dump_reference_tables()
+    {
+        $tables = ['covid_sample_types', 'covid_symptoms', 'covid_test_types', 'health_statuses', 'identifier_types', 'observed_signs', 'underlying_conditions', 'nationalities'];
+
+        $data = [];
+
+        foreach ($tables as $key => $value) {
+            $data[$value] = DB::table($value)->get();
+        }
+        $data['labs'] = DB::table('labs')->select('id', 'name')->get();
+        file_put_contents(public_path('reference_tables.json'), json_encode($data, JSON_PRETTY_PRINT));
+    }
 }

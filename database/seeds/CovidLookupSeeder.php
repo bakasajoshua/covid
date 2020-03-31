@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class LookupSeeder extends Seeder
+class CovidLookupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,10 +12,48 @@ class LookupSeeder extends Seeder
     public function run()
     {
 
+		DB::statement("DROP TABLE IF EXISTS `nationalities`;");
+		DB::statement("
+			CREATE TABLE `nationalities` (
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(50) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('nationalities')->insert([
+			['id' => 1, 'name' => 'Kenyan'],
+			['id' => 2, 'name' => 'African'],
+			['id' => 3, 'name' => 'European'],
+			['id' => 4, 'name' => 'Asian'],
+			['id' => 5, 'name' => 'American'],
+			['id' => 6, 'name' => 'Other'],
+		]);
+
+		DB::statement("DROP TABLE IF EXISTS `identifier_types`;");
+		DB::statement("
+			CREATE TABLE `identifier_types` (
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(50) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('identifier_types')->insert([
+			['id' => 1, 'name' => 'National ID'],
+			['id' => 2, 'name' => 'Passport No'],
+			['id' => 3, 'name' => 'Foreign ID'],
+			['id' => 4, 'name' => 'National ID of parent'],
+			['id' => 5, 'name' => 'Passport No of parent'],
+			['id' => 6, 'name' => 'Foreign ID of parent'],
+			['id' => 7, 'name' => 'Other'],
+		]);
+
+
 		DB::statement("DROP TABLE IF EXISTS `health_statuses`;");
 		DB::statement("
 			CREATE TABLE `health_statuses` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -23,9 +61,48 @@ class LookupSeeder extends Seeder
 
 		DB::table('health_statuses')->insert([
 			['id' => 1, 'name' => 'Stable'],
-			['id' => 2, 'name' => 'Severely Ill'],
+			['id' => 2, 'name' => 'Severely ill'],
 			['id' => 3, 'name' => 'Dead'],
 			['id' => 4, 'name' => 'Unknown'],
+		]);
+
+
+
+		DB::statement("DROP TABLE IF EXISTS `covid_justifications`;");
+		DB::statement("
+			CREATE TABLE `covid_justifications` (
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(50) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('covid_justifications')->insert([
+			['id' => 1, 'name' => 'Contact with confirmed case'],
+			['id' => 2, 'name' => 'Presented at health facility'],
+			['id' => 3, 'name' => 'Surveillance'],
+			['id' => 4, 'name' => 'Point of entry detection'],
+			['id' => 5, 'name' => 'Repatriation'],
+			['id' => 6, 'name' => 'Other'],
+		]);
+
+
+		DB::statement("DROP TABLE IF EXISTS `covid_test_types`;");
+		DB::statement("
+			CREATE TABLE `covid_test_types` (
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(50) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('covid_test_types')->insert([
+			['id' => 1, 'name' => 'Initial Test'],
+			['id' => 2, 'name' => '1st Follow Up'],
+			['id' => 3, 'name' => '2nd Follow Up'],
+			['id' => 4, 'name' => '3rd Follow Up'],
+			['id' => 5, 'name' => '4th Follow Up'],
+			['id' => 6, 'name' => '5th Follow Up'],
 		]);
 
 
@@ -33,7 +110,7 @@ class LookupSeeder extends Seeder
 		DB::statement("DROP TABLE IF EXISTS `covid_symptoms`;");
 		DB::statement("
 			CREATE TABLE `covid_symptoms` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -66,7 +143,7 @@ class LookupSeeder extends Seeder
 		DB::statement("DROP TABLE IF EXISTS `observed_signs`;");
 		DB::statement("
 			CREATE TABLE `observed_signs` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -87,7 +164,7 @@ class LookupSeeder extends Seeder
 		DB::statement("DROP TABLE IF EXISTS `underlying_conditions`;");
 		DB::statement("
 			CREATE TABLE `underlying_conditions` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -114,7 +191,7 @@ class LookupSeeder extends Seeder
 		DB::statement("DROP TABLE IF EXISTS `covid_isolations`;");
 		DB::statement("
 			CREATE TABLE `covid_isolations` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -130,15 +207,20 @@ class LookupSeeder extends Seeder
 		DB::statement("DROP TABLE IF EXISTS `covid_sample_types`;");
 		DB::statement("
 			CREATE TABLE `covid_sample_types` (
-				`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");
 
 		DB::table('covid_sample_types')->insert([
-			['id' => 1, 'name' => 'Nasopharygneal swab in UTM'],
-			['id' => 2, 'name' => 'Oropharygneal swab in UTM'],
+			['id' => 1, 'name' => 'Nasopharygneal & Oropharygneal swabs'],
+			['id' => 2, 'name' => 'Nasopharygneal swab in UTM'],
+			['id' => 3, 'name' => 'Oropharygneal swab in UTM'],
+			['id' => 4, 'name' => 'Serum'],
+			['id' => 5, 'name' => 'Sputum'],
+			['id' => 6, 'name' => 'Tracheal Aspirate'],
+			['id' => 7, 'name' => 'Other'],
 		]);
 
 
@@ -147,7 +229,7 @@ class LookupSeeder extends Seeder
 			CREATE TABLE `cities` (
 				`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
-				`subcountry` varchar(50) DEFAULT NULL,
+				`subcountry` varchar(150) DEFAULT NULL,
 				`country` varchar(50) DEFAULT NULL,
 				`subcounty_id` smallint(5) unsigned DEFAULT NULL,
 				PRIMARY KEY (`id`),
