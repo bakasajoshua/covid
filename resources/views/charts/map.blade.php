@@ -1,4 +1,4 @@
-<div id="{{$div}}"></div>
+<div style="height: 700px;" id="{{$div}}"></div>
 
 <script type="text/javascript">
     $(function() {

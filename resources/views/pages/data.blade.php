@@ -18,7 +18,7 @@
 					<h5 class="card-header">Confirmed Cases By County</h5>
 					<div class="card-body">
 						<div class="row">
-							<div class="col-md-9" style="height: 700px;" id="map_div">
+							<div class="col-md-9" id="map_div">
 								
 							</div>
 							<div class="col-md-3">
