@@ -108,4 +108,33 @@ class ChartController extends Controller
 		$chart['yAxis'] = 'Cases';
 		return view('charts.bar_graph', $chart);
 	}
+
+	public function map_data()
+	{
+		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
+			->where('result', 2)
+			->where('repeatt', 0)
+			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
+			->groupBy('county_id')
+			->get();
+
+		$data = [];
+		$positives = 0;
+
+		foreach ($rows as $key => $row) {
+			$data[] = [
+				'id' => $row->id,
+				'name' => $row->name,
+				'value' => (int) $row->value,
+			];
+			$positives += $row->value;
+		}
+
+		// $total = CovidSample::selectRaw("count(covid_samples.id) as value")->first()->value;
+
+		$chart['data'] = $data;
+
+		$chart['div'] = Str::random(15);
+		return view('charts.map', $chart);
+	}
 }

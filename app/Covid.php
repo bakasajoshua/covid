@@ -42,7 +42,7 @@ class Covid
 
     public static function dump_reference_tables()
     {
-        $tables = ['covid_sample_types', 'covid_symptoms', 'covid_test_types', 'health_statuses', 'identifier_types', 'observed_signs', 'underlying_conditions', 'nationalities'];
+        $tables = ['results', 'receivedstatus', 'covid_sample_types', 'covid_symptoms', 'covid_test_types', 'health_statuses', 'identifier_types', 'observed_signs', 'underlying_conditions', 'nationalities'];
 
         $data = [];
 

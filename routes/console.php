@@ -16,3 +16,11 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('maps', function () {
+	\App\Covid::edit_maps();
+})->describe('Display an inspiring quote');
+
+Artisan::command('reference', function () {
+	\App\Covid::dump_reference_tables();
+})->describe('Display an inspiring quote');

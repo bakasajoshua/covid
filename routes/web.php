@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('charts')->name('charts.')->group(function(){
 	Route::get('daily_view', 'ChartController@daily_view')->name('daily_view');
+	Route::get('map_data', 'ChartController@map_data')->name('map_data');
 });
 
 Route::get('/first', 'ChartController@index')->name('index');
