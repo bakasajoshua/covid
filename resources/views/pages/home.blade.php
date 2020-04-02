@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row text-center text-dark">
-		<div class="card p-3 .offset-md-4 col-md-4 my-1 text-white bg-info"> Kenya Covid-19 Situation  </div>
+		<div class="card p-3 offset-md-4 col-md-4 my-1 text-white bg-info"> Kenya Covid-19 Situation  </div>
 	</div>
 
 	<div class="row text-center text-dark">			
@@ -28,7 +28,7 @@
 		</div>
 	</div>	
 
-	
+
 
 	<div class="row text-dark">
 		<div class="card mb-3 col-md-12">
