@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\CovidSample;
+use App\CovidSampleView;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Str;
@@ -15,6 +16,14 @@ class ChartsController extends Controller
 	public function index()
 	{
 		return view('pages.index');
+	}
+
+	public function homepage()
+	{
+		$positives = CovidSample::selectRaw("count(id) as total")->where(['result' => 2, 'repeatt' => 0])->first()->total;
+		$deceased = CovidSampleView::selectRaw("count(id) as total")->where(['result' => 2, 'repeatt' => 0])->whereNotNull('date_death')->first()->total;
+		$hospitalised = $discharged = 0;
+		return view('pages.home', compact('positives', 'deceased', 'hospitalised', 'discharged'));
 	}
 
 	public function main()
