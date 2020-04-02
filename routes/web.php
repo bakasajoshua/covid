@@ -30,6 +30,8 @@ Route::prefix('charts')->name('charts.')->group(function(){
 Route::get('/first', 'ChartController@index')->name('index');
 Route::get('/test', 'ChartController@test')->name('test');
 // Route::get('/', 'ChartController@main')->name('main');
-Route::get('/', 'ChartsController@homepage')->name('homepage');
+Route::middleware(['auth'])->group(function(){
+	Route::get('/', 'ChartsController@homepage')->name('homepage');
+});
 
 
