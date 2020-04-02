@@ -66,6 +66,9 @@
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a href="/labs">Labs</a>
+						</li>
 
 						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
 						<li class="nav-item dropdown no-arrow d-sm-none">
