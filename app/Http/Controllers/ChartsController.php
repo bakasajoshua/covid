@@ -8,20 +8,13 @@ use App\CovidSample;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Str;
-use DB;
 
-class ChartController extends Controller
+class ChartsController extends Controller
 {
 
 	public function index()
 	{
 		return view('pages.index');
-	}
-
-	public function labs()
-	{
-		$samples = DB::table('covid_19.covid_sample_view')->get();
-		return view('pages.labs', compact('samples'));		
 	}
 
 	public function main()
