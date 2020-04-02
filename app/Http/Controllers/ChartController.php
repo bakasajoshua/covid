@@ -29,7 +29,7 @@ class ChartController extends Controller
 		->get();
 		$samples = collect($samples);
 
-		$labs = $samples->pluck('lab')->distinct()->toArray();
+		$labs = $samples->pluck('lab')->unique()->toArray();
 
 		$lab = null;
 		$data = [];
