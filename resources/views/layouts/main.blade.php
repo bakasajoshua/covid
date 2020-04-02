@@ -47,11 +47,6 @@
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
 
-						<!-- Sidebar Toggle (Topbar) -->
-						<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-							<i class="fa fa-bars"></i>
-						</button>
-
 						<ul class="nav nav-tabs">
 							<li class="nav-item text-dark">
 								<a class="nav-link text-dark font-weight-bold" href="/"> Home</a>
@@ -136,26 +131,13 @@
 						@csrf
 						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 						<button class="btn btn-primary" type="submit">Logout</button>
-						<!-- <a class="btn btn-primary" href="login.html">Logout</a> -->
 					</form>
 				</div>
 			</div>
 			</div>
 		</div>
 
-
 	</div>
-
-	<!-- Bootstrap core JavaScript-->
-	<!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-	<!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-
-	<!-- Core plugin JavaScript-->
-	<!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
-
-	<!-- Custom scripts for all pages-->
-	<!-- <script src="{{ asset('js/app.js') }}"></script> -->
-	<!-- <script src="{{ asset('datatables/js/datatables.min.js') }}"></script> -->
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
