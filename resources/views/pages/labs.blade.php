@@ -11,14 +11,15 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>Identifier </th>
+										<th>Lab </th>
 										<th>Result </th>
+										<th>Number </th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach($samples as $sample)
 										<tr>
-											<td> {{ $sample->identifier }} </td>
+											<td> {{ $sample->lab }} </td>
 											@if($sample->result == 1)
 												<td> Negative  </td>
 											@elseif($sample->result == 2)
@@ -26,6 +27,7 @@
 											@else
 												<td> Pending </td>
 											@endif
+											<td> {{ $sample->sample_count }} </td>
 										</tr>
 									@endforeach
 								</tbody>
