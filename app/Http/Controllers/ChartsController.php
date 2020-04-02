@@ -88,7 +88,7 @@ class ChartsController extends Controller
 			->orderBy('datetested', 'asc')
 			->get();
 
-		$period = new CarbonPeriod('2020-03-10', date('Y-m-d'));
+		$period = new CarbonPeriod('2020-03-14', date('Y-m-d'));
 
 		$chart['outcomes'][0]['name'] = 'New Confirmed Cases';
 		$chart['outcomes'][0]['type'] = 'column';
@@ -101,7 +101,7 @@ class ChartsController extends Controller
 		foreach ($period as $key => $day) {
 			$chart['categories'][$key] = $day->toDateString();
 
-			if(isset($pos_rows[$i]) && $pos_rows[$i]->datetested == $day->toDateString()){
+			if(isset($pos_rows[$i]) && $pos_rows[$i]->datetested->equalTo($day)){
 				$chart["outcomes"][0]["data"][$key] = (int) $pos_rows[$i]->value;
 				$cumulative += (int) $pos_rows[$i]->value;
 				$i++;
@@ -114,7 +114,7 @@ class ChartsController extends Controller
 
 		$chart['div'] = Str::random(15);
 		$chart['yAxis'] = 'Cases';
-		return json_encode($pos_rows);
+		// return json_encode($pos_rows);
 		return view('charts.bar_graph', $chart);
 	}
 
