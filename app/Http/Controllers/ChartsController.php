@@ -118,9 +118,30 @@ class ChartsController extends Controller
 		return view('charts.bar_graph', $chart);
 	}
 
+	public function county_chart()
+	{
+		$chart['outcomes'][0]['name'] = 'New Confirmed Cases';
+		$chart['outcomes'][0]['type'] = 'column';
+		$chart['yAxis'] = 'Cases By County';
+		$chart['div'] = Str::random(15);
+
+		$rows = CovidSampleView::leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->where('result', 2)
+			->where('repeatt', 0)
+			->selectRaw("county_id as id, countys.name, count(covid_sample_view.id) as value")
+			->groupBy('county_id')
+			->get();
+
+		foreach ($rows as $key => $value) {
+			$chart['categories'][$key] = $value['name'];
+			$chart["outcomes"][0]["data"][$key] = (int) $value['value'];	
+		}
+		return view('charts.bar_graph', $chart);
+	}
+
 	public function map_data()
 	{
-		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
+		$rows = CovidSampleView::leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where('result', 2)
 			->where('repeatt', 0)
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
