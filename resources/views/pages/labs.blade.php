@@ -8,7 +8,7 @@
 					<h5 class="card-header">All Cases</h5>
 					<div class="card-body">
 						<div class="col-md-12">
-							<table >
+							<table class="table table-bordered">
 								<thead>
 									<tr>
 										<th>Identifier </th>
