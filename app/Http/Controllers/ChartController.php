@@ -21,9 +21,9 @@ class ChartController extends Controller
 	public function labs()
 	{
 		$samples = DB::table('covid_19.covid_samples')
-		->leftJoin('national_db.labs', 'labs.id', '=', 'covid_sample_view.lab_id')
-		->selectRaw('labs.name as lab, result, count(*) as sample_count')
-		->whereNotNull('covid_sample_view.result')
+		->leftJoin('national_db.labs', 'labs.id', '=', 'covid_samples.lab_id')
+		->selectRaw('labs.name as lab, covid_samples.result, count(covid_samples.id) as sample_count')
+		->whereNotNull('covid_samples.result')
 		->groupBy('labs.id', 'result')
 		->get();
 		return view('pages.labs', compact('samples'));		
