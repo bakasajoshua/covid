@@ -25,8 +25,27 @@ class ChartController extends Controller
 		->selectRaw('labs.name as lab, covid_samples.result, count(covid_samples.id) as sample_count')
 		->whereNotNull('covid_samples.result')
 		->groupBy('labs.id', 'result')
+		->orderBy('labs.id')
 		->get();
-		return view('pages.labs', compact('samples'));		
+		$samples = collect($samples);
+
+		$labs = $samples->pluck('lab')->distinct()->toArray();
+
+		$lab = null;
+		$data = [];
+		$total = 0;
+		foreach ($labs as $key => $value) {
+			$neg = $samples->where('lab', $value)->where('result', 1)->first()->sample_count ?? 0;
+			$pos = $samples->where('lab', $value)->where('result', 2)->first()->sample_count ?? 0;
+			$data[] = [
+				'lab' => $value,
+				'pos' => $pos,
+				'neg' => $neg,
+				'total' => $pos+$neg,
+			];
+		}
+
+		return view('pages.labs', compact('data', 'samples'));		
 	}
 
 	public function main()

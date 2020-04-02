@@ -8,7 +8,7 @@
 					<h5 class="card-header">All Cases</h5>
 					<div class="card-body">
 						<div class="col-md-12">
-							<table class="table table-bordered">
+							<!-- <table class="table table-bordered">
 								<thead>
 									<tr>
 										<th>Lab </th>
@@ -28,6 +28,28 @@
 												<td> Pending </td>
 											@endif
 											<td> {{ $sample->sample_count }} </td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table> -->
+
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Lab </th>
+										<th>Positives </th>
+										<th>Negatives </th>
+										<th>Total </th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($data as $row)
+										<tr>
+											<td> {{ $row['lab'] }} </td>
+											<td> {{ number_format($row['pos']) }} </td>
+											<td> {{ number_format($row['neg']) }} </td>
+											<td> {{ number_format($row['total']) }} </td>
 										</tr>
 									@endforeach
 								</tbody>
