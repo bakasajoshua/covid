@@ -22,7 +22,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
 
-    public function login(Request $request)
+    /*public function login(Request $request)
     {
         dd($request->all());
         $this->validateLogin($request);
@@ -47,7 +47,7 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
-    }
+    }*/
 
     /**
      * Where to redirect users after login.
