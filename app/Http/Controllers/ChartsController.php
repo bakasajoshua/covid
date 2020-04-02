@@ -82,9 +82,8 @@ class ChartsController extends Controller
 
 	public function daily_view()
 	{
-		$pos_rows = CovidSample::where('result', 2)
-			->selectRaw("datetested, count(covid_samples.id) as value")
-			->where('repeatt', 0)
+		$pos_rows = CovidSample::selectRaw("datetested, count(covid_samples.id) as value")
+			->where(['repeatt' => 0, 'result' => 2])
 			->groupBy('datetested')
 			->orderBy('datetested', 'asc')
 			->get();
@@ -115,6 +114,7 @@ class ChartsController extends Controller
 
 		$chart['div'] = Str::random(15);
 		$chart['yAxis'] = 'Cases';
+		return json_encode($pos_rows);
 		return view('charts.bar_graph', $chart);
 	}
 
