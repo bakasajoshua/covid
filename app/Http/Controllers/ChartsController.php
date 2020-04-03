@@ -139,6 +139,30 @@ class ChartsController extends Controller
 		return view('charts.bar_graph', $chart);
 	}
 
+	public function gender_pie()
+	{
+		$chart['div'] = Str::random(15);
+		$chart['donut'] = true;
+
+		$rows = CovidSampleView::selectRaw("sex, count(covid_sample_view.id) as value")
+			->where(['repeatt' => 0, 'result' => 2])
+			->groupBy('sex')
+			->orderBy('sex', 'asc')
+			->get();
+
+		$chart['outcomes']['name'] = "Cases By Gender";
+		$chart['outcomes']['colorByPoint'] = true;
+
+
+		$chart['outcomes']['data'][0]['name'] = "Male";
+		$chart['outcomes']['data'][1]['name'] = "Female";
+
+		$chart['outcomes']['data'][0]['y'] = (int) $rows->where('sex', 1)->first()->value ?? 0;
+		$chart['outcomes']['data'][1]['y'] = (int) $rows->where('sex', 2)->first()->value ?? 0;
+
+		return view('charts.pie_chart', $chart);
+	}
+
 	public function map_data()
 	{
 		$rows = CovidSampleView::leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
@@ -167,4 +191,33 @@ class ChartsController extends Controller
 		$chart['div'] = Str::random(15);
 		return view('charts.map', $chart);
 	}
+
+	public function labs()
+	{
+		$samples = CovidSample::leftJoin('labs', 'labs.id', '=', 'covid_samples.lab_id')
+		->selectRaw('labs.name as lab, covid_samples.result, count(covid_samples.id) as sample_count')
+		->whereNotNull('covid_samples.result')
+		->groupBy('labs.id', 'result')
+		->orderBy('labs.id')
+		->get();
+
+		$labs = $samples->pluck('lab')->unique()->toArray();
+
+		$lab = null;
+		$data = [];
+		$total = 0;
+		foreach ($labs as $key => $value) {
+			$neg = $samples->where('lab', $value)->where('result', 1)->first()->sample_count ?? 0;
+			$pos = $samples->where('lab', $value)->where('result', 2)->first()->sample_count ?? 0;
+			$data[] = [
+				'lab' => $value,
+				'pos' => $pos,
+				'neg' => $neg,
+				'total' => $pos+$neg,
+			];
+		}
+
+		return view('pages.labs', compact('data', 'samples'));		
+	}
+
 }

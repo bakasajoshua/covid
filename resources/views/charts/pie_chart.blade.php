@@ -32,6 +32,10 @@
 			                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
 			            }
 			        },
+			        @if(isset($donut))
+			        	center: ['50%', '75%'],
+			        	size: '110%',
+			        @endif
 			        showInLegend: true
 			    }
 			},
