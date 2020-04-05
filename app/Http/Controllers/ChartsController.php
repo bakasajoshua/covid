@@ -132,8 +132,8 @@ class ChartsController extends Controller
 			->get();
 
 		foreach ($rows as $key => $value) {
-			$chart['categories'][$key] = $value['name'];
-			$chart["outcomes"][0]["data"][$key] = (int) $value['value'];	
+			$chart['categories'][$key] = $value->name;
+			$chart["outcomes"][0]["data"][$key] = (int) $value->value;	
 		}
 		return view('charts.bar_graph', $chart);
 	}
