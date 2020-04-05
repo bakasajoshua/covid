@@ -36,7 +36,7 @@
 			        	center: ['50%', '75%'],
 			        	// startAngle: -90,
 			        	// endAngle: 90,
-			        	// size: '110%',
+			        	size: '70%',
 			        @endif
 			        showInLegend: true
 			    }
