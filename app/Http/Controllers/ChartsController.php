@@ -236,7 +236,7 @@ class ChartsController extends Controller
 		->get();
 
 
-		$labs = DB::table('national_db.labs')->get();
+		$labs = DB::table('labs')->get();
 
 		$lab = null;
 		$data = [];
@@ -265,7 +265,7 @@ class ChartsController extends Controller
 			$total_array['pos'] += $pos;			
 			$total_array['total'] += $total;			
 		}
-		$data[] = $total;
+		$data[] = $total_array;
 		return view('pages.labs', compact('data', 'samples'));		
 	}
 
