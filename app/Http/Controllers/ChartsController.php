@@ -24,7 +24,8 @@ class ChartsController extends Controller
 	{
 		$positives = CovidSample::selectRaw("count(id) as total")->where(['result' => 2, 'repeatt' => 0])->first()->total;
 		$deceased = CovidSampleView::selectRaw("count(id) as total")->where(['result' => 2, 'repeatt' => 0])->whereNotNull('date_death')->first()->total;
-		$hospitalised = $discharged = 0;
+		$discharged = CovidSampleView::selectRaw("count(id) as total")->where(['result' => 2, 'repeatt' => 0])->whereNotNull('date_recovered')->first()->total;
+		$hospitalised = 0;
 		return view('pages.home', compact('positives', 'deceased', 'hospitalised', 'discharged'));
 	}
 
@@ -55,9 +56,9 @@ class ChartsController extends Controller
 
 	public function test()
 	{
-		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
+		$rows = CovidSample::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
+			->leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where(['repeatt' => 0, 'result' => 2])
-			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
 			->groupBy('county_id')
 			->orderBy('value', 'desc')
 			->get();
@@ -125,9 +126,9 @@ class ChartsController extends Controller
 		$chart['yAxis'] = 'Cases By County';
 		$chart['div'] = Str::random(15);
 
-		$rows = CovidSampleView::leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
+			->leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2])
-			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
 			->groupBy('county_id')
 			->get();
 
@@ -218,29 +219,53 @@ class ChartsController extends Controller
 
 	public function labs()
 	{
-		$samples = CovidSample::leftJoin('labs', 'labs.id', '=', 'covid_samples.lab_id')
-		->selectRaw('labs.name as lab, covid_samples.result, count(covid_samples.id) as sample_count')
-		->whereNotNull('covid_samples.result')
-		->groupBy('labs.id', 'result')
-		->orderBy('labs.id')
+		$prev_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', '<', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
 		->get();
 
-		$labs = $samples->pluck('lab')->unique()->toArray();
+		$new_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
+		->get();
+
+
+		$labs = DB::table('national_db.labs')->get();
 
 		$lab = null;
 		$data = [];
-		$total = 0;
-		foreach ($labs as $key => $value) {
-			$neg = $samples->where('lab', $value)->where('result', 1)->first()->sample_count ?? 0;
-			$pos = $samples->where('lab', $value)->where('result', 2)->first()->sample_count ?? 0;
-			$data[] = [
-				'lab' => $value,
-				'pos' => $pos,
-				'neg' => $neg,
-				'total' => $pos+$neg,
-			];
-		}
+		$total_array = ['lab' => 'Total', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'total' => 0];
 
+		foreach ($labs as $key => $value) {
+			$lab = $value->name;
+
+			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
+
+			$new_pos = $new_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$new_total = ($new_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $new_pos;
+
+			$pos = $prev_pos + $new_pos;
+			$total = $prev_total + $new_total;
+
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total');
+
+			$total_array['prev_pos'] += $prev_pos;
+			$total_array['prev_total'] += $prev_total;
+
+			$total_array['new_pos'] += $new_pos;
+			$total_array['new_total'] += $new_total;
+
+			$total_array['pos'] += $pos;			
+			$total_array['total'] += $total;			
+		}
+		$data[] = $total;
 		return view('pages.labs', compact('data', 'samples'));		
 	}
 

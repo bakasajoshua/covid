@@ -8,47 +8,27 @@
 					<h5 class="card-header">All Cases</h5>
 					<div class="card-body">
 						<div class="col-md-12">
-							<!-- <table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Lab </th>
-										<th>Result </th>
-										<th>Number </th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($samples as $sample)
-										<tr>
-											<td> {{ $sample->lab }} </td>
-											@if($sample->result == 1)
-												<td> Negative  </td>
-											@elseif($sample->result == 2)
-												<td> Positive </td>
-											@else
-												<td> Pending </td>
-											@endif
-											<td> {{ $sample->sample_count }} </td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table> -->
-
-
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>Lab </th>
-										<th>Positives </th>
-										<th>Negatives </th>
-										<th>Total </th>
+										<th>Testing Laboratory </th>
+										<th>Number of samples since the last update </th>
+										<th>Cumulative positives since last update </th>
+										<th>Number of new samples </th>
+										<th>Number of new positive samples </th>
+										<th>Cumulative samples since onset of outbreak </th>
+										<th>Cumulative positive samples since onset of outbreak </th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach($data as $row)
 										<tr>
 											<td> {{ $row['lab'] }} </td>
+											<td> {{ number_format($row['prev_pos']) }} </td>
+											<td> {{ number_format($row['prev_total']) }} </td>
+											<td> {{ number_format($row['new_pos']) }} </td>
+											<td> {{ number_format($row['new_total']) }} </td>
 											<td> {{ number_format($row['pos']) }} </td>
-											<td> {{ number_format($row['neg']) }} </td>
 											<td> {{ number_format($row['total']) }} </td>
 										</tr>
 									@endforeach
