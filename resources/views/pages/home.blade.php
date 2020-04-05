@@ -40,6 +40,18 @@
 		</div>			
 	</div>
 
+
+	<div class="row text-dark">
+		<div class="card mb-3 col-md-12">
+			<h5 class="card-header">Gender</h5>
+			<div class="card-body">
+				<div class="col-md-12" id="gender_pie">
+					
+				</div>
+			</div>	
+		</div>			
+	</div>
+
 	<div class="row text-dark">
 		<div class="card mb-3 col-md-12">
 			<h5 class="card-header">Confirmed Cases By County</h5>
@@ -60,6 +72,7 @@
 
 		$("#confirmed_cases").load("/charts/daily_view");
 		$("#county_chart").load("/charts/county_chart");
+		$("#gender_pie").load("/charts/gender_pie");
 
 	});
 </script>
