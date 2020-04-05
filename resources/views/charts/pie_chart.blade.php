@@ -34,7 +34,9 @@
 			        },
 			        @if(isset($donut))
 			        	center: ['50%', '75%'],
-			        	size: '110%',
+			        	startAngle: -90,
+			        	endAngle: 90,
+			        	// size: '110%',
 			        @endif
 			        showInLegend: true
 			    }

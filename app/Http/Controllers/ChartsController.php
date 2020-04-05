@@ -153,7 +153,7 @@ class ChartsController extends Controller
 		$chart['outcomes']['name'] = "Cases By Gender";
 		$chart['outcomes']['colorByPoint'] = true;
 
-
+		$chart['outcomes']['innerSize'] = '50%';
 		$chart['outcomes']['data'][0]['name'] = "Male";
 		$chart['outcomes']['data'][1]['name'] = "Female";
 
