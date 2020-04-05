@@ -50,6 +50,7 @@ class CreateCovidPatientsTable extends Migration
             $table->date('date_admission')->nullable();
             $table->date('date_isolation')->nullable();
             $table->date('date_death')->nullable();
+            $table->date('date_recovered')->nullable();
 
             $table->tinyInteger('synched')->default(0)->nullable();
             $table->date('datesynched')->nullable();

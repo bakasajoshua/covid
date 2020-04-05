@@ -22,7 +22,7 @@ class ChartController extends Controller
 	{
 		$samples = DB::table('covid_19.covid_samples')
 		->leftJoin('national_db.labs', 'labs.id', '=', 'covid_samples.lab_id')
-		->selectRaw('labs.name as lab, covid_samples.result, count(covid_samples.id) as sample_count')
+		->selectRaw('labs.name as lab, covid_samples.result, COUNT(DISTINCT covid_samples.patient_id) as sample_count')
 		->whereNotNull('covid_samples.result')
 		->groupBy('labs.id', 'result')
 		->orderBy('labs.id')
@@ -51,8 +51,7 @@ class ChartController extends Controller
 	public function main()
 	{
 		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
-			->where('result', 2)
-			->where('repeatt', 0)
+			->where(['result' => 2, 'repeatt' => 0])
 			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
 			->groupBy('county_id')
 			->get();
@@ -77,9 +76,8 @@ class ChartController extends Controller
 	public function test()
 	{
 		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
-			->where('result', 2)
-			->where('repeatt', 0)
-			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
+			->where(['result' => 2, 'repeatt' => 0])
+			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
 			->groupBy('county_id')
 			->orderBy('value', 'desc')
 			->get();
@@ -105,8 +103,8 @@ class ChartController extends Controller
 	public function daily_view()
 	{
 		$pos_rows = CovidSample::where('result', 2)
-			->selectRaw("datetested, count(covid_samples.id) as value")
-			->where('repeatt', 0)
+			->selectRaw("datetested, COUNT(DISTINCT covid_samples.patient_id) as value")
+			->where(['result' => 2, 'repeatt' => 0])
 			->groupBy('datetested')
 			->orderBy('datetested', 'asc')
 			->get();
@@ -145,7 +143,7 @@ class ChartController extends Controller
 		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
 			->where('result', 2)
 			->where('repeatt', 0)
-			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
+			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
 			->groupBy('county_id')
 			->get();
 

@@ -38,9 +38,10 @@ class CreateCovidSamplesTable extends Migration
 
             
             $table->tinyInteger('age')->unsigned()->nullable();
+            $table->tinyInteger('age_category')->unsigned()->nullable();
             $table->tinyInteger('health_status')->nullable();
             $table->string('symptoms')->nullable();
-            $table->tinyInteger('temperature')->nullable();
+            $table->float('temperature', 4, 2)->nullable();
             $table->string('observed_signs')->nullable();
             $table->string('underlying_conditions')->nullable();
 
