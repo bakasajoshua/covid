@@ -33,7 +33,7 @@
 			            }
 			        },
 			        @if(isset($donut))
-			        	center: ['50%', '75%'],
+			        	// center: ['50%', '75%'],
 			        	// startAngle: -90,
 			        	// endAngle: 90,
 			        	size: '70%',
