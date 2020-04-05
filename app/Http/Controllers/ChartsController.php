@@ -166,7 +166,7 @@ class ChartsController extends Controller
 	{
 		$chart['div'] = Str::random(15);
 
-		$age_categories = DB::('age_categories')->get();
+		$age_categories = DB::table('age_categories')->get();
 
 		$samples = CovidSampleView::selectRaw("age_category, sex, COUNT(DISTINCT covid_sample_view.patient_id) as value")
 			->where(['repeatt' => 0, 'result' => 2])
