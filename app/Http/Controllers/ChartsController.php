@@ -127,7 +127,7 @@ class ChartsController extends Controller
 		$chart['div'] = Str::random(15);
 
 		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
-			->leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->join('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2])
 			->groupBy('county_id')
 			->get();
