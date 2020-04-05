@@ -42,7 +42,7 @@
 
 
 	<div class="row text-dark">
-		<div class="card mb-3 col-md-9">
+		<div class="card mb-3 col-md-8">
 			<h5 class="card-header">Age Distribution</h5>
 			<div class="card-body">
 				<div class="col-md-12" id="pyramid">
@@ -50,7 +50,7 @@
 				</div>
 			</div>	
 		</div>			
-		<div class="card mb-3 col-md-3">
+		<div class="card mb-3 col-md-4">
 			<h5 class="card-header">Gender</h5>
 			<div class="card-body">
 				<div class="col-md-12" id="gender_pie">
