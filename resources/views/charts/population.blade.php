@@ -53,7 +53,7 @@
 
             tooltip: {
                 formatter: function(){
-                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' + 'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 1) + '%';
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' + 'Positives: ' + Highcharts.numberFormat(Math.abs(this.point.y), 1) + '';
                 }
             },
             navigation: {
