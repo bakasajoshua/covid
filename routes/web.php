@@ -25,6 +25,7 @@ Route::prefix('charts')->name('charts.')->group(function(){
 	Route::get('daily_view', 'ChartsController@daily_view')->name('daily_view');
 	Route::get('county_chart', 'ChartsController@county_chart')->name('county_chart');
 	Route::get('gender_pie', 'ChartsController@gender_pie')->name('gender_pie');
+	Route::get('pyramid', 'ChartsController@pyramid')->name('pyramid');
 	Route::get('map_data', 'ChartController@map_data')->name('map_data');
 });
 

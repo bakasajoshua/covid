@@ -34,8 +34,6 @@ class CovidLookupSeeder extends Seeder
 			['id' => 10, 'name' => '91-100'],
 		]);
 
-		return;
-
 		DB::statement("DROP TABLE IF EXISTS `nationalities`;");
 		DB::statement("
 			CREATE TABLE `nationalities` (

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\CovidSample;
+use App\CovidPatient;
 use App\CovidSampleView;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
+use DB;
 use Str;
 
 class ChartsController extends Controller
@@ -160,12 +162,37 @@ class ChartsController extends Controller
 		return view('charts.pie_chart', $chart);
 	}
 
+	public function pyramid()
+	{
+		$chart['div'] = Str::random(15);
+
+		$age_categories = DB::('age_categories')->get();
+
+		$samples = CovidSampleView::selectRaw("age_category, sex, COUNT(DISTINCT covid_sample_view.patient_id) as value")
+			->where(['repeatt' => 0, 'result' => 2])
+			->groupBy('age_category')
+			->groupBy('sex')
+			->get();
+
+		$chart['outcomes'][0]['name'] = 'Male';
+		$chart['outcomes'][1]['name'] = 'Female';
+
+		foreach ($age_categories as $key => $value) {
+			$chart['categories'][$key] = $value['name'];
+			$male = $samples->where('age_category', $value->id)->where('sex', 1)->first()->value ?? 0;
+			$female = $samples->where('age_category', $value->id)->where('sex', 2)->first()->value ?? 0;
+
+			$chart["outcomes"][0]["data"][$key] = - ((int) $male);
+			$chart["outcomes"][1]["data"][$key] = (int) $female;
+		}
+		return view('charts.population', $chart);
+	}
+
 	public function map_data()
 	{
-		$rows = CovidSampleView::leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
-			->where('result', 2)
-			->where('repeatt', 0)
-			->selectRaw("county_id as id, countys.name, count(covid_samples.id) as value")
+		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
+			->leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->where(['repeatt' => 0, 'result' => 2])
 			->groupBy('county_id')
 			->get();
 
