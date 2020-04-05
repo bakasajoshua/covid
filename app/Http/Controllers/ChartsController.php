@@ -127,7 +127,7 @@ class ChartsController extends Controller
 
 		$rows = CovidSampleView::leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2])
-			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
+			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
 			->groupBy('county_id')
 			->get();
 
@@ -178,7 +178,7 @@ class ChartsController extends Controller
 		$chart['outcomes'][1]['name'] = 'Female';
 
 		foreach ($age_categories as $key => $value) {
-			$chart['categories'][$key] = $value['name'];
+			$chart['categories'][$key] = $value->name;
 			$male = $samples->where('age_category', $value->id)->where('sex', 1)->first()->value ?? 0;
 			$female = $samples->where('age_category', $value->id)->where('sex', 2)->first()->value ?? 0;
 
