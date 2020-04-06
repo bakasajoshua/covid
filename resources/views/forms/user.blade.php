@@ -17,7 +17,7 @@
 
 							@include('partials.input', ['model' => $m, 'prop' => 'email', 'label' => 'Email', 'required' => true, 'input_type' => 'email' ])
 
-							@include('partials.input', ['model' => $m, 'prop' => 'email', 'label' => 'Password', 'required' => true, 'input_type' => 'password' ])
+							@include('partials.input', ['model' => $m, 'prop' => 'password', 'label' => 'Password', 'required' => true, 'input_type' => 'password' ])
 
 
 							@include('partials.select', ['model' => $m, 'prop' => 'user_type_id', 'items' => $user_types, 'required' => true, 'label' => 'User Type'])
