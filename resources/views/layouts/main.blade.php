@@ -49,7 +49,7 @@
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
 
-						<ul class="nav nav-tabs">
+						<ul class="nav nav-tabs py-0">
 							<li class="nav-item py-0 text-dark">
 								<a class="nav-link py-0 text-dark font-weight-bold" href="/"> Home</a>
 							</li>
@@ -86,7 +86,7 @@
 						</ul>
 
 						<!-- Topbar Navbar -->
-						<ul class="navbar-nav ml-auto">
+						<ul class="navbar-nav ml-auto py-0">
 
 							<div class="topbar-divider d-none d-sm-block"></div>
 
