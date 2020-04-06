@@ -37,7 +37,7 @@
 @endsection
 
 @section('scripts')
-	<script src="/datepicker/sb-admin-2.min.js"></script>
+	<script src="/datepicker/bootstrap-datepicker.js"></script>
 
 <script type="text/javascript">
 	$(function() {
