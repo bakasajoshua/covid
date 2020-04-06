@@ -50,21 +50,21 @@
 					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
 
 						<ul class="nav nav-tabs">
-							<li class="nav-item text-dark">
+							<li class="nav-item py-0 text-dark">
 								<a class="nav-link py-0 text-dark font-weight-bold" href="/"> Home</a>
 							</li>
 
-							<li class="nav-item text-dark">
+							<li class="nav-item py-0 text-dark">
 								<a class="nav-link py-0 text-dark font-weight-bold" href="/labs"> Labs</a>
 							</li>
 
 							@if(in_array(auth()->user()->user_type_id, [1, 3]))
 
-								<li class="nav-item text-dark">
+								<li class="nav-item py-0 text-dark">
 									<a class="nav-link py-0 text-dark font-weight-bold" href="/covid_sample/index/1">Pending Samples</a>
 								</li>
 
-								<li class="nav-item text-dark">
+								<li class="nav-item py-0 text-dark">
 									<a class="nav-link py-0 text-dark font-weight-bold" href="/covid_sample"> Samples</a>
 								</li>
 
@@ -72,11 +72,11 @@
 
 							@if(in_array(auth()->user()->user_type_id, [1]))
 
-								<li class="nav-item text-dark">
+								<li class="nav-item py-0 text-dark">
 									<a class="nav-link py-0 text-dark font-weight-bold" href="/user"> Users</a>
 								</li>
 
-								<li class="nav-item text-dark">
+								<li class="nav-item py-0 text-dark">
 									<a class="nav-link py-0 text-dark font-weight-bold" href="/user/create">Create User</a>
 								</li>
 
@@ -92,7 +92,7 @@
 
 							@auth
 								<!-- Nav Item - User Information -->
-								<li class="nav-item dropdown no-arrow">
+								<li class="nav-item py-0 dropdown no-arrow">
 									<a class="nav-link py-0 dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 										<span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ auth()->user()->name }} </span>
