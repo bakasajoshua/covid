@@ -245,7 +245,7 @@ class ChartsController extends Controller
 		foreach ($labs as $key => $value) {
 			$lab = $value->name;
 
-			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $value->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->updated_at ?? '';
+			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $value->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->datetested ?? '';
 
 			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
 			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
