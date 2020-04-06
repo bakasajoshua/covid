@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::with(['user_type', 'lab'])->get();
+        return view('forms.user', compact('users'));   
     }
 
     /**
@@ -24,7 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+        $labs = DB::table('labs')->get();
+        $user_types = DB::table('user_types')->get();
+        return view('forms.user', compact('labs', 'user_types'));        
     }
 
     /**
@@ -35,7 +39,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->all());
+        return back();
     }
 
     /**
@@ -57,7 +62,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $labs = DB::table('labs')->get();
+        $user_types = DB::table('user_types')->get();
+        return view('forms.user', compact('labs', 'user_types', 'user')); 
     }
 
     /**
@@ -69,7 +76,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->fill($request->all());
+        $user->save();
+        return redirect('/user');
     }
 
     /**

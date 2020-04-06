@@ -16,7 +16,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'created_at', 'updated_at', '_token', '_method'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,5 +39,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function lab()
+    {
+        return $this->belongsTo('App\Lab');
+    }
+
+    public function user_type()
+    {
+        return $this->belongsTo('App\UserType');
     }
 }
