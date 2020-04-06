@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with(['user_type', 'lab'])->get();
-        return view('forms.user', compact('users'));   
+        return view('tables.users', compact('users'));   
     }
 
     /**
