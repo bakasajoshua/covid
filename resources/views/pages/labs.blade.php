@@ -18,6 +18,7 @@
 										<th>Number of new positive samples </th>
 										<th>Cumulative samples since onset of outbreak </th>
 										<th>Cumulative positive samples since onset of outbreak </th>
+										<th>Last Updated </th>
 									</tr>
 								</thead>
 								<tbody>
@@ -30,6 +31,7 @@
 											<td> {{ number_format($row['new_pos']) }} </td>
 											<td> {{ number_format($row['pos']) }} </td>
 											<td> {{ number_format($row['total']) }} </td>
+											<td> {{ $row['last_updated'] }} </td>
 										</tr>
 									@endforeach
 								</tbody>

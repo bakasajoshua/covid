@@ -240,10 +240,12 @@ class ChartsController extends Controller
 
 		$lab = null;
 		$data = [];
-		$total_array = ['lab' => 'Total', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'total' => 0];
+		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'total' => 0];
 
 		foreach ($labs as $key => $value) {
 			$lab = $value->name;
+
+			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $lab->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->updated_at ?? '';
 
 			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
 			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
@@ -254,7 +256,7 @@ class ChartsController extends Controller
 			$pos = $prev_pos + $new_pos;
 			$total = $prev_total + $new_total;
 
-			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total');
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated');
 
 			$total_array['prev_pos'] += $prev_pos;
 			$total_array['prev_total'] += $prev_total;
