@@ -81,6 +81,7 @@ class CovidSampleController extends Controller
      */
     public function update(Request $request, CovidSample $covidSample)
     {
+        if($covidSample->result) abort(400);
         $covidSample->fill($request->all());
         $covidSample->save();
         return redirect('covid_sample');
