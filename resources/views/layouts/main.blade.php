@@ -47,7 +47,7 @@
 				<div id="content">
 
 					<!-- Topbar -->
-					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
+					<nav class="navbar navbar-expand navbar-light bg-white topbar p-0 mb-2 static-top shadow">
 
 						<ul class="nav nav-tabs">
 							<li class="nav-item text-dark">
