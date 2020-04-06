@@ -38,12 +38,12 @@
 
 @section('scripts')
 	<script src="/datepicker/bootstrap-datepicker.js"></script>
-	<script src="jquery.validate.min.js"></script>
+	<script src="/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
         $('.date-field').datepicker( "option", "dateFormat", 'yy-mm-dd' );
-        
+
 		$(".val_form").validate({
 			errorPlacement: function (error, element){
 				element.before(error);

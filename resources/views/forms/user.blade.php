@@ -33,7 +33,7 @@
 @endsection
 
 @section('scripts')
-<script src="jquery.validate.min.js"></script>
+<script src="/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {

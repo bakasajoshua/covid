@@ -14,9 +14,14 @@ class CovidSampleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($pending=false)
     {
-        $samples = CovidSampleView::orderBy('id', 'desc')->paginate(20);
+        $user = auth()->user();
+        $samples = CovidSampleView::orderBy('id', 'desc')->when(($user->user_type_id == 3), function($query) use ($user){
+                return $query->where('lab_id', $user->lab_id);
+            })->when($pending, function($query){
+                return $query->whereNull('receivedstatus');
+            })->paginate(20);
         $results = DB::table('national_db.results')->get();
         $received_statuses = DB::table('national_db.receivedstatus')->get();
         return view('tables.samples', compact('samples', 'results', 'received_statuses'));
@@ -76,7 +81,9 @@ class CovidSampleController extends Controller
      */
     public function update(Request $request, CovidSample $covidSample)
     {
-        //
+        $covidSample->fill($request->all());
+        $covidSample->save();
+        return redirect('covid_sample');
     }
 
     /**

@@ -53,9 +53,35 @@
 							<li class="nav-item text-dark">
 								<a class="nav-link text-dark font-weight-bold" href="/"> Home</a>
 							</li>
+
 							<li class="nav-item text-dark">
 								<a class="nav-link text-dark font-weight-bold" href="/labs"> Labs</a>
 							</li>
+
+							@if(in_array(auth()->user()->user_type_id, [1, 3]))
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/1">Pending Samples</a>
+								</li>
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/covid_sample"> Samples</a>
+								</li>
+
+							@endif
+
+							@if(in_array(auth()->user()->user_type_id, [1]))
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/user"> Users</a>
+								</li>
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/user/create">Create User</a>
+								</li>
+
+							@endif
+
 							
 						</ul>
 

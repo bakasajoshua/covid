@@ -28,6 +28,7 @@
 											<td> {{ number_format($row['prev_pos']) }} </td>
 											<td> {{ number_format($row['new_total']) }} </td>
 											<td> {{ number_format($row['new_pos']) }} </td>
+											<td> {{ number_format($row['pos']) }} </td>
 											<td> {{ number_format($row['total']) }} </td>
 										</tr>
 									@endforeach
