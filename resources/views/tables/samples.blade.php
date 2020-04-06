@@ -31,11 +31,13 @@
 											<td> {{ $sample->datetested }} </td>
 											<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
 											<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
-											<td> <a href="/sample/{{ $sample->id }}/edit">Edit</a> </td>
+											<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
 										</tr>
 									@endforeach
 								</tbody>
 							</table>
+
+							{{ $samples->links() }}
 							
 						</div>
 					</div>	

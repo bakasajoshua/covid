@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CovidSample;
+use App\CovidSampleView;
+use DB;
 use Illuminate\Http\Request;
 
 class CovidSampleController extends Controller
@@ -14,7 +16,10 @@ class CovidSampleController extends Controller
      */
     public function index()
     {
-        //
+        $samples = CovidSampleView::orderBy('id', 'desc')->paginate(20);
+        $results = DB::table('national_db.results')->get();
+        $received_statuses = DB::table('national_db.receivedstatus')->get();
+        return view('tables.samples', compact('samples', 'results', 'received_statuses'));
     }
 
     /**
@@ -57,7 +62,9 @@ class CovidSampleController extends Controller
      */
     public function edit(CovidSample $covidSample)
     {
-        
+        $results = DB::table('national_db.results')->get();
+        $received_statuses = DB::table('national_db.receivedstatus')->get();
+        return view('forms.sample', compact('covidSample', 'results', 'received_statuses'));
     }
 
     /**
