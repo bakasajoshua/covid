@@ -24,12 +24,12 @@
 									@foreach($data as $row)
 										<tr>
 											<td> {{ $row['lab'] }} </td>
-											<td> {{ number_format($row['prev_pos']) }} </td>
 											<td> {{ number_format($row['prev_total']) }} </td>
-											<td> {{ number_format($row['new_pos']) }} </td>
+											<td> {{ number_format($row['prev_pos']) }} </td>
 											<td> {{ number_format($row['new_total']) }} </td>
-											<td> {{ number_format($row['pos']) }} </td>
+											<td> {{ number_format($row['new_pos']) }} </td>
 											<td> {{ number_format($row['total']) }} </td>
+											<td> {{ number_format($row['pos']) }} </td>
 										</tr>
 									@endforeach
 								</tbody>
