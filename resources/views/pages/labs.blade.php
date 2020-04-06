@@ -7,7 +7,7 @@
 				<div class="card mb-3 col-md-12">
 					<h5 class="card-header">All Cases</h5>
 					<div class="card-body">
-						<div class="col-md-12">
+						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -29,7 +29,6 @@
 											<td> {{ number_format($row['new_total']) }} </td>
 											<td> {{ number_format($row['new_pos']) }} </td>
 											<td> {{ number_format($row['total']) }} </td>
-											<td> {{ number_format($row['pos']) }} </td>
 										</tr>
 									@endforeach
 								</tbody>

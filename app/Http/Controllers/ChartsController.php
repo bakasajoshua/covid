@@ -236,7 +236,7 @@ class ChartsController extends Controller
 		->get();
 
 
-		$labs = DB::table('labs')->get();
+		$labs = DB::table('labs')->where('active', 1)->get();
 
 		$lab = null;
 		$data = [];
