@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Covid;
 use App\CovidSample;
 use App\CovidSampleView;
 use DB;
@@ -34,7 +35,8 @@ class CovidSampleController extends Controller
      */
     public function create()
     {
-        //
+        $data = Covid::covid_form();
+        return view('forms.covidsample', $data);
     }
 
     /**
