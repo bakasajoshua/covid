@@ -66,6 +66,8 @@
 
 	                        @include('partials.select_multiple', ['model' => $m, 'prop' => 'underlying_conditions', 'label' => 'Underlying Conditions', 'items' => $underlying_conditions])
 
+	                        <hr />
+
 
 
 	                        @include('partials.select', ['model' => $m, 'required' => true, 'prop' => 'sample_type', 'label' => 'Sample Type', 'items' => $covid_sample_types, ])
