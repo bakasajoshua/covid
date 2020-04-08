@@ -3,7 +3,7 @@
 				?>
 
 				<div class="form-group row {{ $form_class ?? '' }} ">
-                    <label class="col-sm-3  col-form-label">  {{ $label }} (Multiple)
+                    <label class="col-sm-3  col-form-label text-right">  {{ $label }} (Multiple)
                         @if(isset($required) && $required)
                             <strong><div style='color: #ff0000; display: inline;'>*</div></strong>
                         @endif
