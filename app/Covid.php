@@ -15,7 +15,7 @@ class Covid
         $data = [];
 
         foreach ($tables as $key => $value) {
-            $data[$value] = DB::table($value)->get();
+            $data[str_replace('national_db.', '', $value)] = DB::table($value)->get();
         }
         return $data;
     }
