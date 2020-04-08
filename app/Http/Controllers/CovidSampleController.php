@@ -48,7 +48,17 @@ class CovidSampleController extends Controller
      */
     public function store(Request $request)
     {
+        $data = Covid::covid_arrays();
 
+        $patient = new CovidPatient;
+        $patient->fill($request->only($data['patient']));
+        $patient->current_health_status = $request->input('health_status');
+        $patient->save();
+
+        $sample = new CovidSample;
+        $sample->fill($request->only($data['sample']));
+        $sample->patient_id = $patient->id;
+        $sample->save();
     }
 
     /**
