@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Covid;
+use App\CovidPatient;
 use App\CovidSample;
 use App\CovidSampleView;
 use DB;
@@ -47,7 +48,7 @@ class CovidSampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
