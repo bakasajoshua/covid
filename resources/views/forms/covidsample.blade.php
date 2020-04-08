@@ -74,7 +74,7 @@
 
 							@include('partials.date', ['model' => $m, 'prop' => 'datereceived', 'label' => 'Date Received', 'required' => true])
 
-							@include('partials.select', ['model' => $m, 'prop' => 'receivedstatus', 'items' => $received_statuses, 'required' => true, 'label' => 'Received Status'])
+							@include('partials.select', ['model' => $m, 'prop' => 'receivedstatus', 'items' => $receivedstatus, 'required' => true, 'label' => 'Received Status'])
 
 							@include('partials.date', ['model' => $m, 'prop' => 'datetested', 'label' => 'Date Tested'])
 
