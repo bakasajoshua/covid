@@ -98,7 +98,27 @@
 
 <script type="text/javascript">
 	$(function() {
-        $('.date-field').datepicker( "option", "dateFormat", 'yy-mm-dd' );
+        $('.date-field').datepicker({
+            startView: 0,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: true,
+            autoclose: true,
+            // startDate: "-6m",
+            endDate: new Date(),
+            format: "yyyy-mm-dd"
+        });
+
+        $(".date-dob").datepicker({
+            startView: 2,
+            keyboardNavigation: false,
+            forceParse: true,
+            autoclose: true,
+            startDate: '-100y',
+            endDate: "-1m",
+            format: "yyyy-mm-dd"
+        });
+            
         $('select').select2({
             placeholder: "Select One",
             allowClear: true        	
