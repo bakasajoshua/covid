@@ -235,12 +235,20 @@ class ChartsController extends Controller
 		->orderBy('lab_id')
 		->get();
 
+		$pending_samples = CovidSample::selectRaw('lab_id, count(id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('original_sample_id')
+		->whereNull('receivedstatus')
+		->groupBy('lab_id')
+		->orderBy('lab_id')
+		->get();
+
 
 		$labs = DB::table('labs')->where('active', 1)->get();
 
 		$lab = null;
 		$data = [];
-		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'total' => 0];
+		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'pending' => 0, 'total' => 0];
 
 		foreach ($labs as $key => $value) {
 			$lab = $value->name;
@@ -256,7 +264,9 @@ class ChartsController extends Controller
 			$pos = $prev_pos + $new_pos;
 			$total = $prev_total + $new_total;
 
-			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated');
+			$pending = $pending_samples->where('lab_id', $value->id)->first()->value ?? 0;
+
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated', 'pending');
 
 			$total_array['prev_pos'] += $prev_pos;
 			$total_array['prev_total'] += $prev_total;
@@ -266,6 +276,7 @@ class ChartsController extends Controller
 
 			$total_array['pos'] += $pos;			
 			$total_array['total'] += $total;			
+			$total_array['pending'] += $pending;			
 		}
 		$data[] = $total_array;
 		return view('pages.labs', compact('data', 'samples'));		

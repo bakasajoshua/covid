@@ -12,6 +12,7 @@
 								<thead>
 									<tr>
 										<th>Testing Laboratory </th>
+										<th>Pending Sample Results </th>
 										<th>Number of samples since the last update </th>
 										<th>Cumulative positives since last update </th>
 										<th>Number of new samples </th>
@@ -25,6 +26,7 @@
 									@foreach($data as $row)
 										<tr>
 											<td> {{ $row['lab'] }} </td>
+											<td> {{ number_format($row['pending']) }} </td>
 											<td> {{ number_format($row['prev_total']) }} </td>
 											<td> {{ number_format($row['prev_pos']) }} </td>
 											<td> {{ number_format($row['new_total']) }} </td>
