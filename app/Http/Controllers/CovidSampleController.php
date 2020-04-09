@@ -59,6 +59,7 @@ class CovidSampleController extends Controller
         $sample->fill($request->only($data['sample']));
         $sample->patient_id = $patient->id;
         $sample->save();
+        return back();
     }
 
     /**
