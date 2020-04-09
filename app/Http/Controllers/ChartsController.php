@@ -237,7 +237,7 @@ class ChartsController extends Controller
 
 		$pending_samples = CovidSample::selectRaw('lab_id, count(id) as value')
 		->where(['repeatt' => 0])
-		->whereNotNull('original_sample_id')
+		// ->whereNotNull('original_sample_id')
 		->whereNull('receivedstatus')
 		->groupBy('lab_id')
 		->orderBy('lab_id')
