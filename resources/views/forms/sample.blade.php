@@ -42,7 +42,16 @@
 
 <script type="text/javascript">
 	$(function() {
-        $('.date-field').datepicker( "option", "dateFormat", 'yy-mm-dd' );
+        $('.date-field').datepicker({
+            startView: 0,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: true,
+            autoclose: true,
+            // startDate: "-6m",
+            endDate: new Date(),
+            format: "yyyy-mm-dd"
+        });
 
 		$(".val_form").validate({
 			errorPlacement: function (error, element){
