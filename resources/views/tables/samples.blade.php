@@ -52,13 +52,14 @@
 
 <script type="text/javascript">
 	$(function() {
-		
-        $('.data-table').DataTable({
-            pageLength: 10,
-            // responsive: true,
-            dom: '<"html5buttons"B>lTfgitp',
+		@if(!$paginate)
+	        $('.data-table').DataTable({
+	            pageLength: 10,
+	            // responsive: true,
+	            dom: '<"html5buttons"B>lTfgitp',
 
-		});
+			});
+		@endif
 	});
 </script>
 @endsection
