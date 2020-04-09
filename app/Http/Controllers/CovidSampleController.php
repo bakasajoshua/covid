@@ -19,16 +19,16 @@ class CovidSampleController extends Controller
     public function index($pending=false)
     {
         $user = auth()->user();
-        $samples = CovidSampleView::orderBy('id', 'desc')->when(($user->user_type_id == 3), function($query) use ($user){
+        $query = CovidSampleView::orderBy('id', 'desc')->when(($user->user_type_id == 3), function($query) use ($user){
                 return $query->where('lab_id', $user->lab_id);
             })->when($pending, function($query){
                 return $query->whereNull('receivedstatus');
             });
         $paginate = false;
 
-        if($pending) $samples->get();
+        if($pending) $samples = $query->get();
         else{
-            $samples->paginate(20);
+            $samples = $query->paginate(20);
             $paginate = true;
         }
         $results = DB::table('national_db.results')->get();
