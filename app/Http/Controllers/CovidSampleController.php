@@ -23,10 +23,17 @@ class CovidSampleController extends Controller
                 return $query->where('lab_id', $user->lab_id);
             })->when($pending, function($query){
                 return $query->whereNull('receivedstatus');
-            })->paginate(20);
+            });
+        $paginate = false;
+
+        if($pending) $samples->get();
+        else{
+            $samples->paginate(20);
+            $paginate = true;
+        }
         $results = DB::table('national_db.results')->get();
         $received_statuses = DB::table('national_db.receivedstatus')->get();
-        return view('tables.samples', compact('samples', 'results', 'received_statuses'));
+        return view('tables.samples', compact('samples', 'results', 'received_statuses', 'paginate'));
     }
 
     /**

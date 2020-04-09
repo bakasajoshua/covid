@@ -8,11 +8,12 @@
 					<h5 class="card-header">Samples</h5>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered">
+							<table class="table table-bordered data-table">
 								<thead>
 									<tr>
 										<th>Lab ID </th>
 										<th>Identifier </th>
+										<th>Name </th>
 										<th>Date Collected </th>
 										<th>Date Received </th>
 										<th>Date Tested </th>
@@ -26,6 +27,7 @@
 										<tr>
 											<td> {{ $sample->id }} </td>
 											<td> {{ $sample->identifier }} </td>
+											<td> {{ $sample->patient_name }} </td>
 											<td> {{ $sample->datecollected }} </td>
 											<td> {{ $sample->datereceived }} </td>
 											<td> {{ $sample->datetested }} </td>
@@ -37,8 +39,9 @@
 								</tbody>
 							</table>
 
-							{{ $samples->links() }}
-							
+							@if($paginate)
+								{{ $samples->links() }}
+							@endif
 						</div>
 					</div>	
 				</div>			
@@ -49,8 +52,13 @@
 
 <script type="text/javascript">
 	$(function() {
+		
+        $('.data-table').DataTable({
+            pageLength: 10,
+            // responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
 
-
+		});
 	});
 </script>
 @endsection
