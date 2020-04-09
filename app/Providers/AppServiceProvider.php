@@ -4,6 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\CovidPatient;
+use App\CovidSample;
+
+use App\Observers\CovidPatientObserver;
+use App\Observers\CovidSampleObserver;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Illuminate\Support\Facades\URL::forceScheme('https');
+        
+        CovidPatient::observe(CovidPatientObserver::class);
+        CovidSample::observe(CovidSampleObserver::class);
     }
 }
