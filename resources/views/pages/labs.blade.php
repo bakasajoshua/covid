@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 			<div class="row text-dark">
 				<div class="card mb-3 col-md-12">
 					<h5 class="card-header">All Cases</h5>
