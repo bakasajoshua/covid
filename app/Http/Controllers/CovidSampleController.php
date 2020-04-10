@@ -89,6 +89,7 @@ class CovidSampleController extends Controller
      */
     public function edit(CovidSample $covidSample)
     {
+        // if($covidSample->result) abort(400);
         $results = DB::table('national_db.results')->get();
         $received_statuses = DB::table('national_db.receivedstatus')->get();
         return view('forms.sample', compact('covidSample', 'results', 'received_statuses'));
