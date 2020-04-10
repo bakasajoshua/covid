@@ -22,7 +22,9 @@
 										<th>Date Tested </th>
 										<th>Received Status </th>
 										<th>Result </th>
-										<th>Edit </th>
+										@if($param != 2)
+											<th>Edit </th>
+										@endif
 									</tr>
 								</thead>
 								<tbody>
@@ -39,7 +41,9 @@
 											<td> {{ $sample->datetested }} </td>
 											<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
 											<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
-											<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
+											@if($param != 2)
+												<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
+											@endif
 										</tr>
 									@endforeach
 								</tbody>
