@@ -12,6 +12,9 @@
 								<thead>
 									<tr>
 										<th>Lab ID </th>
+										@if($param == 2)
+											<th>Lab </th>
+										@endif
 										<th>Identifier </th>
 										<th>Name </th>
 										<th>Date Collected </th>
@@ -26,6 +29,9 @@
 									@foreach($samples as $sample)
 										<tr>
 											<td> {{ $sample->id }} </td>
+											@if($param == 2)
+												<td> {{ $sample->lab->name ?? '' }} </td>
+											@endif
 											<td> {{ $sample->identifier }} </td>
 											<td> {{ $sample->patient_name }} </td>
 											<td> {{ $sample->datecollected }} </td>
