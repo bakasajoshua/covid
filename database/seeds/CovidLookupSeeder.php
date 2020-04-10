@@ -121,6 +121,7 @@ class CovidLookupSeeder extends Seeder
 			['id' => 4, 'name' => 'Point of entry detection'],
 			['id' => 5, 'name' => 'Repatriation'],
 			['id' => 6, 'name' => 'Other'],
+			['id' => 7, 'name' => 'Surveillance & Quarantine'],
 		]);
 
 

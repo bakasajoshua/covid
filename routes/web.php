@@ -35,8 +35,8 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('map_data', 'ChartController@map_data')->name('map_data');
 	});
 
+	Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
 	Route::middleware(['only_utype:3'])->group(function(){
-		Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
 		Route::resource('covid_sample', 'CovidSampleController');
 	});
 
