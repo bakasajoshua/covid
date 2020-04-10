@@ -12,11 +12,13 @@
 									<tr>
 										<th>Testing Laboratory </th>
 										<th>Pending Sample Results </th>
-										<th>Number of samples since the last update </th>
+										<th> Cumulative number of samples tested as at last update </th>
+										<!-- <th>Number of samples since the last update </th> -->
 										<th>Cumulative positives since last update </th>
-										<th>Number of new samples </th>
-										<th>Number of new positive samples </th>
-										<th>Cumulative samples since onset of outbreak </th>
+										<th>Number of samples tested since last update </th>
+										<!-- <th>Number of new samples </th> -->
+										<th>Number of new positive tests </th>
+										<th>Cumulative number of samples tested to date </th>
 										<th>Cumulative positive samples since onset of outbreak </th>
 										<th>Last Updated </th>
 									</tr>

@@ -16,17 +16,18 @@ class CovidSampleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($pending=false)
+    public function index($param=0)
     {
         $user = auth()->user();
         $query = CovidSampleView::orderBy('id', 'desc')->when(($user->user_type_id == 3), function($query) use ($user){
                 return $query->where('lab_id', $user->lab_id);
-            })->when($pending, function($query){
+            })->when($param, function($query) use($param){
+                if($param == 2) $query->where('result', 2);
                 return $query->whereNull('receivedstatus');
             });
         $paginate = false;
 
-        if($pending) $samples = $query->get();
+        if($param) $samples = $query->get();
         else{
             $samples = $query->paginate(20);
             $paginate = true;
