@@ -17,11 +17,25 @@
 										@endif
 										<th>Identifier </th>
 										<th>Name </th>
-										<th>Date Collected </th>
-										<th>Date Received </th>
+
+										@if($param != 2)
+											<th>Date Collected </th>
+											<th>Date Received </th>
+											<th>Received Status </th>
+											<th>Result </th>
+										@else
+											<th> Age </th>
+											<th> Sex </th>
+											<th> Telephone number </th>
+											<th> County </th>
+											<th> Subcounty </th>
+											<th> Travel history (Y/N) </th>
+											<th> Where From </th>
+											<th> History of contact with confirmed case </th>
+											<th> Facility Name (Quarantine/health facility) </th>
+											<th> Name of confirmed case </th>
+										@endif
 										<th>Date Tested </th>
-										<th>Received Status </th>
-										<th>Result </th>
 										@if($param != 2)
 											<th>Edit </th>
 										@endif
@@ -34,13 +48,30 @@
 											@if($param == 2)
 												<td> {{ $sample->lab->name ?? '' }} </td>
 											@endif
+
 											<td> {{ $sample->identifier }} </td>
 											<td> {{ $sample->patient_name }} </td>
-											<td> {{ $sample->datecollected }} </td>
-											<td> {{ $sample->datereceived }} </td>
+
+											@if($param != 2)
+												<td> {{ $sample->datecollected }} </td>
+												<td> {{ $sample->datereceived }} </td>
+												<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
+												<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
+											@else
+												<td> {{ $sample->age }} </td>
+												<td> {{ $sample->gender }} </td>
+												<td> {{ $sample->phone_no }} </td>
+												<td> {{ $sample->county }} </td>
+												<td> {{ $sample->subcounty }} </td>
+												<td>  </td>
+												<td>  </td>
+												<td>  </td>
+												<td> {{ $sample->facilityname }} </td>
+												<td>  </td>
+
+											@endif
+
 											<td> {{ $sample->datetested }} </td>
-											<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
-											<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
 											@if($param != 2)
 												<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
 											@endif
