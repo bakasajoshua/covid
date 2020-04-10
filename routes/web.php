@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function(){
 	});
 
 	Route::middleware(['only_utype:3'])->group(function(){
-		Route::get('covid_sample/index/{pending}', 'CovidSampleController@index');
+		Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
 		Route::resource('covid_sample', 'CovidSampleController');
 	});
 

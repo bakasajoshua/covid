@@ -22,7 +22,7 @@ class CovidSampleController extends Controller
         $query = CovidSampleView::orderBy('id', 'desc')->when(($user->user_type_id == 3), function($query) use ($user){
                 return $query->where('lab_id', $user->lab_id);
             })->when($param, function($query) use($param){
-                if($param == 2) $query->where('result', 2);
+                if($param == 2) return $query->where('result', 2);
                 return $query->whereNull('receivedstatus');
             });
         $paginate = false;
