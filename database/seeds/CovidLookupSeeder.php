@@ -12,6 +12,44 @@ class CovidLookupSeeder extends Seeder
     public function run()
     {
 
+		DB::statement("DROP TABLE IF EXISTS `quarantine_sites`;");
+		DB::statement("
+			CREATE TABLE `quarantine_sites` (
+				`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(100) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('quarantine_sites')->insert([
+			['id' => 1, 'name' => 'Infectious Disease Unit-KNH'],
+			['id' => 2, 'name' => 'Kenyatta University'],
+			['id' => 3, 'name' => 'Kenya School of Government'],
+			// ['id' => , 'name' => ''],
+		]);
+
+
+		DB::statement("DROP TABLE IF EXISTS `covid_justifications`;");
+		DB::statement("
+			CREATE TABLE `covid_justifications` (
+				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+				`name` varchar(50) DEFAULT NULL,
+				PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+		");
+
+		DB::table('covid_justifications')->insert([
+			['id' => 1, 'name' => 'Contact with confirmed case'],
+			['id' => 2, 'name' => 'Presented at health facility'],
+			['id' => 3, 'name' => 'Surveillance'],
+			['id' => 4, 'name' => 'Point of entry detection'],
+			['id' => 5, 'name' => 'Repatriation'],
+			['id' => 6, 'name' => 'Other'],
+			['id' => 7, 'name' => 'Surveillance and Quarantine'],
+		]);
+
+		return;
+
 		DB::statement("DROP TABLE IF EXISTS `user_types`;");
 		DB::statement("
 			CREATE TABLE `user_types` (
@@ -103,26 +141,6 @@ class CovidLookupSeeder extends Seeder
 			['id' => 4, 'name' => 'Unknown'],
 		]);
 
-
-
-		DB::statement("DROP TABLE IF EXISTS `covid_justifications`;");
-		DB::statement("
-			CREATE TABLE `covid_justifications` (
-				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-				`name` varchar(50) DEFAULT NULL,
-				PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-		");
-
-		DB::table('covid_justifications')->insert([
-			['id' => 1, 'name' => 'Contact with confirmed case'],
-			['id' => 2, 'name' => 'Presented at health facility'],
-			['id' => 3, 'name' => 'Surveillance'],
-			['id' => 4, 'name' => 'Point of entry detection'],
-			['id' => 5, 'name' => 'Repatriation'],
-			['id' => 6, 'name' => 'Other'],
-			['id' => 7, 'name' => 'Surveillance & Quarantine'],
-		]);
 
 
 		DB::statement("DROP TABLE IF EXISTS `covid_test_types`;");
