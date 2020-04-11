@@ -255,10 +255,14 @@ class ChartsController extends Controller
 
 			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $value->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->datetested ?? '';
 
+			$prev_presumed_pos = $prev_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
 			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$prev_pos += $prev_presumed_pos;
 			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
 
+			$new_presumed_pos = $new_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
 			$new_pos = $new_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$new_pos += $new_presumed_pos;
 			$new_total = ($new_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $new_pos;
 
 			$pos = $prev_pos + $new_pos;
