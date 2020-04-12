@@ -12,13 +12,13 @@
 								<thead>
 									<tr>
 										<th>Lab ID </th>
-										@if($param == 2)
+										@if(in_array($param, [1,2]))
 											<th>Lab </th>
 										@endif
 										<th>Identifier </th>
 										<th>Name </th>
 
-										@if($param != 2)
+										@if(!in_array($param, [1,2]))
 											<th>Date Collected </th>
 											<th>Date Received </th>
 											<th>Received Status </th>
@@ -39,7 +39,7 @@
 										<th>Result </th>
 										<th>Date Tested </th>
 
-										@if($param != 2)
+										@if(!in_array($param, [1,2]))
 											<th>Edit </th>
 										@endif
 									</tr>
@@ -48,7 +48,7 @@
 									@foreach($samples as $sample)
 										<tr>
 											<td> {{ $sample->id }} </td>
-											@if($param == 2)
+											@if(in_array($param, [1,2]))
 												<td> {{ $sample->lab->name ?? '' }} </td>
 											@endif
 
@@ -76,7 +76,7 @@
 											<td> {!! $sample->get_prop_name($test_types, 'test_type') !!} </td>
 											<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
 											<td> {{ $sample->datetested }} </td>
-											@if($param != 2)
+											@if(!in_array($param, [1,2]))
 												<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
 											@endif
 										</tr>
