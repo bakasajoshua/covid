@@ -82,6 +82,7 @@
 		$("#county_chart").load("/charts/county_chart");
 		$("#gender_pie").load("/charts/gender_pie");
 		$("#pyramid").load("/charts/pyramid");
+		$("#result_outcomes").load("/charts/outcomes");
 
 	});
 </script>

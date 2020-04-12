@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('county_chart', 'ChartsController@county_chart')->name('county_chart');
 		Route::get('gender_pie', 'ChartsController@gender_pie')->name('gender_pie');
 		Route::get('pyramid', 'ChartsController@pyramid')->name('pyramid');
+		Route::get('outcomes', 'ChartController@outcomes')->name('outcomes');
 		Route::get('map_data', 'ChartController@map_data')->name('map_data');
 	});
 

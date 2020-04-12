@@ -139,6 +139,64 @@ class ChartsController extends Controller
 		return view('charts.bar_graph', $chart);
 	}
 
+	public function outcomes()
+	{
+		$chart['div'] = Str::random(15);
+
+		$test_types = DB::table('covid_test_types')->get();
+		$test_type_ids = $test_type_ids->pluck('id')->flatten()->toArray();
+
+		$tests = CovidSample::selectRaw('test_type, COUNT(id) AS value')
+			->where(['repeatt' => 0, ])
+			->whereIn('result', [1, 2, 8])
+			->groupBy('test_type')
+			->get();
+
+		$pos = CovidSample::selectRaw('test_type, COUNT(id) AS value')
+			->where(['repeatt' => 0, ])
+			->whereIn('result', [2, 8])
+			->groupBy('test_type')
+			->get();
+
+		$total_tests = $total_pos = 0;
+
+		$rows = '';
+
+		foreach ($test_types as $key => $test_type) {
+			$t = $tests->where('test_type', $test_type->id)->first()->value ?? 0;
+			$p = $pos->where('test_type', $test_type->id)->first()->value ?? 0;
+
+			$total_tests += $t;
+			$total_pos += $p;
+
+			$rows .= "<tr><td>" . $test_type->name . ':&nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . round(($p / $t * 100), 2) . '%)</td></tr>';
+		}
+		$t = $tests->whereNotIn('test_type', $test_type_ids)->first()->value ?? 0;
+		$p = $pos->whereNotIn('test_type', $test_type_ids)->first()->value ?? 0;
+
+		$total_tests += $t;
+		$total_pos += $p;
+
+		$rows .= '<tr><td>Not Specified: &nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . round(($p / $t * 100), 2) . '%)</td></tr>';
+
+		$rows = '<tr><td>Total Tests: &nbsp;' . number_format($total_tests) . '</td><td>Positive:' . number_format($total_pos) . '&nbsp;(' . round(($total_pos / $total_tests * 100), 2) . '%)</td></tr>' . $rows;
+
+		$chart['paragraph'] = "<table class='table'>" . $rows . "</table>";
+
+
+		$chart['outcomes']['name'] = "Cases By Result";
+		$chart['outcomes']['colorByPoint'] = true;
+
+		$chart['outcomes']['data'][0]['name'] = "Negative";
+		$chart['outcomes']['data'][1]['name'] = "Positive";
+
+		$chart['outcomes']['data'][0]['y'] = (int) ($total_tests - $total_pos);
+		$chart['outcomes']['data'][1]['y'] = (int) $total_pos;
+
+
+		return view('charts.pie_chart', $chart);
+	}
+
 	public function gender_pie()
 	{
 		$chart['div'] = Str::random(15);
