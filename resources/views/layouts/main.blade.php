@@ -70,7 +70,7 @@
 							@if(in_array(auth()->user()->user_type_id, [1, 3]))
 
 								<li class="nav-item text-dark">
-									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/1">Samples Pending Results</a>
+									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/3">Samples Pending Results</a>
 								</li>
 
 								<li class="nav-item text-dark">
