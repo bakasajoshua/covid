@@ -60,6 +60,10 @@
 							</li>
 
 							<li class="nav-item text-dark">
+								<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/1">Negative Samples</a>
+							</li>
+
+							<li class="nav-item text-dark">
 								<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/2">Positive Samples</a>
 							</li>
 
