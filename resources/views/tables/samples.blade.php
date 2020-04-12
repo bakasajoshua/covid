@@ -22,7 +22,6 @@
 											<th>Date Collected </th>
 											<th>Date Received </th>
 											<th>Received Status </th>
-											<th>Result </th>
 										@else
 											<th> Age </th>
 											<th> Sex </th>
@@ -35,7 +34,11 @@
 											<th> Facility Name (Quarantine/health facility) </th>
 											<th> Name of confirmed case </th>
 										@endif
+
+										<th>Test Type </th>
+										<th>Result </th>
 										<th>Date Tested </th>
+
 										@if($param != 2)
 											<th>Edit </th>
 										@endif
@@ -56,7 +59,6 @@
 												<td> {{ $sample->datecollected }} </td>
 												<td> {{ $sample->datereceived }} </td>
 												<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
-												<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
 											@else
 												<td> {{ $sample->age }} </td>
 												<td> {{ $sample->gender }} </td>
@@ -71,6 +73,8 @@
 
 											@endif
 
+											<td> {!! $sample->get_prop_name($test_types, 'test_type') !!} </td>
+											<td> {!! $sample->get_prop_name($results, 'result', 'name_colour') !!} </td>
 											<td> {{ $sample->datetested }} </td>
 											@if($param != 2)
 												<td> <a href="/covid_sample/{{ $sample->id }}/edit">Edit</a> </td>
