@@ -68,7 +68,7 @@
 												<td>  </td>
 												<td>  </td>
 												<td>  </td>
-												<td> {{ $sample->facilityname }} </td>
+												<td> {{ $sample->facilityname ?? $sample->quarantine_site }} </td>
 												<td>  </td>
 
 											@endif
