@@ -55,7 +55,7 @@
 											<td> {{ $sample->identifier }} </td>
 											<td> {{ $sample->patient_name }} </td>
 
-											@if($param != 2)
+											@if(!in_array($param, [1,2]))
 												<td> {{ $sample->datecollected }} </td>
 												<td> {{ $sample->datereceived }} </td>
 												<td> {{ $sample->get_prop_name($received_statuses, 'receivedstatus') }} </td>
