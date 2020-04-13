@@ -144,7 +144,7 @@ class ChartsController extends Controller
 		$chart['div'] = Str::random(15);
 
 		$test_types = DB::table('covid_test_types')->get();
-		$test_type_ids = $test_type_ids->pluck('id')->flatten()->toArray();
+		$test_type_ids = $test_types->pluck('id')->flatten()->toArray();
 
 		$tests = CovidSample::selectRaw('test_type, COUNT(id) AS value')
 			->where(['repeatt' => 0, ])
