@@ -16,7 +16,7 @@
 											<th>Lab </th>
 										@endif
 										<th>Identifier </th>
-										<th>Name </th>
+										<!-- <th>Name </th> -->
 
 										@if(!in_array($param, [1,2]))
 											<th>Date Collected </th>
@@ -53,7 +53,6 @@
 											@endif
 
 											<td> {{ $sample->identifier }} </td>
-											<td> {{ $sample->patient_name }} </td>
 
 											@if(!in_array($param, [1,2]))
 												<td> {{ $sample->datecollected }} </td>
