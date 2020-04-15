@@ -8,6 +8,15 @@ use Str;
 class Covid
 {
 
+    public static function calc($numerator, $denominator, $places=2)
+    {
+        if($denominator){
+            return round(($numerator / $denominator * 100), $places);
+        }else{
+            return 0;
+        }
+    }
+
     public static function covid_form()
     {
         $tables = ['identifier_types', 'health_statuses', 'covid_justifications', 'covid_test_types', 'covid_symptoms', 'observed_signs', 'underlying_conditions', 'covid_isolations', 'covid_sample_types', 'national_db.viralrejectedreasons', 'national_db.receivedstatus', 'national_db.gender', 'national_db.results', 'national_db.countys'];

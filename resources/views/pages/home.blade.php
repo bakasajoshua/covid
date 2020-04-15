@@ -33,7 +33,7 @@
 		<div class="card mb-3 col-md-12">
 			<h5 class="card-header">Confirmed Cases</h5>
 			<div class="card-body">
-				<div class="col-md-12" id="confirmed_cases">
+				<div id="confirmed_cases">
 					
 				</div>
 			</div>	
@@ -45,7 +45,7 @@
 		<div class="card mb-3 col-md-9">
 			<h5 class="card-header">Age Distribution</h5>
 			<div class="card-body">
-				<div class="col-md-12" id="pyramid">
+				<div id="pyramid">
 					
 				</div>
 			</div>	
@@ -53,7 +53,18 @@
 		<div class="card mb-3 col-md-3">
 			<h5 class="card-header">Gender</h5>
 			<div class="card-body">
-				<div class="col-md-12" id="gender_pie">
+				<div id="gender_pie">
+					
+				</div>
+			</div>	
+		</div>			
+	</div>
+
+	<div class="row text-dark">
+		<div class="card mb-3 col-md-6">
+			<h5 class="card-header">Summarised Outcomes</h5>
+			<div class="card-body">
+				<div id="result_outcomes">
 					
 				</div>
 			</div>	
@@ -64,7 +75,7 @@
 		<div class="card mb-3 col-md-12">
 			<h5 class="card-header">Confirmed Cases By County</h5>
 			<div class="card-body">
-				<div class="col-md-12" id="county_chart">
+				<div id="county_chart">
 					
 				</div>
 			</div>	
