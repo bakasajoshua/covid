@@ -8,7 +8,7 @@ use Str;
 class Covid
 {
 
-    public static function calc($numerator, $denominator, $places=2)
+    public static function calc_perc($numerator, $denominator, $places=2)
     {
         if($denominator){
             return round(($numerator / $denominator * 100), $places);

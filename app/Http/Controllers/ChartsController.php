@@ -180,7 +180,7 @@ class ChartsController extends Controller
 
 		$rows .= '<tr><td>Not Specified: &nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . Covid::calc_perc($p, $t) . '%)</td></tr>';
 
-		$rows = '<tr><td>Total Tests: &nbsp;' . number_format($total_tests) . '</td><td>Positive:' . number_format($total_pos) . '&nbsp;(' . round(($total_pos / $total_tests * 100), 2) . '%)</td></tr>' . $rows;
+		$rows = '<tr><td>Total Tests: &nbsp;' . number_format($total_tests) . '</td><td>Positive:' . number_format($total_pos) . '&nbsp;(' . Covid::calc_perc($total_pos, $total_tests) . '%)</td></tr>' . $rows;
 
 		$chart['paragraph'] = "<table class='table'>" . $rows . "</table>";
 
