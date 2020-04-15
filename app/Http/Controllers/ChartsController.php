@@ -170,7 +170,7 @@ class ChartsController extends Controller
 			$total_tests += $t;
 			$total_pos += $p;
 
-			$rows .= "<tr><td>" . $test_type->name . ':&nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . Covid::calc($p, $t) . '%)</td></tr>';
+			$rows .= "<tr><td>" . $test_type->name . ':&nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . Covid::calc_perc($p, $t) . '%)</td></tr>';
 		}
 		$t = $tests->whereNotIn('test_type', $test_type_ids)->first()->value ?? 0;
 		$p = $pos->whereNotIn('test_type', $test_type_ids)->first()->value ?? 0;
@@ -178,7 +178,7 @@ class ChartsController extends Controller
 		$total_tests += $t;
 		$total_pos += $p;
 
-		$rows .= '<tr><td>Not Specified: &nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . Covid::calc($p, $t)) . '%)</td></tr>';
+		$rows .= '<tr><td>Not Specified: &nbsp;' . number_format($t) . '</td><td>Positive:' . number_format($p) . '&nbsp;(' . Covid::calc_perc($p, $t) . '%)</td></tr>';
 
 		$rows = '<tr><td>Total Tests: &nbsp;' . number_format($total_tests) . '</td><td>Positive:' . number_format($total_pos) . '&nbsp;(' . round(($total_pos / $total_tests * 100), 2) . '%)</td></tr>' . $rows;
 
