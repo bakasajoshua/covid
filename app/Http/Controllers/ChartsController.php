@@ -166,11 +166,11 @@ class ChartsController extends Controller
 		$chart['outcomes']['name'] = "Cases By Result";
 		$chart['outcomes']['colorByPoint'] = true;
 
-		$chart['outcomes']['data'][0]['name'] = "Negative";
-		$chart['outcomes']['data'][1]['name'] = "Positive";
+		$chart['outcomes']['data'][0]['name'] = "Positive";
+		$chart['outcomes']['data'][1]['name'] = "Negative";
 
-		$chart['outcomes']['data'][0]['y'] = (int) ($total_tests - $total_pos);
-		$chart['outcomes']['data'][1]['y'] = (int) $total_pos;
+		$chart['outcomes']['data'][0]['y'] = (int) $total_pos;
+		$chart['outcomes']['data'][1]['y'] = (int) ($total_tests - $total_pos);
 
 
 		return view('charts.pie_chart', $chart);
