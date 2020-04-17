@@ -57,29 +57,7 @@ class ChartsController extends Controller
 
 	public function test()
 	{
-		$rows = CovidSample::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
-			->leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
-			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
-			->groupBy('county_id')
-			->orderBy('value', 'desc')
-			->get();
-
-		$data = [];
-		$positives = 0;
-
-		foreach ($rows as $key => $row) {
-			$data[] = [
-				'id' => $row->id,
-				'name' => $row->name,
-				'value' => (int) $row->value,
-			];
-			$positives += $row->value;
-		}
-
-		$total = CovidSample::selectRaw("count(covid_samples.id) as value")->first()->value;
-
-
-		return view('pages.data', compact('data', 'positives', 'total'));
+		return view('pages.test');
 	}
 
 	public function daily_view()

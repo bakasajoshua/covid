@@ -19,10 +19,12 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/first', 'ChartController@index')->name('index');
-Route::get('/test', 'ChartController@test')->name('test');
 // Route::get('/', 'ChartController@main')->name('main');
 Route::middleware(['auth'])->group(function(){
+
+	Route::get('/first', 'ChartController@index')->name('index');
+	Route::get('/test', 'ChartsController@test')->name('test');
+
 	Route::get('/', 'ChartsController@homepage')->name('homepage');
 
 	Route::get('/labs', 'ChartsController@labs')->name('labs');
@@ -33,7 +35,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('gender_pie', 'ChartsController@gender_pie')->name('gender_pie');
 		Route::get('pyramid', 'ChartsController@pyramid')->name('pyramid');
 		Route::get('outcomes', 'ChartsController@outcomes')->name('outcomes');
-		Route::get('map_data', 'ChartController@map_data')->name('map_data');
+		Route::get('map_data', 'ChartsController@map_data')->name('map_data');
 	});
 
 	Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
