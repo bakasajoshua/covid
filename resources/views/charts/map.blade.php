@@ -70,7 +70,7 @@
 					name: 'Confirmed Cases',
 					dataLabels: {
 						enabled: true,
-						format: '<b>{point.properties.name}</b>'
+						format: '{point.properties.name}'
 					},
 					mapData: data,
 					data: {!! json_encode($data) !!},
