@@ -1,9 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="row text-center text-dark">
-		<div class="card p-3 offset-md-4 col-md-4 my-1 text-white bg-info"> Kenya Covid-19 Situation  </div>
-	</div>
 
 	<div class="row text-center text-dark">			
 		<div class="card p-2 mb-3 col-md-2">
