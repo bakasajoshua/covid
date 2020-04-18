@@ -11,7 +11,7 @@
 			<b> Current In Hospital </b>
 			<span class="text-warning"> {{ number_format($hospitalised) }} ({{ round($hospitalised / $positives * 100) }}%) </span> 
 		</div>
-		<div class="card p-2 col-md-4 my-1 text-white bg-info"> 
+		<div class="card p-2 col-md-4 text-white bg-info"> 
 			Kenya Covid-19 Situation  
 		</div>
 		<div class="card p-2 mb-3 col-md-2"> 
