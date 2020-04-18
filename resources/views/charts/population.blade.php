@@ -62,6 +62,16 @@
                     y: -20
                 }
             },
+            colors: [
+                '#F2784B',
+                '#1BA39C',
+                '#913D88',
+                '#4d79ff',
+                '#80ff00',
+                '#ff8000',
+                '#00ffff',
+                '#ff4000'
+            ],
             series: {!! json_encode($outcomes) !!}
         });
     });
