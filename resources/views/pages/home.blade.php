@@ -6,19 +6,22 @@
 	</div>
 
 	<div class="row text-center text-dark">			
-		<div class="card p-2 mb-3 col-md-3">
+		<div class="card p-2 mb-3 col-md-2">
 			<b> Confirmed Cases </b>
 			<span class="text-secondary"> {{ number_format($positives) }} </span> 
 		</div>	
-		<div class="card p-2 mb-3 col-md-3">
+		<div class="card p-2 mb-3 col-md-2">
 			<b> Current In Hospital </b>
 			<span class="text-warning"> {{ number_format($hospitalised) }} ({{ round($hospitalised / $positives * 100) }}%) </span> 
 		</div>
-		<div class="card p-2 mb-3 col-md-3"> 
+		<div class="card p-2 col-md-4 my-1 text-white bg-info"> 
+			Kenya Covid-19 Situation  
+		</div>
+		<div class="card p-2 mb-3 col-md-2"> 
 			<b> Discharged </b> 
 			<span class="text-success"> {{ number_format($discharged) }} ({{ round($discharged / $positives * 100) }}%) </span> 
 		</div>				
-		<div class="card p-2 mb-3 col-md-3"> 
+		<div class="card p-2 mb-3 col-md-2"> 
 			<b> Deceased </b>
 			@if($deceased)
 				<span class="text-danger"> {{ number_format($deceased) }} ({{ round($deceased / $positives * 100) }}%) </span>
