@@ -25,7 +25,7 @@ class CovidSampleController extends Controller
                 if($param == 1) return $query->with(['lab'])->where('result', 1);
                 else if($param == 2) return $query->with(['lab'])->whereIn('result', [2, 8]);
                 return $query->whereNull('receivedstatus');
-            });
+            })->where('repeatt', 0);
         $paginate = false;
 
         if($param) $samples = $query->get();
