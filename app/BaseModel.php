@@ -8,8 +8,6 @@ class BaseModel extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at', '_token', '_method'];
 
-    
-
     public function get_prop_name($coll, $attr, $attr2='name')
     {
         if(!$this->$attr) return '';

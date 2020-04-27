@@ -41,6 +41,10 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
 	Route::middleware(['only_utype:3'])->group(function(){
 		Route::resource('covid_sample', 'CovidSampleController');
+		Route::prefix('kits')->name('covidconsumption')->group(function(){
+			Route::get('/', 'CovidConsumptionController@index');
+			Route::post('consumption', 'CovidConsumptionController@submitConsumption');
+		});
 	});
 
 	Route::middleware(['only_utype:1'])->group(function(){
