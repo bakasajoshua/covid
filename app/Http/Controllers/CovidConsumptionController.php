@@ -14,7 +14,7 @@ class CovidConsumptionController extends Controller
     public function index()
     {
     	$time = $this->getPreviousWeek();
-    	$tests = CovidSample::whereBetween('datetested', [$time->week_start, $time->week_end])->where('receivedstatus', '<>', 2)->get()->count();
+    	$tests = CovidSample::whereBetween('datetested', [$time->week_start, $time->week_end])->where('receivedstatus', '<>', 2)->where('lab_id', '=', auth()->user()->lab_id)->get()->count();
         
     	return view('tables.consumption',
     		['covidkits' => CovidKit::where('type', '<>', 'Kit')->get(),
@@ -54,9 +54,13 @@ class CovidConsumptionController extends Controller
     	
     }
 
-    public function report(Request $request)
+    public function report(Request $request, $consumption = null)
     {
-    	return view('reports.covidconsumption', ['consumptions' => CovidConsumption::get()]);
+        if (isset($consumption)){
+            $consumption = CovidConsumption::findOrFail($consumption);
+            return view('tables.consumptionreport', ['consumption' => $consumption]);
+        }
+    	return view('tables.showconsumption', ['consumptions' => CovidConsumption::where('lab_id', '=', auth()->user()->lab_id)->get()]);
     }
 
     private function buildConsumptionData($request)
