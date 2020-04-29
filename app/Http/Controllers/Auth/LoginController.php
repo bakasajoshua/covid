@@ -28,11 +28,11 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/';
-    // protected function redirectTo()
-    // {
-    //     return $this->postLoginChecks();
-    // }
+    // protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        return $this->postLoginChecks();
+    }
 
     /**
      * Create a new controller instance.
@@ -46,6 +46,7 @@ class LoginController extends Controller
 
     private function postLoginChecks()
     {
+        dd('Kill it all here');
         if (null !== auth()->user()->lab_id) {
             $time = $this->getPreviousWeek();
             $consumption = CovidConsumption::whereDate('start_of_week', $time->week_start)->where('lab_id', auth()->user()->lab_id)->get();
