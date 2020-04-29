@@ -60,7 +60,12 @@ class CovidConsumptionController extends Controller
             $consumption = CovidConsumption::findOrFail($consumption);
             return view('tables.consumptionreport', ['consumption' => $consumption]);
         }
-    	return view('tables.showconsumption', ['consumptions' => CovidConsumption::where('lab_id', '=', auth()->user()->lab_id)->get()]);
+        $user = auth()->user();
+    	return view('tables.showconsumption',
+            ['consumptions' => CovidConsumption::when($user, function ($query) use ($user) {
+                                                if (null !== $user->lab_id)
+                                                    return $query->where('lab_id', '=', $user->lab_id);
+                                            })->get()]);
     }
 
     private function buildConsumptionData($request)
@@ -80,19 +85,19 @@ class CovidConsumptionController extends Controller
 
     private function getPreviousWeek()
     {
-    	$date = strtotime('-7 days', strtotime(date('Y-m-d')));
-    	return $this->getStartAndEndDate(date('W', $date),
-    							date('Y', $date));
+        $date = strtotime('-7 days', strtotime(date('Y-m-d')));
+        return $this->getStartAndEndDate(date('W', $date),
+                                date('Y', $date));
     }
 
     private function getStartAndEndDate($week, $year) {
-		$dto = new \DateTime();
-		$dto->setISODate($year, $week);
-		$ret['week_start'] = $dto->format('Y-m-d');
-		$dto->modify('+6 days');
-		$ret['week_end'] = $dto->format('Y-m-d');
-		$ret['week'] = date('W', strtotime($ret['week_start']));
-		return (object)$ret;
-	}
+        $dto = new \DateTime();
+        $dto->setISODate($year, $week);
+        $ret['week_start'] = $dto->format('Y-m-d');
+        $dto->modify('+6 days');
+        $ret['week_end'] = $dto->format('Y-m-d');
+        $ret['week'] = date('W', strtotime($ret['week_start']));
+        return (object)$ret;
+    }
 }
 
