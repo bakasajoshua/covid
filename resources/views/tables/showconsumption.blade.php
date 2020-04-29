@@ -44,7 +44,7 @@
                         </tr>
                     @empty
                     	<tr>
-                    		<td>No Consumption data submitted</td>
+                    		<td colspan="5">No Consumption data submitted</td>
                     	</tr>
                     @endforelse
                     </tbody>
