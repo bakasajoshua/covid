@@ -81,6 +81,10 @@
 									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/create">Create Sample</a>
 								</li>
 
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/kits/report">Kits</a>
+								</li>
+
 							@endif
 
 							@if(in_array(auth()->user()->user_type_id, [1]))

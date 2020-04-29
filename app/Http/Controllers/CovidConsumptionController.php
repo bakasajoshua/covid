@@ -54,7 +54,7 @@ class CovidConsumptionController extends Controller
     	
     }
 
-    public function reports(Request $request)
+    public function report(Request $request)
     {
     	return view('reports.covidconsumption', ['consumptions' => CovidConsumption::get()]);
     }

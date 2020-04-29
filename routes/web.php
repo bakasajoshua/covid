@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::prefix('kits')->name('covidconsumption')->group(function(){
 			Route::get('/', 'CovidConsumptionController@index');
 			Route::post('consumption', 'CovidConsumptionController@submitConsumption');
+			Route::get('report', 'CovidConsumptionController@report');
 		});
 	});
 
