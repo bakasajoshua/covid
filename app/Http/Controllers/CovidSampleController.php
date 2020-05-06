@@ -33,8 +33,8 @@ class CovidSampleController extends Controller
             $samples = $query->paginate(20);
             $paginate = true;
         }
-        $results = DB::table('lab-nat.results')->get();
-        $received_statuses = DB::table('lab-nat.receivedstatus')->get();
+        $results = DB::table('national_db.results')->get();
+        $received_statuses = DB::table('national_db.receivedstatus')->get();
         $test_types = DB::table('covid_test_types')->get();
         return view('tables.samples', compact('samples', 'results', 'received_statuses', 'test_types', 'paginate', 'param'));
     }
