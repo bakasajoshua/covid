@@ -51,6 +51,10 @@ Route::middleware(['auth'])->group(function(){
 		Route::resource('user', 'UserController');
 	});
 
+	Route::middleware(['only_utype:1,2'])->group(function(){
+		Route::any('kits/report/daily', 'CovidReportController@index');
+	});
+
 	Route::middleware(['only_utype:1,3'])->group(function(){
 		Route::resource('user', 'UserController');
 		Route::get('kits/report/{consumption?}', 'CovidConsumptionController@report');

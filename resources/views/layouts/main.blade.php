@@ -88,7 +88,9 @@
 							@endif
 
 							@if(in_array(auth()->user()->user_type_id, [1]))
-
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/kits/report/daily">Daily Reports</a>
+								</li>
 								<li class="nav-item text-dark">
 									<a class="nav-link text-dark font-weight-bold" href="/user"> Users</a>
 								</li>

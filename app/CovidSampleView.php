@@ -11,6 +11,16 @@ class CovidSampleView extends BaseModel
         return $this->belongsTo('App\Lab', 'lab_id');
     }
 
+    public function travel()
+    {
+        return $this->belongsTo('App\CovidTravel', 'sample_id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\CovidPatient', 'patient_id');
+    }
+
     
     /**
      * Get the patient's gender
