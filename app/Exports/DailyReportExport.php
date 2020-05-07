@@ -89,7 +89,7 @@ class DailyReportExport implements FromCollection
 	{
 		$data = [['Testing Lab', 'S/N', 'Name', 'Age', 'Sex', 'ID/ Passport Number', 'Justification', 'Health Status',
 				'Telephone Number', 'County of Residence', 'Sub-County', 'Travel History (Y/N)',
-				'Where from', 'history of contact with confirmed case', 'Facility Name (Quarantine /health facility)', 'Name of Confirmed Case', 'Worksheet Number', 'Date Collected', 'Date Tested', 'Result', 'Test Type'
+				'Where from', 'history of contact with confirmed case', 'Facility Name (Quarantine /health facility)', 'Name of Confirmed Case', 'Date Collected', 'Date Tested', 'Result', 'Test Type'
 				]];
 		$count = 1;
 		$a = ['covid_justifications', 'health_statuses'];
@@ -125,7 +125,7 @@ class DailyReportExport implements FromCollection
 			$sample->get_prop_name($lookups['covid_justifications'], 'justification'),
 			$sample->get_prop_name($lookups['health_statuses'], 'health_status'),
 			$sample->phone_no ?? '',
-			$sample->countyname ?? '',
+			$sample->countyname ??  $sample->county ?? '',
 			$sample->subcountyname ?? $sample->subcounty ?? '',
 
 			$travelled,
@@ -133,7 +133,6 @@ class DailyReportExport implements FromCollection
 			"",
 			$sample->quarantine_site ?? $sample->facilityname ?? '',
 			"",
-			$sample->worksheet_id ?? '',
 			$sample->datecollected ?? '',
 			$sample->datetested ?? '',
 			$sample->result_name,
