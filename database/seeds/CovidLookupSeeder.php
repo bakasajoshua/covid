@@ -30,18 +30,19 @@ class CovidLookupSeeder extends Seeder
 			['id' => 5, 'name' => '4th Follow Up'],
 			['id' => 6, 'name' => '5th Follow Up'],
 			['id' => 7, 'name' => 'Not Specified'],
+			['id' => 8, 'name' => 'Repeat'],
 		]);
-
-		
+    	
 		DB::statement("DROP TABLE IF EXISTS `quarantine_sites`;");
-		DB::statement("
-			CREATE TABLE `quarantine_sites` (
+		DB::statement("CREATE TABLE `quarantine_sites` (
 				`id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(100) DEFAULT NULL,
 				`email` varchar(100) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");
+
+		DB::table('quarantine_sites')->insert([
 			['id' => 1, 'name' => 'Infectious Disease Unit-KNH IDU', 'email' => 'mwangimilkahke@gmail.com'],
 			['id' => 2, 'name' => 'Kenyatta University - (KU)', 'email' => ''],
 			['id' => 3, 'name' => 'Kenya School of Government - (KSG)', 'email' => ''],
@@ -121,6 +122,17 @@ class CovidLookupSeeder extends Seeder
 			['id' => 77, 'name' => 'Bluu Nile Hotel Kisii', 'email' => ''],
 			['id' => 78, 'name' => 'Scoops & Smiles Ice Cream', 'email' => ''],
 			['id' => 79, 'name' => 'Coffee Shop Kisii', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+			// ['id' => , 'name' => '', 'email' => ''],
+		]);
+
 
 
 		DB::statement("DROP TABLE IF EXISTS `covid_justifications`;");
