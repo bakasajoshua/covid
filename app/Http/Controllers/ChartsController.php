@@ -30,30 +30,6 @@ class ChartsController extends Controller
 		return view('pages.home', compact('positives', 'deceased', 'hospitalised', 'discharged'));
 	}
 
-	public function main()
-	{
-		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
-			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
-			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
-			->groupBy('county_id')
-			->get();
-
-		$data = [];
-		$positives = 0;
-
-		foreach ($rows as $key => $row) {
-			$data[] = [
-				'id' => $row->id,
-				'name' => $row->name,
-				'value' => (int) $row->value,
-			];
-			$positives += $row->value;
-		}
-
-		$total = CovidSample::selectRaw("count(covid_samples.id) as value")->first()->value;
-
-		return view('pages.data', compact('data', 'positives', 'total'));
-	}
 
 	public function test()
 	{
@@ -106,7 +82,7 @@ class ChartsController extends Controller
 		$chart['div'] = Str::random(15);
 
 		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
-			->join('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->join('countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
 			->groupBy('county_id')
 			->get();
@@ -229,7 +205,7 @@ class ChartsController extends Controller
 	public function map_data()
 	{
 		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
-			->leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
 			->groupBy('county_id')
 			->get();

@@ -33,8 +33,8 @@ class CovidSampleController extends Controller
             $samples = $query->paginate(20);
             $paginate = true;
         }
-        $results = DB::table('national_db.results')->get();
-        $received_statuses = DB::table('national_db.receivedstatus')->get();
+        $results = DB::table('results')->get();
+        $received_statuses = DB::table('receivedstatus')->get();
         $test_types = DB::table('covid_test_types')->get();
         return view('tables.samples', compact('samples', 'results', 'received_statuses', 'test_types', 'paginate', 'param'));
     }
@@ -92,8 +92,8 @@ class CovidSampleController extends Controller
     public function edit(CovidSample $covidSample)
     {
         // if($covidSample->result) abort(400);
-        $results = DB::table('national_db.results')->get();
-        $received_statuses = DB::table('national_db.receivedstatus')->get();
+        $results = DB::table('results')->get();
+        $received_statuses = DB::table('receivedstatus')->get();
         return view('forms.sample', compact('covidSample', 'results', 'received_statuses'));
     }
 
