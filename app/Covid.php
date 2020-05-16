@@ -19,12 +19,13 @@ class Covid
 
     public static function covid_form()
     {
-        $tables = ['identifier_types', 'health_statuses', 'covid_justifications', 'covid_test_types', 'covid_symptoms', 'observed_signs', 'underlying_conditions', 'covid_isolations', 'covid_sample_types', 'national_db.viralrejectedreasons', 'national_db.receivedstatus', 'national_db.gender', 'national_db.results', 'national_db.countys'];
+        $tables = ['identifier_types', 'health_statuses', 'covid_justifications', 'covid_test_types', 'covid_symptoms', 'observed_signs', 'underlying_conditions', 'covid_isolations', 'covid_sample_types', 'viralrejectedreasons', 'receivedstatus', 'gender', 'results', 'countys'];
 
         $data = [];
 
         foreach ($tables as $key => $value) {
-            $data[str_replace('national_db.', '', $value)] = DB::table($value)->get();
+            // $data[str_replace('national_db.', '', $value)] = DB::table($value)->get();
+            $data[$value] = DB::table($value)->get();
         }
         return $data;
     }
