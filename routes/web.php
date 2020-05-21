@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/new', function () {
+/*Route::get('/new', function () {
     return view('layouts.main');
-});
+});*/
 
 Auth::routes();
+
+Route::get('/dash_labs', 'ChartsController@dashboard_labs')->name('dashboard_labs');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 

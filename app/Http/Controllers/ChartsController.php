@@ -299,4 +299,75 @@ class ChartsController extends Controller
 		return view('pages.labs', compact('data', 'samples'));		
 	}
 
+
+
+	public function dashboard_labs()
+	{
+		$prev_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', '<', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
+		->get();
+
+		$new_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
+		->get();
+
+		$pending_samples = CovidSample::selectRaw('lab_id, count(id) as value')
+		->where(['repeatt' => 0])
+		// ->whereNotNull('original_sample_id')
+		->whereNull('receivedstatus')
+		->groupBy('lab_id')
+		->orderBy('lab_id')
+		->get();
+
+
+		$labs = DB::table('labs')->where('id', '<', 10)->where('active', 1)->get();
+
+		$lab = null;
+		$data = [];
+		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'pending' => 0, 'total' => 0];
+
+		foreach ($labs as $key => $value) {
+			$lab = $value->name;
+
+			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $value->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->datetested ?? '';
+
+			$prev_presumed_pos = $prev_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
+			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$prev_pos += $prev_presumed_pos;
+			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
+
+			$new_presumed_pos = $new_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
+			$new_pos = $new_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$new_pos += $new_presumed_pos;
+			$new_total = ($new_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $new_pos;
+
+			$pos = $prev_pos + $new_pos;
+			$total = $prev_total + $new_total;
+
+			$pending = $pending_samples->where('lab_id', $value->id)->first()->value ?? 0;
+
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated', 'pending');
+
+			$total_array['prev_pos'] += $prev_pos;
+			$total_array['prev_total'] += $prev_total;
+
+			$total_array['new_pos'] += $new_pos;
+			$total_array['new_total'] += $new_total;
+
+			$total_array['pos'] += $pos;			
+			$total_array['total'] += $total;			
+			$total_array['pending'] += $pending;			
+		}
+		$data[] = $total_array;
+		return view('tables.labs', compact('data', 'samples'));		
+	}
+
 }
