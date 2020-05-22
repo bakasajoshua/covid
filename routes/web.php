@@ -16,9 +16,9 @@
 });*/
 
 Auth::routes();
-
-Route::get('/dash_labs', 'ChartsController@dashboard_labs')->name('dashboard_labs');
-
+Route::middleware(['cors'])->group(function(){
+	Route::get('/dash_labs', 'ChartsController@dashboard_labs')->name('dashboard_labs');
+});
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/', 'ChartController@main')->name('main');
