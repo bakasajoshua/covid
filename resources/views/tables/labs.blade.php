@@ -19,7 +19,7 @@
 					<td> {{ number_format($row['new_total']) }} </td>
 					<td> {{ number_format($row['total']) }} </td>
 					<td> {{ number_format($row['pos']) }} </td>
-					<td> {{ date('d-M-Y', $row['last_updated']) }} </td>
+					<td> {{ $row['last_updated'] }} </td>
 				</tr>
 			@endforeach
 		</tbody>
