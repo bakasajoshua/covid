@@ -35,7 +35,7 @@ $api->version('v1', function (Router $api) {
 
             $api->post('logout', 'LogoutController@logout');
             $api->post('refresh', 'RefreshController@refresh');
-            $api->get('me', 'UserController@me');
+            // $api->get('me', 'UserController@me');
         });
 
         $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
