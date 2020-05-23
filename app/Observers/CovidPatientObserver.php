@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\CovidPatient;
+use App\ViewFacility;
+use DB;
 
 class CovidPatientObserver
 {
@@ -14,7 +16,18 @@ class CovidPatientObserver
      */
     public function saving(CovidPatient $covidPatient)
     {
-        //
+        if($covidPatient->county){
+            $county = DB::table('countys')->where('name', $covidPatient->county)->first();
+            $covidPatient->county_id = $county->id ?? null;
+        }
+        if(!$covidPatient->county && $covidPatient->county_id){
+            $county = DB::table('countys')->where('id', $covidPatient->county_id)->first();
+            $covidPatient->county = $county->name ?? null;            
+        }
+        if($covidPatient->facility_id){
+            $facility = ViewFacility::find($covidPatient->facility_id);
+            if($facility) $covidPatient->county_id = $facility->county_id;
+        }
     }
 
     /**

@@ -14,13 +14,9 @@ use Dingo\Api\Routing\Router;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-
-
-
+});*/
 
 /** @var Router $api */
 $api = app(Router::class);
@@ -28,7 +24,7 @@ $api = app(Router::class);
 $api->version('v1', function (Router $api) {
     $api->group(['namespace' => 'App\\Api\\V1\\Controllers'], function(Router $api) {
         $api->group(['prefix' => 'auth'], function(Router $api) {
-            $api->post('signup', 'SignUpController@signUp');
+            // $api->post('signup', 'SignUpController@signUp');
 
             $api->group(['middleware' => 'api.throttle', 'limit' => 1, 'expires' => 1], function(Router $api) {
                 $api->post('login', 'LoginController@login');
@@ -50,5 +46,15 @@ $api->version('v1', function (Router $api) {
             });   
             $api->resource('covid_sample', 'CovidSampleController');
         });
+
+        $api->group(['prefix' => 'covid'], function(Router $api) {
+            $api->post('nhrl', 'CovidController@nhrl');
+
+            $api->post('save_multiple', 'CovidController@save_multiple');
+            $api->post('results/{id}', 'CovidController@results');
+        });
+        
+        $api->resource('covid', 'CovidController');
+        
     });
 });
