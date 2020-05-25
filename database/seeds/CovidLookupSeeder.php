@@ -11,7 +11,7 @@ class CovidLookupSeeder extends Seeder
      */
     public function run()
     {
-
+    	return;
     	
 		DB::statement("DROP TABLE IF EXISTS `quarantine_sites`;");
 		DB::statement("CREATE TABLE `quarantine_sites` (
@@ -151,7 +151,7 @@ class CovidLookupSeeder extends Seeder
 			['id' => 125, 'synched' => 1, 'name' => 'Kitengela', 'email' => null],
 		]);
 
-		// return;
+		return;
 
 
 		DB::statement("DROP TABLE IF EXISTS `covid_test_types`;");
