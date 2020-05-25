@@ -41,6 +41,52 @@
             "name": "Rejected"
         }
     ],
+    "covid_justifications": [
+        {
+            "id": 1,
+            "name": "Contact with confirmed case"
+        },
+        {
+            "id": 2,
+            "name": "Presented at health facility"
+        },
+        {
+            "id": 3,
+            "name": "Surveillance"
+        },
+        {
+            "id": 4,
+            "name": "Point of entry detection"
+        },
+        {
+            "id": 5,
+            "name": "Repatriation"
+        },
+        {
+            "id": 6,
+            "name": "Other"
+        },
+        {
+            "id": 7,
+            "name": "Surveillance and Quarantine"
+        },
+        {
+            "id": 8,
+            "name": "Recent travel"
+        },
+        {
+            "id": 9,
+            "name": "Health Care Worker"
+        },
+        {
+            "id": 10,
+            "name": "Truck Driver"
+        },
+        {
+            "id": 11,
+            "name": "Food Handlers"
+        }
+    ],
     "covid_sample_types": [
         {
             "id": 1,
@@ -153,6 +199,14 @@
         {
             "id": 6,
             "name": "5th Follow Up"
+        },
+        {
+            "id": 7,
+            "name": "Not Specified"
+        },
+        {
+            "id": 8,
+            "name": "Repeat"
         }
     ],
     "health_statuses": [
@@ -311,64 +365,6 @@
         {
             "id": 6,
             "name": "Other"
-        }
-    ],
-    "labs": [
-        {
-            "id": 1,
-            "name": "KEMRI,Nairobi HIV Lab"
-        },
-        {
-            "id": 2,
-            "name": "KEMRI CDC HIV\/R Lab,  Kisumu"
-        },
-        {
-            "id": 3,
-            "name": "KEMRI,Alupe HIV Lab"
-        },
-        {
-            "id": 4,
-            "name": "KEMRI\/Walter Reed CRC Lab, Kericho"
-        },
-        {
-            "id": 5,
-            "name": "AMPATH Care Lab, Eldoret"
-        },
-        {
-            "id": 6,
-            "name": "Coast Provincial General Hospital Molecular Lab"
-        },
-        {
-            "id": 7,
-            "name": "National HIV Reference Laboratory, Nairobi"
-        },
-        {
-            "id": 8,
-            "name": "Nyumbani Diagnostic Lab"
-        },
-        {
-            "id": 9,
-            "name": "Kenyatta National Hospial Lab, Nairobi"
-        },
-        {
-            "id": 10,
-            "name": "EDARP, Nairobi"
-        },
-        {
-            "id": 11,
-            "name": "NIC"
-        },
-        {
-            "id": 12,
-            "name": "KEMRI Kilifi"
-        },
-        {
-            "id": 13,
-            "name": "Aga Khan"
-        },
-        {
-            "id": 14,
-            "name": "Lancet"
         }
     ]
 }

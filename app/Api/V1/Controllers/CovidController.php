@@ -4,12 +4,13 @@ namespace App\Api\V1\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\BlankRequest;
-
+use Illuminate\Support\Str;
 
 use App\CovidPatient;
 use App\CovidSample;
 use App\CovidTravel;
 use App\Facility;
+use App\Lab;
 use DB;
 
 /**
@@ -42,9 +43,12 @@ class CovidController extends Controller
      */
     public function index(BlankRequest $request)
     {
-        $apikey = $request->headers->get('apikey');
-        $actual_key = env('COVID_KEY');
-        if($actual_key != $apikey) abort(401);
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        if(!$lab) abort(401);
+        if(Str::contains(url()->current(), 'test')){
+            config(['database.default' => 'test']);
+        }
+
         return CovidSample::with(['patient'])->where('repeatt', 0)->paginate();
     }
 
@@ -88,21 +92,30 @@ class CovidController extends Controller
      */
     public function store(BlankRequest $request)
     {
-        $apikey = $request->headers->get('apikey');
-        $actual_key = env('COVID_KEY');
-        if($actual_key != $apikey) abort(401);
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        if(!$lab) abort(401);
+        if(Str::contains(url()->current(), 'test')){
+            config(['database.default' => 'test']);
+        }
 
         $p = new CovidPatient;
         $p->fill($request->only(['case_id', 'nationality', 'identifier_type_id', 'identifier', 'patient_name', 'justification', 'county', 'subcounty', 'ward', 'residence', 'dob', 'sex', 'occupation', 'health_status', 'date_symptoms', 'date_admission', 'date_isolation', 'date_death']));
-        $p->cif_patient_id = $request->input('patient_id');
+        if($lab->id == 11) $p->cif_patient_id = $request->input('patient_id');
+        else{
+            $p->nhrl_patient_id = $request->input('patient_id');
+        }
         $p->facility_id = Facility::locate($request->input('facility'))->first()->id ?? null;
         // $p->save();
 
         $s = new CovidSample;
         $s->fill($request->only(['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected']));
         $s->patient_id = $p->id;
-        $s->cif_sample_id = $request->input('specimen_id');
-        $s->lab_id = 11;
+        if($lab->id == 11) $s->cif_sample_id = $request->input('specimen_id');
+        else{
+            $s->nhrl_sample_id = $request->input('specimen_id');
+        }
+        
+        $s->lab_id = $lab->id;
         // $s->save();
 
         return response()->json([
@@ -128,13 +141,17 @@ class CovidController extends Controller
      */
     public function show(BlankRequest $request, $id)
     {
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        if(!$lab) abort(401);
+        if(Str::contains(url()->current(), 'test')){
+            config(['database.default' => 'test']);
+        }
 
-        $apikey = $request->headers->get('apikey');
-        $actual_key = env('COVID_KEY');
-        if($actual_key != $apikey) abort(401);
+        $column = 'nhrl_sample_id';
+        if($lab->id == 11) $column = 'cif_sample_id';
 
         // $s = CovidSample::findOrFail($id);
-        $s = CovidSample::where(['cif_sample_id' => $id])->first();
+        $s = CovidSample::where([$column => $id])->first();
         if(!$s) abort(404);
         $s->load(['patient']);
 
@@ -196,9 +213,11 @@ class CovidController extends Controller
      */
     public function save_multiple(BlankRequest $request)
     {
-        $apikey = $request->headers->get('apikey');
-        $actual_key = env('COVID_KEY');
-        if($actual_key != $apikey) abort(401);
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        if(!$lab) abort(401);
+        if(Str::contains(url()->current(), 'test')){
+            config(['database.default' => 'test']);
+        }
 
         $input_samples = $request->input('samples', []);
         $patients = $samples = [];
@@ -231,7 +250,7 @@ class CovidController extends Controller
             $s->fill(array_only($row_array, ['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'datecollected', ]));
             $s->patient_id = $p->id;
             $s->cif_sample_id = $row_array['specimen_id'] ?? null;
-            $s->lab_id = 11;
+            $s->lab_id = $lab->id;
             $s->save();
 
             $samples[] = $s;
