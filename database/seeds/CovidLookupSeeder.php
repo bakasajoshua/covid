@@ -151,7 +151,7 @@ class CovidLookupSeeder extends Seeder
 			['id' => 125, 'synched' => 1, 'name' => 'Kitengela', 'email' => null],
 		]);
 
-		return;
+		// return;
 
 
 		DB::statement("DROP TABLE IF EXISTS `covid_test_types`;");
@@ -411,6 +411,7 @@ class CovidLookupSeeder extends Seeder
 			['id' => 7, 'name' => 'Other'],
 		]);
 
+		return;
 
 		DB::statement("DROP TABLE IF EXISTS `cities`;");
 		DB::statement("

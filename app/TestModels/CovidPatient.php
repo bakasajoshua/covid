@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use App\BaseModel;
 
 class CovidPatient extends BaseModel
 {
