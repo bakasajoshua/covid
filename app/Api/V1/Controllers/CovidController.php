@@ -49,7 +49,12 @@ class CovidController extends Controller
             config(['database.default' => 'test']);
         }
 
-        return CovidSample::with(['patient'])->where('repeatt', 0)->paginate();
+        return CovidSample::with(['patient'])
+            ->where('repeatt', 0)
+            ->when($lab->id != 11, function($query) use ($lab){
+                return $query->where('lab_id', $lab->id);
+            })
+            ->paginate();
     }
 
     
