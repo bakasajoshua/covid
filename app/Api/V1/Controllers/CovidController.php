@@ -105,7 +105,7 @@ class CovidController extends Controller
             $p->nhrl_patient_id = $request->input('patient_id');
         }
         $p->facility_id = Facility::locate($request->input('facility'))->first()->id ?? null;
-        // $p->save();
+        $p->save();
 
         $s = new CovidSample;
         $s->fill($request->only(['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected']));
@@ -116,7 +116,7 @@ class CovidController extends Controller
         }
         
         $s->lab_id = $lab->id;
-        // $s->save();
+        $s->save();
 
         return response()->json([
           'status' => 'ok',
