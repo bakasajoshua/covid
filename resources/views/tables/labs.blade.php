@@ -7,8 +7,7 @@
 				<th> Cumulative number of samples tested as at last update </th>
 				<th>Number of samples tested since last update </th>
 				<th>Cumulative number of samples tested to date </th>
-				<th>Positives </th>
-				<th>Last Updated </th>
+				<th>Cumulative Positives </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,7 +18,6 @@
 					<td> {{ number_format($row['new_total']) }} </td>
 					<td> {{ number_format($row['total']) }} </td>
 					<td> {{ number_format($row['pos']) }} </td>
-					<td> {{ $row['last_updated'] }} </td>
 				</tr>
 			@endforeach
 		</tbody>
