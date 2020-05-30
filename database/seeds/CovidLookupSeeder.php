@@ -214,6 +214,8 @@ class CovidLookupSeeder extends Seeder
 			['id' => 1, 'name' => 'Admin'],
 			['id' => 2, 'name' => 'National'],
 			['id' => 3, 'name' => 'Lab'],
+			['id' => 4, 'name' => 'Verifier Creator'],
+			['id' => 5, 'name' => 'Verifier'],
 		]);
 
 		DB::statement("DROP TABLE IF EXISTS `age_categories`;");
