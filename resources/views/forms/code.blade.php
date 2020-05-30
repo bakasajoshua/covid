@@ -8,8 +8,9 @@
             </div>
 
             <div class="row">
+                You can take a screen shot and save it.
                 Certificate Number: &nbsp;&nbsp;&nbsp; {{ $sample->id }} <br />
-                {!! QrCode::size(100)->generate($sample->id) !!}
+                {!! QrCode::size(400)->generate($sample->id) !!}
             </div>
 
             <hr>
