@@ -8,8 +8,8 @@
             </div>
 
             <div class="row">
-                Certificate Number: &nbsp;&nbsp;&nbsp; {{ $sample->id }}
-                {!! QrCode::generate($sample->id) !!}
+                Certificate Number: &nbsp;&nbsp;&nbsp; {{ $sample->id }} <br />
+                {!! QrCode::size(100)->generate($sample->id) !!}
             </div>
 
             <hr>
@@ -24,9 +24,14 @@
 
     @endif
 
+
+
     <div class="row">
-        <a href="/verify">Go Back</a>
-        
+        <a href="/verify">
+            <button class="btn btn-primary">
+                Go Back                
+            </button>
+        </a>        
     </div>
 
 @endsection
