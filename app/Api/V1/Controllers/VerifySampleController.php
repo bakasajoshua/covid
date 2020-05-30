@@ -40,6 +40,7 @@ class VerifySampleController extends Controller
             'area_of_residence' => $sample->patient->residence,
             'date_tested' => $sample->datetested,
             'lab' => $sample->lab->name,
+            'result' => $sample->result_name,
         ], 200);        
     }
 
