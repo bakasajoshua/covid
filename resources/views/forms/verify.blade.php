@@ -8,7 +8,7 @@
         <form class="user" method="POST" action="/verify">
             @csrf
             <div class="form-group row">
-                <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Identifier..." name="identifier" value="{{ old('identifier') }}" required autocomplete="identifier" autofocus>
+                <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Identifier..." name="identifier" value="{{ old('identifier') }}" required autocomplete="identifier" autofocus>
                 @error('identifier')
                     <span class="alert alert-danger" role="alert">
                         <strong>{{ $message }}</strong>
@@ -18,7 +18,7 @@
 
 
             <button type="submit" class="btn btn-primary btn-user btn-block">
-                Login
+                Submit
             </button>
         </form>
         <hr>
