@@ -18,7 +18,7 @@ class VerifyController extends Controller
 	{
 		$sample = CovidSampleView::where('identifier', $request->input('identifier'))
 			->where(['repeatt' => 0, 'receivedstatus' => 1])
-			->whereIn('result', [1, 2])
+			->whereIn('result', [1])
 			->orderBy('datetested', 'desc')
 			->first();
 

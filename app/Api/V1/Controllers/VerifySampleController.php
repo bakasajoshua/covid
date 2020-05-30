@@ -40,6 +40,8 @@ class VerifySampleController extends Controller
     {
         $sample = CovidSample::findOrFail($id);
 
+        if($sample->result != 1) abort(404);
+
         return response()->json([
             'status' => 'ok',
             'identifier' => $sample->patient->identifier,
