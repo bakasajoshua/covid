@@ -60,3 +60,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('kits/report/{consumption?}', 'CovidConsumptionController@report');
 	});
 });
+
+Route::get('verify', 'VerifyController@index');
+Route::post('verify', 'VerifyController@qrcode');
+
