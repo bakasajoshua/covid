@@ -40,6 +40,8 @@ $api->version('v1', function (Router $api) {
 
         $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
 
+            $api->get('verify/{id}', 'VerifySampleController@show');
+
             $api->group(['prefix' => 'covid_sample'], function(Router $api) {
                 $api->get('cif', 'CovidSampleController@cif_samples');
                 $api->post('cif', 'CovidSampleController@cif');

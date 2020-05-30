@@ -48,7 +48,7 @@ class LoginController extends Controller
         }
 
         $u = \App\User::where('email', $request->input('email'))->first();
-        if(!in_array($u->user_type_id, [1])) throw new AccessDeniedHttpException();
+        if(!in_array($u->user_type_id, [1, 5])) throw new AccessDeniedHttpException();
 
         return response()
             ->json([
