@@ -15,7 +15,9 @@ class VerifySampleController extends Controller
      *
      * Authorization: bearer {token}
      *
-     * @Get("/{id}")
+     * @Get("/verify/{id}")
+     * @Transaction({
+     * @Request({}, headers={"Authorization": "Bearer {token}"}),
      * @Response(200, body={
      *      "status": "ok",
      *      "identifier": "ID / Passport Number ",
@@ -23,7 +25,15 @@ class VerifySampleController extends Controller
      *      "area_of_residence": "residence",
      *      "date_tested": "YYYY-MM-DD",
      *      "lab": "lab that was tested",
-     *      "result": "positive / negative",
+     *      "result": "Positive / Negative",
+     * }),
+     * @Response(401, body={
+     *      "message": "Token has expired",
+     *      "status_code": 401,
+     * }),
+     * @Response(404, body={
+     *      "status_code": 404,
+     * })
      * })
      */
     public function show($id)
