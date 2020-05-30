@@ -29,6 +29,7 @@ class LoginController extends Controller
      * @Post("/auth/login")
      * @Request({"email": "email", "password": "string"})
      * @Response(200, body={"status": "ok", "token": "token", "expires_in": "ttl in minutes"})
+     * @Response(403, body={"status_code": 403, "message": "403 Forbidden"})
      *
      */
     public function login(LoginRequest $request, JWTAuth $JWTAuth)
