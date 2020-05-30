@@ -24,9 +24,14 @@
 
     @endif
 
+
+
     <div class="row">
-        <a href="/verify">Go Back</a>
-        
+        <a href="/verify">
+            <button class="btn btn-primary">
+                Go Back                
+            </button>
+        </a>        
     </div>
 
 @endsection
