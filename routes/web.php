@@ -27,9 +27,11 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('/first', 'ChartController@index')->name('index');
 	Route::get('/test', 'ChartsController@test')->name('test');
 
-	Route::get('/', 'ChartsController@homepage')->name('homepage');
+	Route::middleware(['only_utype:1,2,3'])->group(function(){
+		Route::get('/', 'ChartsController@homepage')->name('homepage');
 
-	Route::get('/labs', 'ChartsController@labs')->name('labs');
+		Route::get('/labs', 'ChartsController@labs')->name('labs');
+	});
 
 	Route::prefix('charts')->name('charts.')->group(function(){
 		Route::get('daily_view', 'ChartsController@daily_view')->name('daily_view');
@@ -58,3 +60,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('kits/report/{consumption?}', 'CovidConsumptionController@report');
 	});
 });
+
+Route::get('verify', 'VerifyController@index');
+Route::post('verify', 'VerifyController@qrcode');
+
