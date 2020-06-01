@@ -327,6 +327,19 @@ class ChartsController extends Controller
 		->orderBy('lab_id')
 		->get();
 
+		$rejected_samples = CovidSample::selectRaw('lab_id, count(id) as value')
+		->where(['repeatt' => 0, 'receivedstatus' => 2])
+		// ->whereNotNull('original_sample_id')
+		->groupBy('lab_id')
+		->orderBy('lab_id')
+		->get();
+
+		$tat_samples = CovidSample::selectRaw('lab_id, AVG(tat1) AS tat1, AVG(tat2) AS tat2, AVG(tat3) AS tat3, AVG(tat4) AS tat4 ')
+		->where(['repeatt' => 0, 'receivedstatus' => 1])
+		// ->whereNotNull('original_sample_id')
+		->groupBy('lab_id')
+		->orderBy('lab_id')
+		->get();
 
 		$labs = DB::table('labs')->where('id', '<', 10)->where('active', 1)->get();
 
@@ -353,8 +366,14 @@ class ChartsController extends Controller
 			$total = $prev_total + $new_total;
 
 			$pending = $pending_samples->where('lab_id', $value->id)->first()->value ?? 0;
+			$rejected = $rejected_samples->where('lab_id', $value->id)->first()->value ?? 0;
 
-			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated', 'pending');
+			$tat1 = $tat_samples->where('lab_id', $value->id)->first()->tat1 ?? 0;
+			$tat2 = $tat_samples->where('lab_id', $value->id)->first()->tat2 ?? 0;
+			$tat3 = $tat_samples->where('lab_id', $value->id)->first()->tat3 ?? 0;
+			$tat4 = $tat_samples->where('lab_id', $value->id)->first()->tat4 ?? 0;
+
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated', 'pending', 'rejected', 'tat1', 'tat2', 'tat3', 'tat4');
 
 			$total_array['prev_pos'] += $prev_pos;
 			$total_array['prev_total'] += $prev_total;
