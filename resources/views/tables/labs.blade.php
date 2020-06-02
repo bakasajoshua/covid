@@ -25,10 +25,18 @@
 					<td> {{ number_format($row['pos']) }} </td>
 					<td> {{ number_format($row['rejected']) }} </td>
 
-					<td> {{ number_format($row['tat1']) }} </td>
-					<td> {{ number_format($row['tat2']) }} </td>
-					<td> {{ number_format($row['tat3']) }} </td>
-					<td> {{ number_format($row['tat4']) }} </td>
+					@if($row['lab'] == 'Total')
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+					@else
+						<td> {{ number_format($row['tat1']) }} </td>
+						<td> {{ number_format($row['tat2']) }} </td>
+						<td> {{ number_format($row['tat3']) }} </td>
+						<td> {{ number_format($row['tat4']) }} </td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>
