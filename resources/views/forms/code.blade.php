@@ -8,8 +8,8 @@
             </div>
 
             <div class="row">
-                You can take a screen shot and save it.
-                Certificate Number: &nbsp;&nbsp;&nbsp; {{ $sample->id }} <br />
+                You can take a screen shot and save it.  <br />
+                <b> Certificate Number: </b> &nbsp;&nbsp;&nbsp; {{ $sample->id }} <br />
                 {!! QrCode::size(400)->generate($sample->id) !!}
             </div>
 
@@ -28,11 +28,13 @@
 
 
     <div class="row">
-        <a href="/verify">
+        <a href="/verify" class=" text-center">
             <button class="btn btn-primary">
                 Go Back                
             </button>
         </a>        
     </div>
+
+    <
 
 @endsection
