@@ -345,7 +345,7 @@ class ChartsController extends Controller
 
 		$lab = null;
 		$data = [];
-		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'pending' => 0, 'total' => 0];
+		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'pending' => 0, 'total' => 0, 'rejected' => 0, 'tat1' => null, 'tat2' => null, 'tat3' => null, 'tat4' => null];
 
 		foreach ($labs as $key => $value) {
 			$lab = $value->name;
@@ -384,6 +384,7 @@ class ChartsController extends Controller
 			$total_array['pos'] += $pos;			
 			$total_array['total'] += $total;			
 			$total_array['pending'] += $pending;			
+			$total_array['rejected'] += $rejected;			
 		}
 		$data[] = $total_array;
 		return view('tables.labs', compact('data', 'samples'));		
