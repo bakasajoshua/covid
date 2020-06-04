@@ -51,21 +51,24 @@
 					<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow" style="height: 3.25rem;">
 
 						<ul class="nav nav-tabs">
-							<li class="nav-item text-dark">
-								<a class="nav-link text-dark font-weight-bold" href="/"> Home</a>
-							</li>
 
-							<li class="nav-item text-dark">
-								<a class="nav-link text-dark font-weight-bold" href="/labs"> Labs</a>
-							</li>
+							@if(in_array(auth()->user()->user_type_id, [1, 2, 3]))
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/"> Home</a>
+								</li>
 
-							<li class="nav-item text-dark">
-								<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/1">Negative Samples</a>
-							</li>
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/labs"> Labs</a>
+								</li>
 
-							<li class="nav-item text-dark">
-								<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/2">Positive Samples</a>
-							</li>
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/1">Neg Samples</a>
+								</li>
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/covid_sample/index/2">Pos Samples</a>
+								</li>
+							@endif
 
 							@if(in_array(auth()->user()->user_type_id, [1, 3]))
 
@@ -87,7 +90,7 @@
 
 							@endif
 
-							@if(in_array(auth()->user()->user_type_id, [1]))
+							@if(in_array(auth()->user()->user_type_id, [1, 4]))
 
 								<li class="nav-item text-dark">
 									<a class="nav-link text-dark font-weight-bold" href="/user"> Users</a>
@@ -95,6 +98,18 @@
 
 								<li class="nav-item text-dark">
 									<a class="nav-link text-dark font-weight-bold" href="/user/create">Create User</a>
+								</li>
+
+							@endif
+
+							@if(in_array(auth()->user()->user_type_id, [1]))
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/organisation"> Organisations</a>
+								</li>
+
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/organisation/create">Create Organisation</a>
 								</li>
 
 							@endif
