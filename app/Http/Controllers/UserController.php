@@ -15,7 +15,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['user_type', 'lab'])->get();
+        $user = auth()->user();
+        $users = User::with(['user_type', 'lab'])
+        ->when($user->user_type_id == 4, function($query) use($user){
+            return $query->where(['organisation_id' => $user->organisation_id]);
+        })
+        ->get();
         return view('tables.users', compact('users'));   
     }
 
@@ -28,7 +33,8 @@ class UserController extends Controller
     {
         $labs = DB::table('labs')->get();
         $user_types = DB::table('user_types')->get();
-        return view('forms.user', compact('labs', 'user_types'));        
+        $organisations = DB::table('organisations')->get();
+        return view('forms.user', compact('labs', 'user_types', 'organisations'));        
     }
 
     /**
@@ -39,7 +45,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
+        $user = new User;
+        $user->fill($request->all());
+        if(auth()->user()->user_type_id == 4){
+            $user->organisation_id = auth()->user()->organisation_id;
+            $user->user_type_id = 5;
+        }
+        $user->save();
         return back();
     }
 
@@ -64,7 +76,8 @@ class UserController extends Controller
     {
         $labs = DB::table('labs')->get();
         $user_types = DB::table('user_types')->get();
-        return view('forms.user', compact('labs', 'user_types', 'user')); 
+        $organisations = DB::table('organisations')->get();
+        return view('forms.user', compact('labs', 'user_types', 'user', 'organisations')); 
     }
 
     /**
