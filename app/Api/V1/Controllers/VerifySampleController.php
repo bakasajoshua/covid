@@ -45,7 +45,9 @@ class VerifySampleController extends Controller
         return response()->json([
             'status' => 'ok',
             'identifier' => $sample->patient->identifier,
+            'national_id' => $sample->patient->national_id,
             'name' => $sample->patient->patient_name,
+            'sex' => $sample->patient->gender,
             'area_of_residence' => $sample->patient->residence,
             'date_tested' => $sample->datetested,
             'lab' => $sample->lab->name,

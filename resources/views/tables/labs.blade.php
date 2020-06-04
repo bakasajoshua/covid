@@ -30,7 +30,6 @@
 						<td></td>
 						<td></td>
 						<td></td>
-
 					@else
 						<td> {{ number_format($row['tat1']) }} </td>
 						<td> {{ number_format($row['tat2']) }} </td>
