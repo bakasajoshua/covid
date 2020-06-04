@@ -37,6 +37,7 @@ class OrganisationController extends Controller
     public function store(Request $request)
     {
         $organisation = Organisation::create($request->all());
+        return redirect('/organisation');
     }
 
     /**
