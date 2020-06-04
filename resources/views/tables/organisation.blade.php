@@ -5,29 +5,21 @@
 
 			<div class="row text-dark">
 				<div class="card mb-3 col-md-12">
-					<h5 class="card-header">Users</h5>
+					<h5 class="card-header">Organisations</h5>
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
 										<th>Name </th>
-										<th>Email </th>
-										<th>User Type </th>
-										<th>Lab </th>
-										<th>Organisation </th>
 										<th>Edit </th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($users as $user)
+									@foreach($organisations as $organisation)
 										<tr>
-											<td> {{ $user->name }} </td>
-											<td> {{ $user->email }} </td>
-											<td> {{ $user->user_type->name ?? '' }} </td>
-											<td> {{ $user->lab->name ?? '' }} </td>
-											<td> {{ $user->organisation->name ?? '' }} </td>
-											<td> <a href="/user/{{ $user->id }}/edit">Edit</a> </td>
+											<td> {{ $organisation->name }} </td>
+											<td> <a href="/organisation/{{ $organisation->id }}/edit">Edit</a> </td>
 										</tr>
 									@endforeach
 								</tbody>

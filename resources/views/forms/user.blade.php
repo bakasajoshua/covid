@@ -20,9 +20,13 @@
 							@include('partials.input', ['model' => $m, 'prop' => 'password', 'label' => 'Password', 'required' => true, 'input_type' => 'password' ])
 
 
-							@include('partials.select', ['model' => $m, 'prop' => 'user_type_id', 'items' => $user_types, 'required' => true, 'label' => 'User Type'])
+							@if(auth()->user()->user_type_id == 1)
+								@include('partials.select', ['model' => $m, 'prop' => 'user_type_id', 'items' => $user_types, 'required' => true, 'label' => 'User Type'])
 
-							@include('partials.select', ['model' => $m, 'prop' => 'lab_id', 'items' => $labs, 'label' => 'Lab'])
+								@include('partials.select', ['model' => $m, 'prop' => 'organisation_id', 'items' => $organisations, 'label' => 'Organisation'])
+
+								@include('partials.select', ['model' => $m, 'prop' => 'lab_id', 'items' => $labs, 'label' => 'Lab'])
+							@endif
 
 							@include('partials.submit', ['model' => $m])
 							

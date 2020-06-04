@@ -42,23 +42,27 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('map_data', 'ChartsController@map_data')->name('map_data');
 	});
 
-	Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
-	Route::middleware(['only_utype:3'])->group(function(){
+	Route::middleware(['only_utype:2'])->group(function(){
+		Route::get('covid_sample/index/{param}', 'CovidSampleController@index');
 		Route::resource('covid_sample', 'CovidSampleController');
-		Route::prefix('kits')->name('covidconsumption')->group(function(){
-			Route::get('/', 'CovidConsumptionController@index');
-			Route::post('consumption', 'CovidConsumptionController@submitConsumption');
-		});
 	});
 
 	Route::middleware(['only_utype:1'])->group(function(){
+		Route::resource('organisation', 'OrganisationController');
+	});
+
+	Route::middleware(['only_utype:3'])->group(function(){
+		Route::prefix('kits')->name('covidconsumption')->group(function(){
+			Route::get('/', 'CovidConsumptionController@index');
+			Route::post('consumption', 'CovidConsumptionController@submitConsumption');
+			Route::get('report/{consumption?}', 'CovidConsumptionController@report');
+		});
+	});
+
+	Route::middleware(['only_utype:4'])->group(function(){
 		Route::resource('user', 'UserController');
 	});
 
-	Route::middleware(['only_utype:1,3'])->group(function(){
-		Route::resource('user', 'UserController');
-		Route::get('kits/report/{consumption?}', 'CovidConsumptionController@report');
-	});
 });
 
 Route::get('verify', 'VerifyController@index');

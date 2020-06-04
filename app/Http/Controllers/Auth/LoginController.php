@@ -31,6 +31,7 @@ class LoginController extends Controller
     // protected $redirectTo = '/';
     protected function redirectTo()
     {
+        if(auth()->user()->user_type_id == 4) return '/user';
         return $this->postLoginChecks();
     }
 
