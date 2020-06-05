@@ -105,11 +105,11 @@
 							@if(in_array(auth()->user()->user_type_id, [1]))
 
 								<li class="nav-item text-dark">
-									<a class="nav-link text-dark font-weight-bold" href="/organisation"> Organisations</a>
+									<a class="nav-link text-dark font-weight-bold" href="/organisation"> Orgs</a>
 								</li>
 
 								<li class="nav-item text-dark">
-									<a class="nav-link text-dark font-weight-bold" href="/organisation/create">Create Organisation</a>
+									<a class="nav-link text-dark font-weight-bold" href="/organisation/create">Create Org</a>
 								</li>
 
 							@endif
