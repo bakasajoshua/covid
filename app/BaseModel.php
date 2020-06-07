@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at', '_token', '_method'];
+    protected $guarded = ['id', 'created_at', 'updated_at', '_token', '_method', 'national_sample_id', 'national_patient_id', 'national_batch_id'];
 
     public function get_prop_name($coll, $attr, $attr2='name')
     {
