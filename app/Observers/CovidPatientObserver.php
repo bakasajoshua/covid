@@ -24,10 +24,6 @@ class CovidPatientObserver
             $county = DB::table('countys')->where('id', $covidPatient->county_id)->first();
             $covidPatient->county = $county->name ?? null;            
         }
-        if($covidPatient->facility_id){
-            $facility = ViewFacility::find($covidPatient->facility_id);
-            if($facility) $covidPatient->county_id = $facility->county_id;
-        }
     }
 
     /**
