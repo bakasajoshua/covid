@@ -62,8 +62,6 @@ $api->version('v1', function (Router $api) {
             $api->post('covid_samples', 'CovidSampleController@update_samples');
             $api->post('covid_patients', 'CovidSampleController@update_patients');
 
-            $api->post('allocations', 'AllocationsController@update');
-
         });
         
         $api->group(['prefix' => 'test'], function(Router $api) {
