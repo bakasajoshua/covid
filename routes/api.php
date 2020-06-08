@@ -56,11 +56,20 @@ $api->version('v1', function (Router $api) {
             $api->post('results/{id}', 'CovidController@results');
         });
         $api->resource('covid', 'CovidController');
+
+        $api->group(['prefix' => 'update'], function(Router $api) {
+
+            $api->post('covid_samples', 'CovidSampleController@update_samples');
+            $api->post('covid_patients', 'CovidSampleController@update_patients');
+
+            $api->post('allocations', 'AllocationsController@update');
+
+        });
         
         $api->group(['prefix' => 'test'], function(Router $api) {
             $api->resource('covid', 'CovidController');
         });
-        
+
         $api->get('hello', function() {
             return response()->json([
                 'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
