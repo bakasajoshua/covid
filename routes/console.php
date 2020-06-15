@@ -24,3 +24,7 @@ Artisan::command('maps', function () {
 Artisan::command('reference', function () {
 	\App\Covid::dump_reference_tables();
 })->describe('Display an inspiring quote');
+
+Artisan::command('nphl', function () {
+	\App\Synch::synch_to_nphl();
+})->describe('Synch to NPHL');
