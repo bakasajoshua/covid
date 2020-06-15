@@ -26,6 +26,7 @@ class CovidSampleController extends Controller
     {
         $s =  json_decode($request->input('sample'));
         $p = $s->patient;
+        $travels = $p->travel;
         unset($p->travel);
         if($p->national_patient_id){
             $patient = CovidPatient::find($p->national_patient_id);
@@ -36,6 +37,16 @@ class CovidSampleController extends Controller
         $patient->original_patient_id = $p->id;
         $patient->fill($patient_array);
         $patient->save();
+
+        foreach ($travels as $key => $travel) {
+            $t = new CovidTravel;
+            $t->fill(get_object_vars($travel));
+            $t->patient_id = $patient_id;
+            $t->original_travel_id = $travel->id;
+            $t->save();
+            $travel_data['travel_' . $travel->id] = $t->id;
+        }
+
 
         $children = $s->child ?? [];
         unset($s->patient);
@@ -75,6 +86,7 @@ class CovidSampleController extends Controller
             'status' => 'ok',
             'patient' => $patient->id,
             'sample' => $sample_data,
+            'travel' => $travel_data,
         ], 201);        
     }
 

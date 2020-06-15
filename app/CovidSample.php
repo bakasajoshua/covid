@@ -16,10 +16,10 @@ class CovidSample extends BaseModel
 	];
 
 
-    public function travel()
+    /*public function travel()
     {
         return $this->belongsTo(CovidTravel::class, 'sample_id');
-    }
+    }*/
 
     public function patient()
     {
