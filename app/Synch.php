@@ -116,6 +116,8 @@ class Synch
 				],
 			]);
 
+			echo 'Status code ' . $response->getStatusCode() . "\n";
+
 			$body = json_decode($response->getBody());
 			dd($body);
 			if($response->getStatusCode() < 400){
