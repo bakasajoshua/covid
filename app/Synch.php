@@ -28,7 +28,7 @@ class Synch
 	{
 		$samples = CovidSampleView::where('repeatt', 0)
 						->whereIn('result', [1,2])
-						->where('datedispatched', date('Y-m-d'))
+						->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
 						->with(['lab'])
 						->get();
 
@@ -121,8 +121,14 @@ class Synch
 			echo 'Status code ' . $response->getStatusCode() . "\n";
 
 			$body = json_decode($response->getBody());
-			dd($body);
+			// dd($body);
 			if($response->getStatusCode() < 400){
+				if($body->status == 'SUCCESS'){
+					$s = CovidSample::find($sample->id);
+					$s->sent_to_nphl = 1;
+					$s->save();
+				}
+				if($body->status == 'ERROR') continue;
 
 			}else{
 				dd($body);
