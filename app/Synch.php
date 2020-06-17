@@ -73,7 +73,7 @@ class Synch
 				'TESTING_LAB' => $sample->lab->nphl_code,
 
 				'CASE_ID' => null,
-				'CASE_TYPE' => $sample->sample_type == 1 ? 'Initial' : 'Repeat',
+				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
 				'SAMPLE_NUMBER' => $sample->original_sample_id,
 				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
@@ -122,7 +122,7 @@ class Synch
 				'form_params' => $post_data,
 			]);
 
-			echo 'Status code ' . $response->getStatusCode() . "\n";
+			
 
 			$body = json_decode($response->getBody());
 			// dd($body);
@@ -131,6 +131,7 @@ class Synch
 					$s = CovidSample::find($sample->id);
 					$s->sent_to_nphl = 1;
 					$s->save();
+					echo 'Status code ' . $response->getStatusCode() . "\n";
 				}
 				if($body->status == 'ERROR') continue;
 
