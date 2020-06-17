@@ -60,8 +60,10 @@ class Synch
 			$symptoms = '';
 			if($sample->date_symptoms){
 				$has_symptoms = 'Yes';
-				foreach ($sample->symptoms as $value) {
-					$symptoms .= $symptoms_array[$value] . ';';
+				if($sample->symptoms){
+					foreach ($sample->symptoms as $value) {
+						$symptoms .= $symptoms_array[$value] . ';';
+					}
 				}
 			}
 
