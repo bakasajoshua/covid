@@ -134,7 +134,13 @@ class Synch
 					$s->save();
 					echo 'Status code ' . $response->getStatusCode() . "\n";
 				}
-				if($body->status == 'ERROR') continue;
+				if($body->status == 'ERROR'){
+					$s = CovidSample::find($sample->id);
+					$s->sent_to_nphl = 2;
+					$s->save();
+					print_r($body);
+					continue;
+				}
 
 			}else{
 				dd($body);
