@@ -64,7 +64,7 @@ class CovidSample extends BaseModel
             if(\Str::contains($value, ['neg'])) $this->attributes['result'] = 1;
             else if (\Str::contains($value, ['pos'])){
                 $this->attributes['result'] = 2;
-            }
+            }else{}
         }
     }
 
