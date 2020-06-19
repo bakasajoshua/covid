@@ -399,21 +399,21 @@ class CovidLookupSeeder extends Seeder
 			CREATE TABLE `covid_sample_types` (
 				`id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
 				`name` varchar(50) DEFAULT NULL,
+				`nphl_name` varchar(50) DEFAULT NULL,
 				PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		");
 
 		DB::table('covid_sample_types')->insert([
-			['id' => 1, 'name' => 'Nasopharygneal & Oropharygneal swabs'],
-			['id' => 2, 'name' => 'Nasopharygneal swab in UTM'],
-			['id' => 3, 'name' => 'Oropharygneal swab in UTM'],
-			['id' => 4, 'name' => 'Serum'],
-			['id' => 5, 'name' => 'Sputum'],
-			['id' => 6, 'name' => 'Tracheal Aspirate'],
-			['id' => 7, 'name' => 'Other'],
+			['id' => 1, 'name' => 'Nasopharygneal & Oropharygneal swabs', 'nphl_name' => 'OP & NP Swab'],
+			['id' => 2, 'name' => 'Nasopharygneal swab in UTM', 'nphl_name' => 'NP Swab'],
+			['id' => 3, 'name' => 'Oropharygneal swab in UTM', 'nphl_name' => 'OP Swab'],
+			['id' => 4, 'name' => 'Serum', 'nphl_name' => 'Serum'],
+			['id' => 5, 'name' => 'Sputum', 'nphl_name' => 'Sputum'],
+			['id' => 6, 'name' => 'Tracheal Aspirate', 'nphl_name' => 'Tracheal Aspirate'],
+			['id' => 7, 'name' => 'Other', 'nphl_name' => 'Other'],
 		]);
 
-		return;
 
 		DB::statement("DROP TABLE IF EXISTS `cities`;");
 		DB::statement("
