@@ -51,4 +51,14 @@ return [
         ]
     ],
 
+    'credential_request' => [
+        'validation_rules' => [
+            'email' => ['required', 'email', 'max:80'],            
+            'name' => ['required', 'max:100',],            
+            'organisation' => ['required', 'max:100',],            
+            'phone_number' => ['nullable', 'max:20',],            
+            'details' => ['required', 'max:255',],            
+        ],
+    ],
+
 ];

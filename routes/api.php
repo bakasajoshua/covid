@@ -47,6 +47,13 @@ $api->version('v1', function (Router $api) {
                 $api->post('cif', 'CovidSampleController@cif');
             });   
             $api->resource('covid_sample', 'CovidSampleController');
+
+            $api->group(['prefix' => 'update'], function(Router $api) {
+
+                $api->post('covid_samples', 'CovidSampleController@update_samples');
+                $api->post('covid_patients', 'CovidSampleController@update_patients');
+
+            });
         });
 
         $api->group(['prefix' => 'covid'], function(Router $api) {
@@ -56,17 +63,12 @@ $api->version('v1', function (Router $api) {
             $api->post('results/{id}', 'CovidController@results');
         });
         $api->resource('covid', 'CovidController');
-
-        $api->group(['prefix' => 'update'], function(Router $api) {
-
-            $api->post('covid_samples', 'CovidSampleController@update_samples');
-            $api->post('covid_patients', 'CovidSampleController@update_patients');
-
-        });
         
         $api->group(['prefix' => 'test'], function(Router $api) {
             $api->resource('covid', 'CovidController');
         });
+        
+        $api->resource('credential_request', 'CredentialRequestController');
 
         $api->get('hello', function() {
             return response()->json([
