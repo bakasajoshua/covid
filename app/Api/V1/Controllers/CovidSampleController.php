@@ -38,6 +38,7 @@ class CovidSampleController extends Controller
         $patient->fill($patient_array);
         $patient->save();
 
+
         $travel_data = [];
 
         foreach ($travels as $key => $travel) {
