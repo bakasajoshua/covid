@@ -38,12 +38,13 @@ class CovidSampleController extends Controller
         $patient->fill($patient_array);
         $patient->save();
 
+
         $travel_data = [];
 
         foreach ($travels as $key => $travel) {
             $t = new CovidTravel;
             $t->fill(get_object_vars($travel));
-            $t->patient_id = $patient_id;
+            $t->patient_id = $patient->id;
             $t->original_travel_id = $travel->id;
             $t->save();
             $travel_data['travel_' . $travel->id] = $t->id;

@@ -78,3 +78,20 @@ Authorization: bearer {token}
             {
                 "status_code": 404
             }
+
+
+# AppApiV1ControllersVerifySampleController
+
+## Display the specified resource. [POST /credential_request]
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "email",
+                "name": "string, name of person making a request",
+                "organisation": "string, name of organisation of the requester",
+                "phone_number": "string, phone number of person making a request",
+                "details": "string, a statement stating why the requester needs access",
+            }
+
