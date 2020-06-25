@@ -42,7 +42,7 @@ class Synch
 		}
 
 		foreach ($lookups['covid_symptoms'] as $key => $value) {
-			$symptoms_array[$key] = $value;
+			$symptoms_array[$key] = $value->name;
 		}
 
 		$client = new Client(['base_uri' => env('NPHL_URL')]);
