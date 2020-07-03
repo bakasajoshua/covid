@@ -190,7 +190,7 @@ class CovidController extends Controller
         if(!$patient) abort(404, "No records found");
 
         $patient->load(['sample' => function($query) {
-            return $query->where('repeatt', 0);
+            return $query->where('repeatt', 0)->whereIn('result', [1,2]);
         }]);
         return $patient;
     }
