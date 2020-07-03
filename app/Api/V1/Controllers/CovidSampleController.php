@@ -143,7 +143,7 @@ class CovidSampleController extends Controller
     }
 
     public function cif_samples(){        
-        $samples = CovidSample::where(['synched' => 0, 'lab_id' => 11])->whereNull('original_sample_id')->whereNull('receivedstatus')->with(['patient'])->get();
+        $samples = CovidSample::where(['synched' => 0, 'lab_id' => 11])->where('created_at', '>', date('Y-m-d', strtotime('-7 days')))->whereNull('original_sample_id')->whereNull('receivedstatus')->with(['patient'])->get();
         // $samples = CovidSample::whereNotNull('cif_sample_id')->with(['patient'])->get();
         return $samples;
     }
