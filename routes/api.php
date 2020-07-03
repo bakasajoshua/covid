@@ -66,6 +66,9 @@ $api->version('v1', function (Router $api) {
         $api->resource('covid', 'CovidController');
         
         $api->group(['prefix' => 'test'], function(Router $api) {
+            $api->group(['prefix' => 'covid'], function(Router $api) {
+                $api->post('search', 'CovidController@search');
+            });
             $api->resource('covid', 'CovidController');
         });
         
