@@ -181,12 +181,17 @@ class CovidController extends Controller
 
     public function search(BlankRequest $request)
     {
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        if(!$lab) abort(401);
+        
         $identifier = $request->input('identifier');
 
         $patient = CovidPatient::whereRaw("identifier = '{$identifier}' or national_id = '{$identifier}' ")->first();
         if(!$patient) abort(404, "No records found");
 
-        $patient->load(['sample']);
+        $patient->load(['sample' => function($query) {
+            return $query->where('repeatt', 0);
+        }]);
         return $patient;
     }
 
