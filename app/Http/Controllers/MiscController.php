@@ -17,7 +17,7 @@ class MiscController extends Controller
 						->whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
 						->where(['sent_to_nphl' => 0])
-						->where('datedispatched', '>', date('Y-m-d', strtotime('-2 days')))
+						->where('datedispatched', '>', date('Y-m-d', strtotime('-3 days')))
 						->with(['lab'])
 						// ->limit(200)
 						->get();

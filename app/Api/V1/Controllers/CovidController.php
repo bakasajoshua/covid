@@ -179,6 +179,17 @@ class CovidController extends Controller
         //
     }
 
+    public function search(BlankRequest $request)
+    {
+        $identifier = $request->input('identifier');
+
+        $patient = CovidPatient::whereRaw("identifier = '{$identifier}' or national_id = '{$identifier}' ")->first();
+        if(!$patient) abort(404, "No records found");
+
+        $patient->load(['sample']);
+        return $patient;
+    }
+
 
     
     /**
