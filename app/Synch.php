@@ -32,7 +32,7 @@ class Synch
 						->where(['sent_to_nphl' => 0])
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
-						->limit(200)
+						->limit(400)
 						->get();
 
 		$a = ['nationalities', 'covid_sample_types', 'covid_symptoms'];
