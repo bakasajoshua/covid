@@ -58,7 +58,9 @@ class CovidSampleController extends Controller
 
         if($s->national_sample_id){
             $sample = CovidSample::find($s->national_sample_id);
-        }else{
+        }else if($s->id && $s->lab_id){
+            $sample = CovidSample::where(['original_sample_id' => $s->id, 'lab_id' => $s->lab_id])->first();
+        } else{
             $sample = new CovidSample;
         }
         if(!$sample) $sample = new CovidSample;

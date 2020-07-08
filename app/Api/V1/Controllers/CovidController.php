@@ -122,6 +122,7 @@ class CovidController extends Controller
         $s->patient_id = $p->id;
         $s->$sample_column = $request->input('specimen_id');
         
+        $s->datedispatched = $s->datetested;
         $s->lab_id = $lab->id;
         $s->save();
 
@@ -190,7 +191,7 @@ class CovidController extends Controller
         if(!$patient) abort(404, "No records found");
 
         $patient->load(['sample' => function($query) {
-            return $query->where('repeatt', 0);
+            return $query->where('repeatt', 0)->whereIn('result', [1,2]);
         }]);
         return $patient;
     }

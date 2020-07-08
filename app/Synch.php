@@ -30,9 +30,9 @@ class Synch
 						->whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
 						->where(['sent_to_nphl' => 0])
-						->where('datedispatched', '>', date('Y-m-d', strtotime('-2 days')))
+						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
-						->limit(200)
+						->limit(400)
 						->get();
 
 		$a = ['nationalities', 'covid_sample_types', 'covid_symptoms'];
@@ -61,7 +61,7 @@ class Synch
 			$symptoms = '';
 			if($sample->date_symptoms){
 				$has_symptoms = 'Yes';
-				if($sample->symptoms){
+				if($sample->symptoms && is_array($sample->symptoms)){
 					foreach ($sample->symptoms as $value) {
 						$symptoms .= $symptoms_array[$value] . ';';
 					}
@@ -76,7 +76,7 @@ class Synch
 				'CASE_ID' => null,
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
-				'SAMPLE_NUMBER' => $sample->original_sample_id,
+				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
 				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
 				'RESULT' => $sample->result_name,
 				'LAB_CONFIRMATION_DATE' => $sample->datedispatched,
@@ -90,7 +90,7 @@ class Synch
 
 				'PATIENT_NAMES' => $sample->patient_name,
 				'PATIENT_PHONE' => $sample->phone_no,
-				'AGE' => $sample->age,
+				'AGE' => $sample->age ?? 0,
 				'AGE_UNIT' => 'Years',
 				'GENDER' => substr($sample->gender, 0, 1),
 				'OCCUPATION' => $sample->occupation,
