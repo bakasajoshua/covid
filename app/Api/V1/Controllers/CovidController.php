@@ -122,6 +122,7 @@ class CovidController extends Controller
         $s->patient_id = $p->id;
         $s->$sample_column = $request->input('specimen_id');
         
+        $s->datedispatched = $s->datetested;
         $s->lab_id = $lab->id;
         $s->save();
 
