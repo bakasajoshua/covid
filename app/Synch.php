@@ -76,7 +76,7 @@ class Synch
 				'CASE_ID' => null,
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
-				'SAMPLE_NUMBER' => $sample->original_sample_id,
+				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
 				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
 				'RESULT' => $sample->result_name,
 				'LAB_CONFIRMATION_DATE' => $sample->datedispatched,
