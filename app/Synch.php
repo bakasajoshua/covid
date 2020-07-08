@@ -30,7 +30,7 @@ class Synch
 						->whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
 						->where(['sent_to_nphl' => 0])
-						->where('datedispatched', '>', date('Y-m-d', strtotime('-2 days')))
+						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
 						->limit(200)
 						->get();
@@ -61,7 +61,7 @@ class Synch
 			$symptoms = '';
 			if($sample->date_symptoms){
 				$has_symptoms = 'Yes';
-				if($sample->symptoms){
+				if($sample->symptoms && is_array($sample->symptoms)){
 					foreach ($sample->symptoms as $value) {
 						$symptoms .= $symptoms_array[$value] . ';';
 					}
