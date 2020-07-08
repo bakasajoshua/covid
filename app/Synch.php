@@ -90,7 +90,7 @@ class Synch
 
 				'PATIENT_NAMES' => $sample->patient_name,
 				'PATIENT_PHONE' => $sample->phone_no,
-				'AGE' => $sample->age,
+				'AGE' => $sample->age ?? 0,
 				'AGE_UNIT' => 'Years',
 				'GENDER' => substr($sample->gender, 0, 1),
 				'OCCUPATION' => $sample->occupation,
