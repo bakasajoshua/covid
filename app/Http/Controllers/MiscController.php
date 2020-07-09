@@ -10,7 +10,6 @@ use DB;
 
 class MiscController extends Controller
 {
-
 	public function nphl_download()
 	{
 		$samples = CovidSampleView::where('repeatt', 0)
