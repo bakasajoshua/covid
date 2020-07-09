@@ -24,6 +24,11 @@ class Synch
 		}
 	}
 
+	public static function kilifi()
+	{
+		CovidSample::whereNull('original_sample_id')->where(['lab_id' => 1])->update(['lab_id' => 12]);
+	}
+
 	public static function synch_to_nphl()
 	{
 		$samples = CovidSampleView::where('repeatt', 0)
