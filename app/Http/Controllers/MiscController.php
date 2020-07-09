@@ -10,7 +10,6 @@ use DB;
 
 class MiscController extends Controller
 {
-
 	public function nphl_download()
 	{
 		$samples = CovidSampleView::where('repeatt', 0)
@@ -47,7 +46,7 @@ class MiscController extends Controller
 			$symptoms = '';
 			if($sample->date_symptoms){
 				$has_symptoms = 'Yes';
-				if($sample->symptoms){
+				if($sample->symptoms && is_array($sample->symptoms)){
 					foreach ($sample->symptoms as $value) {
 						$symptoms .= $symptoms_array[$value] . ';';
 					}
