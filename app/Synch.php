@@ -31,13 +31,12 @@ class Synch
 
 	public static function synch_to_nphl()
 	{
-		$samples = CovidSampleView::where('repeatt', 0)
-						->whereIn('result', [1,2])
+		$samples = CovidSampleView::whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
-						->where(['sent_to_nphl' => 0])
+						->where(['sent_to_nphl' => 0, 'repeatt' => 0, 'lab_id' => 12])
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
-						->limit(400)
+						->limit(100)
 						->get();
 
 		$a = ['nationalities', 'covid_sample_types', 'covid_symptoms'];
