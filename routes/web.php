@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function(){
 
 	Route::middleware(['only_utype:1'])->group(function(){
 		Route::resource('organisation', 'OrganisationController');
-		Route::get('nphl', 'MiscController@nprl_download');
+		Route::get('nphl', 'MiscController@nphl_download');
 	});
 
 	Route::middleware(['only_utype:3'])->group(function(){

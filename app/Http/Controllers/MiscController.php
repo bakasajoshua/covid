@@ -11,12 +11,13 @@ use DB;
 class MiscController extends Controller
 {
 
-	public function nprl_download()
+	public function nphl_download()
 	{
 		$samples = CovidSampleView::where('repeatt', 0)
 						->whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
-						->where(['sent_to_nphl' => 0])
+						->where(['sent_to_nphl' => 0, 'lab_id' => 1])
+						->whereNull('original_sample_id')
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-3 days')))
 						->with(['lab'])
 						// ->limit(200)
@@ -54,12 +55,12 @@ class MiscController extends Controller
 			}
 
 			$post_data = [
-				'TESTING_LAB' => $sample->lab->nphl_code,
+				'TESTING_LAB' => '00030',
 
-				'CASE_ID' => null,
+				'CASE_ID' => $sample->identifier,
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
-				'SAMPLE_NUMBER' => $sample->original_sample_id,
+				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
 				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
 				'RESULT' => $sample->result_name,
 				'LAB_CONFIRMATION_DATE' => $sample->datedispatched,
@@ -73,15 +74,15 @@ class MiscController extends Controller
 
 				'PATIENT_NAMES' => $sample->patient_name,
 				'PATIENT_PHONE' => $sample->phone_no,
-				'AGE' => $sample->age,
-				'AGE_UNIT' => 'Years',
+				'AGE' => $sample->age ?? 0,
+				'AGE_UNIT' => $sample->age_unit ?? 'Years',
 				'GENDER' => substr($sample->gender, 0, 1),
 				'OCCUPATION' => $sample->occupation,
 				'NATIONALITY' => $sample->get_prop_name($lookups['nationalities'], 'nationality'),
 				'NATIONAL_ID' => $sample->national_id ?? $sample->identifier,
 				'COUNTY' => $sample->countyname ?? $sample->county,
 				'SUB_COUNTY' => $sample->subcountyname ?? $sample->sub_county ?? $sample->subcounty ?? '',
-				'WARD' => $sample->residence,
+				'WARD' => $sample->ward ?? $sample->residence,
 				'VILLAGE' => $sample->residence,
 
 				'HAS_TRAVEL_HISTORY' => $travelled,

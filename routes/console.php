@@ -28,3 +28,7 @@ Artisan::command('reference', function () {
 Artisan::command('nphl', function () {
 	\App\Synch::synch_to_nphl();
 })->describe('Synch to NPHL');
+
+Artisan::command('kilifi', function () {
+	\App\Synch::kilifi();
+})->describe('Fix Kilifi samples');
