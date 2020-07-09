@@ -29,11 +29,34 @@ class Synch
 		CovidSample::whereNull('original_sample_id')->where(['lab_id' => 1])->update(['lab_id' => 12]);
 	}
 
+	public static function kilifi_dates()
+	{
+		$samples = CovidSample::whereNull('original_sample_id')->where(['lab_id' => 1])->get();
+
+		foreach ($samples as $key => $sample) {
+			if($sample->datecollected){
+				$sample->datecollected = self::correct_date($sample->datecollected->toDateString());
+			}
+			if($sample->datetested){
+				$sample->datetested = self::correct_date($sample->datetested->toDateString());
+			}
+			$sample->datedispatched = $sample->datetested;
+			$sample->save();
+		}
+	}
+
+	public static function correct_date($date)
+	{
+		if($date == '1970-01-01') return $date;
+		$d = explode('-', $date);
+		return ($d[0] . '-' . $d[2] . '-' . $d[1]);
+	}
+
 	public static function synch_to_nphl()
 	{
 		$samples = CovidSampleView::whereIn('result', [1,2])
 						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
-						->where(['sent_to_nphl' => 0, 'repeatt' => 0, 'lab_id' => 12])
+						->where(['sent_to_nphl' => 0, 'repeatt' => 0])
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
 						->limit(100)
@@ -77,7 +100,7 @@ class Synch
 				'PASSWORD' => env('NPHL_PASSWORD'),
 				'TESTING_LAB' => $sample->lab->nphl_code,
 
-				'CASE_ID' => null,
+				'CASE_ID' => $sample->identifier,
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
 				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
@@ -95,14 +118,14 @@ class Synch
 				'PATIENT_NAMES' => $sample->patient_name,
 				'PATIENT_PHONE' => $sample->phone_no,
 				'AGE' => $sample->age ?? 0,
-				'AGE_UNIT' => 'Years',
+				'AGE_UNIT' => $sample->age_unit ?? 'Years',
 				'GENDER' => substr($sample->gender, 0, 1),
 				'OCCUPATION' => $sample->occupation,
 				'NATIONALITY' => $sample->get_prop_name($lookups['nationalities'], 'nationality'),
 				'NATIONAL_ID' => $sample->national_id ?? $sample->identifier,
 				'COUNTY' => $sample->countyname ?? $sample->county,
 				'SUB_COUNTY' => $sample->subcountyname ?? $sample->sub_county ?? $sample->subcounty ?? '',
-				'WARD' => $sample->residence,
+				'WARD' => $sample->ward ?? $sample->residence,
 				'VILLAGE' => $sample->residence,
 
 				'HAS_TRAVEL_HISTORY' => $travelled,

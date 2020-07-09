@@ -43,7 +43,7 @@ class CovidController extends Controller
      */
     public function index(BlankRequest $request)
     {
-        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
         if(Str::contains(url()->current(), 'test')){
             config(['database.default' => 'test']);
@@ -97,7 +97,7 @@ class CovidController extends Controller
      */
     public function store(BlankRequest $request)
     {
-        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
         if(Str::contains(url()->current(), 'test')){
             config(['database.default' => 'test']);
@@ -149,7 +149,7 @@ class CovidController extends Controller
      */
     public function show(BlankRequest $request, $id)
     {
-        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
         if(Str::contains(url()->current(), 'test')){
             config(['database.default' => 'test']);
@@ -182,7 +182,7 @@ class CovidController extends Controller
 
     public function search(BlankRequest $request)
     {
-        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
         
         $identifier = $request->input('identifier');
@@ -237,7 +237,7 @@ class CovidController extends Controller
      */
     public function save_multiple(BlankRequest $request)
     {
-        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->first();
+        $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
         if(Str::contains(url()->current(), 'test')){
             config(['database.default' => 'test']);
