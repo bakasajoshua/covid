@@ -80,6 +80,7 @@ class Synch
 			if (!$sample->patient->travel->isEmpty()){
 				$travelled = 'Yes';
 				foreach ($sample->patient->travel as $key => $travel) {
+					if(!$travel->town) continue;
 					$history .= $travel->town->name . ', ' . $travel->town->country . ';';
 				}
 			}
