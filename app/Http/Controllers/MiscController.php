@@ -12,12 +12,9 @@ class MiscController extends Controller
 {
 	public function nphl_download()
 	{
-		$samples = CovidSampleView::where('repeatt', 0)
-						->whereIn('result', [1,2])
-						// ->where(['datedispatched' => date('Y-m-d', strtotime('-1 day')), 'sent_to_nphl' => 0])
-						->where(['sent_to_nphl' => 0, 'lab_id' => 1])
-						->whereNull('original_sample_id')
-						->where('datedispatched', '>', date('Y-m-d', strtotime('-5 days')))
+		$samples = CovidSampleView::whereIn('result', [1,2])
+						->where(['sent_to_nphl' => 0, 'repeatt' => 0])
+						->where('datedispatched', '>',  date('Y-m-d', strtotime('-3 days')))
 						->with(['lab'])
 						// ->limit(200)
 						->get();
@@ -54,7 +51,7 @@ class MiscController extends Controller
 			}
 
 			$post_data = [
-				'TESTING_LAB' => '00030',
+				'TESTING_LAB' => $sample->lab->nphl_code,
 
 				'CASE_ID' => $sample->identifier,
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',

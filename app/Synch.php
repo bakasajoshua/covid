@@ -14,6 +14,80 @@ class Synch
 
 	private static $db_connections = ['nairobi', 'alupe', 'kisumu', 'cpgh'];
 
+	public static function login($lab)
+	{
+		Cache::forget($lab->token_name);
+		$client = new Client(['base_uri' => $lab->base_url]);
+		// dd($lab->base_url);
+		try {
+			$response = $client->request('post', 'auth/login', [
+	            'http_errors' => false,
+	            'connect_timeout' => 1.5,
+				'headers' => [
+					'Accept' => 'application/json',
+				],
+				'json' => [
+					'email' => env('LAB_USERNAME', null),
+					'password' => env('LAB_PASSWORD', null),
+				],
+			]);
+			$status_code = $response->getStatusCode();
+			// if($status_code > 399) die();
+			$body = json_decode($response->getBody());
+			// print_r($body);
+			Cache::put($lab->token_name, $body->token, 60);	
+			// echo $lab->token_name . " is {$body->token} \n";		
+		} catch (Exception $e) {
+			Cache::put($lab->token_name, 'null', 60);	
+			echo $lab->token_name . " is {$e->getMessage()}. \n";			
+		}
+	}
+
+	public static function get_token($lab)
+	{
+		if(Cache::has($lab->token_name)){
+			if (Cache::get($lab->token_name) == null || Cache::get($lab->token_name) == 'null')
+				self::login($lab);
+		} else{
+			self::login($lab);
+		}
+		// dd($lab);
+		return Cache::get($lab->token_name);
+	}
+
+	public static function test_connection() {
+		$labs = Lab::all();
+
+		foreach ($labs as $lab) {
+			try {
+				$client = new Client(['base_uri' => $lab->base_url]);
+				$response = $client->request('get', 'hello', [
+					'headers' => [
+						'Accept' => 'application/json',
+					],
+					// 'debug' => true,
+		            'connect_timeout' => 3,
+					'http_errors' => false,
+					// 'verify' => false,
+				]);
+				$body = json_decode($response->getBody());
+				echo $lab->name . ' '. $body->message . "<br /> \n";
+				
+			} catch (Exception $e) {
+				echo $lab->name . ' at ' . $lab->base_url .  ' has error ' . $e->getMessage() . "<br /> \n";
+			}
+		}
+	}
+
+	public static function logins()
+	{
+		$labs = Lab::all();
+
+		foreach ($labs as $lab) {
+			self::login($lab);
+		}
+	}
+
 	public function quarantine()
 	{
 		$connections = self::$db_connections;
@@ -80,6 +154,7 @@ class Synch
 			if (!$sample->patient->travel->isEmpty()){
 				$travelled = 'Yes';
 				foreach ($sample->patient->travel as $key => $travel) {
+					if(!$travel->town) continue;
 					$history .= $travel->town->name . ', ' . $travel->town->country . ';';
 				}
 			}
@@ -171,6 +246,86 @@ class Synch
 
 			}else{
 				dd($body);
+			}
+		}
+	}
+
+	
+
+	public static function synch_covid()
+	{
+		$labs = Lab::all();
+		$samples = CovidSample::where(['synched' => 0])->whereNull('original_sample_id')->whereNull('receivedstatus')->with(['patient'])->get();
+		foreach ($samples as $key => $sample) {
+			$lab = $labs->where('id', $sample->lab_id)->first();
+			// if(!$lab || in_array($lab->id, [7, 8, 10]) || !$lab->base_url) continue;
+			if(!$lab || in_array($lab->id, [8, 10]) || !$lab->base_url) continue;
+			// $lab = $labs->where('id', 7)->first();
+
+			$client = new Client(['base_uri' => $lab->base_url]);
+			// dd(self::get_token($lab));
+			$response = $client->request('post', 'covid_sample', [
+				'http_errors' => false,
+				'verify' => false,
+				'headers' => [
+					'Accept' => 'application/json',
+					'Authorization' => 'Bearer ' . self::get_token($lab),
+				],
+				'json' => [
+					'sample' => $sample->toJson(),
+				],
+			]);
+
+			$body = json_decode($response->getBody());
+			if($response->getStatusCode() < 400){
+				$sample->patient->original_patient_id = $body->patient->id;
+				$sample->patient->save();
+
+				$sample->original_sample_id = $body->sample->id;
+				$sample->save();
+			}else{
+				dd($body);
+			}
+		}
+	}
+
+	public static function synch_cif()
+	{
+		// $client = new Client(['base_uri' => 'https://eoc.nascop.org:8084/openmrs/']);
+		$client = new Client(['base_uri' => 'https://data.kenyahmis.org:7001/openmrs/']);
+
+		while (true) {
+			$samples = CovidSample::where('synched', '!=', 1)->where('repeatt', 0)->whereNotNull('cif_sample_id')->whereNotNull('receivedstatus')->with(['patient'])->limit(20)->get();
+			$data = [];
+			if(!$samples->count()) break;
+
+			foreach ($samples as $key => $sample) {
+				$data[] = [
+					'patient_id' => (int) $sample->patient->cif_patient_id,
+					'specimen_id' => (int) $sample->cif_sample_id,
+					'result' => (int) $sample->result,
+					'receivedstatus' => (int) $sample->receivedstatus,
+					'rejectedreason' => '',
+				];
+			}
+
+			$response = $client->request('post', 'ws/rest/v1/shr/labresults', [
+				// 'debug' => true,
+				'auth' => [env('CIF_USERNAME'), env('CIF_PASSWORD')],
+				'http_errors' => false,
+				'verify' => false,
+				'headers' => [
+					'Accept' => 'application/json',
+				],
+				'json' => $data,
+			]);
+
+			if($response->getStatusCode() < 400){
+				$ids = $samples->pluck('id')->flatten()->toArray();
+				CovidSample::whereIn('id', $ids)->update(['synched' => 1, 'datesynched' => date('Y-m-d')]);
+			}else{
+				dd($response->getBody());
+				break;
 			}
 		}
 	}
