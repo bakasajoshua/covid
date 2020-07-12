@@ -133,7 +133,7 @@ class Synch
 						->where(['sent_to_nphl' => 0, 'repeatt' => 0])
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
-						->limit(100)
+						->limit(150)
 						->get();
 
 		$a = ['nationalities', 'covid_sample_types', 'covid_symptoms'];
@@ -179,7 +179,7 @@ class Synch
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
 				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
-				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
+				'SAMPLE_COLLECTION_DATE' => $sample->datecollected ?? $sample->datetested,
 				'RESULT' => $sample->result_name,
 				'LAB_CONFIRMATION_DATE' => $sample->datedispatched,
 
