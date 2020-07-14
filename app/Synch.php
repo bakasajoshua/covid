@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-use App\Mail\TestMail;
+use App\Mail\KilifiNPHLSamples;
 use DB;
 use Exception;
 
