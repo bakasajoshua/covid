@@ -30,6 +30,6 @@ class KilifiNPHLSamples extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.kilifi');
+        return $this->subject("Kilifi Samples Submitted to NPHL")->view('mail.kilifi');
     }
 }
