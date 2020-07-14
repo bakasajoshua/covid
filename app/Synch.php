@@ -337,7 +337,7 @@ class Synch
 
 	public static function kilifi_notification()
 	{
-		$samples = CovidSample::where(['lab_id' => 12, 'sent_to_nphl' => 1])->where('created', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
+		$samples = CovidSample::where(['lab_id' => 12, 'sent_to_nphl' => 1])->where('created_at', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
 		// $samples = CovidSample::where(['lab_id' => 12])->where('time_sent_to_nphl', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
 
         Mail::to(['joelkith@gmail.com'])->send(new KilifiNPHLSamples($samples));
