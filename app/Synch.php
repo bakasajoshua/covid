@@ -233,6 +233,7 @@ class Synch
 				if($body->status == 'SUCCESS'){
 					$s = CovidSample::find($sample->id);
 					$s->sent_to_nphl = 1;
+					$s->time_sent_to_nphl = date('Y-m-d H:i:s');
 					$s->save();
 					echo 'Status code ' . $response->getStatusCode() . "\n";
 				}
