@@ -30,5 +30,5 @@ Artisan::command('nphl', function () {
 })->describe('Synch to NPHL');
 
 Artisan::command('kilifi', function () {
-	\App\Synch::kilifi();
-})->describe('Fix Kilifi samples');
+	\App\Synch::kilifi_notification();
+})->describe('Send Kilifi notificaiton');
