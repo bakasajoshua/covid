@@ -340,7 +340,7 @@ class Synch
 		$samples = CovidSample::where(['lab_id' => 12, 'sent_to_nphl' => 1])->where('created_at', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
 		// $samples = CovidSample::where(['lab_id' => 12])->where('time_sent_to_nphl', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
 
-        Mail::to(['joelkith@gmail.com'])->send(new KilifiNPHLSamples($samples));
-        // Mail::to(['btsofa@kemri-wellcome.org', 'rongalo@kemri-wellcome.org', 'mkinuthia@kemri-wellcome.org' 'lmshote@kemri-wellcome.org', ])->cc(['joel.kithinji@dataposit.co.ke', 'tngugi@clintonhealthaccess.org'])->send(new KilifiNPHLSamples($samples));
+        // Mail::to(['joelkith@gmail.com'])->send(new KilifiNPHLSamples($samples));
+        Mail::to(['btsofa@kemri-wellcome.org', 'rongalo@kemri-wellcome.org', 'mkinuthia@kemri-wellcome.org' 'lmshote@kemri-wellcome.org', ])->cc(['joel.kithinji@dataposit.co.ke', 'tngugi@clintonhealthaccess.org'])->send(new KilifiNPHLSamples($samples));
 	}
 }
