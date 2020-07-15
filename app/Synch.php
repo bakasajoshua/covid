@@ -362,7 +362,7 @@ class Synch
 			$s = CovidSampleView::whereNull('cif_sample_id')
 				->where(['repeatt' => 0, 'national_id' => $sample->identifier])
 				// ->whereRaw($sql)
-				->whereBetween('datecollected', [$sample->datecollected->addDays(-2), $sample->datecollected->addDays(2)])
+				->whereBetween('datecollected', [$sample->datecollected->subDays(5), $sample->datecollected->addDays(5)])
 				->first();
 
 			if(!$s) continue;
