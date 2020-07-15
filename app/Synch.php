@@ -360,8 +360,8 @@ class Synch
 			$sql = substr($sql, 0, -4);
 
 			$s = CovidSampleView::whereNull('cif_sample_id')
-				->where(['repeatt' => 0])
-				->whereRaw($sql)
+				->where(['repeatt' => 0, 'national_id' => $sample->identifier])
+				// ->whereRaw($sql)
 				->whereBetween('datecollected', [$sample->datecollected->addDays(-2), $sample->datecollected->addDays(2)])
 				->first();
 
@@ -383,7 +383,7 @@ class Synch
 			];
 		}
 
-		$file = 'cif_comparison';
+		$file = 'cif_comparison_two';
 
         Common::csv_download($data, $file, true, true);
 
