@@ -387,7 +387,7 @@ class Synch
 
         Common::csv_download($rows, $file, true, true);
 
-        Mail::to(['joelkith@gmail.com'])->send(new TestMail([storage_path("exports/" . $file . ".csv")]));
+        Mail::to(['joel.kithinji@dataposit.co.ke'])->send(new TestMail([storage_path("exports/" . $file . ".csv")]));
 	}
 
 
