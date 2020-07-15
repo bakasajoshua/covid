@@ -385,7 +385,7 @@ class Synch
 
 		$file = 'cif_comparison';
 
-        Common::csv_download($rows, $file, true, true);
+        Common::csv_download($data, $file, true, true);
 
         Mail::to(['joel.kithinji@dataposit.co.ke'])->send(new TestMail([storage_path("exports/" . $file . ".csv")]));
 	}
