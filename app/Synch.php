@@ -6,6 +6,10 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
+
+
+use App\Mail\KilifiNPHLSamples;
+use App\Mail\TestMail;
 use DB;
 use Exception;
 
@@ -133,7 +137,7 @@ class Synch
 						->where(['sent_to_nphl' => 0, 'repeatt' => 0])
 						->where('datedispatched', '>', date('Y-m-d', strtotime('-6 days')))
 						->with(['lab'])
-						->limit(100)
+						->limit(150)
 						->get();
 
 		$a = ['nationalities', 'covid_sample_types', 'covid_symptoms'];
@@ -179,7 +183,7 @@ class Synch
 				'CASE_TYPE' => $sample->test_type == 1 ? 'Initial' : 'Repeat',
 				'SAMPLE_TYPE' => $sample->get_prop_name($lookups['covid_sample_types'], 'sample_type', 'nphl_name'),
 				'SAMPLE_NUMBER' => $sample->original_sample_id ?? $sample->id,
-				'SAMPLE_COLLECTION_DATE' => $sample->datecollected,
+				'SAMPLE_COLLECTION_DATE' => $sample->datecollected ?? $sample->datetested,
 				'RESULT' => $sample->result_name,
 				'LAB_CONFIRMATION_DATE' => $sample->datedispatched,
 
@@ -233,6 +237,7 @@ class Synch
 				if($body->status == 'SUCCESS'){
 					$s = CovidSample::find($sample->id);
 					$s->sent_to_nphl = 1;
+					$s->time_sent_to_nphl = date('Y-m-d H:i:s');
 					$s->save();
 					echo 'Status code ' . $response->getStatusCode() . "\n";
 				}
@@ -295,7 +300,12 @@ class Synch
 		$client = new Client(['base_uri' => 'https://data.kenyahmis.org:7001/openmrs/']);
 
 		while (true) {
-			$samples = CovidSample::where('synched', '!=', 1)->where('repeatt', 0)->whereNotNull('cif_sample_id')->whereNotNull('receivedstatus')->with(['patient'])->limit(20)->get();
+			$samples = CovidSample::with(['patient'])
+				->where(['repeatt' => 0])
+				->whereNotNull('cif_sample_id')
+				->whereNotNull('datedispatched')
+				->whereNull('time_sent_to_cif')
+				->limit(20)->get();
 			$data = [];
 			if(!$samples->count()) break;
 
@@ -322,11 +332,71 @@ class Synch
 
 			if($response->getStatusCode() < 400){
 				$ids = $samples->pluck('id')->flatten()->toArray();
-				CovidSample::whereIn('id', $ids)->update(['synched' => 1, 'datesynched' => date('Y-m-d')]);
+				CovidSample::whereIn('id', $ids)->update(['time_sent_to_cif' => date('Y-m-d H:i:s')]);
 			}else{
 				dd($response->getBody());
 				break;
 			}
 		}
+	}
+
+	public static function cif_samples()
+	{
+		$samples = CovidSampleView::whereNotNull('cif_sample_id')
+			->where('created_at', '>', date('Y-m-d', strtotime('-1 month')))
+			->get();
+
+		$data = [];
+
+		foreach ($samples as $key => $sample) {
+
+			$names = explode(' ', $sample->patient_name);
+			$sql = '';
+
+			foreach ($names as $key => $name) {
+				$n = addslashes($name);
+				$sql .= "patient_name LIKE '%{$n}%' AND ";
+			}
+			$sql = substr($sql, 0, -4);
+
+			$s = CovidSampleView::whereNull('cif_sample_id')
+				->where(['repeatt' => 0, 'national_id' => $sample->identifier])
+				// ->whereRaw($sql)
+				->whereBetween('datecollected', [$sample->datecollected->subDays(5), $sample->datecollected->addDays(5)])
+				->first();
+
+			if(!$s) continue;
+
+			$data[] = [
+				'lab_id' => $s->lab_id,
+				'cif_sample_id' => $sample->id,
+				'lims_sample_id' => $s->id,
+				'cif_patient_name' => $sample->patient_name,
+				'lims_patient_name' => $s->patient_name,
+				'cif_identifier' => $sample->identifier,
+				'lims_identifier' => $s->identifier,
+				'lims_national_id' => $s->national_id,
+				'cif_datecollected' => $sample->datecollected,
+				'lims_datecollected' => $s->datecollected,
+				'lims_datetested' => $s->datetested,
+				'lims_result' => $s->result,
+			];
+		}
+
+		$file = 'cif_comparison_two';
+
+        Common::csv_download($data, $file, true, true);
+
+        Mail::to(['joel.kithinji@dataposit.co.ke'])->send(new TestMail([storage_path("exports/" . $file . ".csv")]));
+	}
+
+
+	public static function kilifi_notification()
+	{
+		// $samples = CovidSample::where(['lab_id' => 12, 'sent_to_nphl' => 1])->where('created_at', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
+		$samples = CovidSample::where(['lab_id' => 12])->where('time_sent_to_nphl', '>', date('Y-m-d H:i:s', strtotime('-1 day')))->count();
+
+        // Mail::to(['joelkith@gmail.com'])->send(new KilifiNPHLSamples($samples));
+        Mail::to(['btsofa@kemri-wellcome.org', 'rongalo@kemri-wellcome.org', 'mkinuthia@kemri-wellcome.org', 'lmshote@kemri-wellcome.org', 'damadi@kemri-wellcome.org', 'eotieno@kemri-wellcome.org'])->cc(['joel.kithinji@dataposit.co.ke', 'tngugi@clintonhealthaccess.org'])->send(new KilifiNPHLSamples($samples));
 	}
 }

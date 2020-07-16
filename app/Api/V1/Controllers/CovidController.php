@@ -186,8 +186,28 @@ class CovidController extends Controller
         if(!$lab) abort(401);
         
         $identifier = $request->input('identifier');
+        $phone_no = $request->input('phone_no');
+        $patient_name = $request->input('patient_name');
 
-        $patient = CovidPatient::whereRaw("identifier = '{$identifier}' or national_id = '{$identifier}' ")->first();
+        $patient = CovidPatient::
+        when($identifier, function($query) use ($identifier){
+            return $query->whereRaw("(identifier = '{$identifier}' or national_id = '{$identifier}') ");
+        })
+        ->when($phone_no, function($query) use ($phone_no){
+            return $query->where("phone_no", 'like', "%{$phone_no}%");
+        })
+        ->when($patient_name, function($query) use ($patient_name){
+            $names = explode(' ', $patient_name);
+            $sql = '';
+
+            foreach ($names as $key => $name) {
+                $n = addslashes($name);
+                $sql .= "patient_name LIKE '%{$n}%' AND ";
+            }
+            $sql = substr($sql, 0, -4);
+            return $query->whereRaw($sql);
+        })
+        ->first();
         if(!$patient) abort(404, "No records found");
 
         $patient->load(['sample' => function($query) {

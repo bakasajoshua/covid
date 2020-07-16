@@ -75,7 +75,16 @@ class CovidSampleController extends Controller
 
         foreach ($children as $key => $child) {
 
-            $child_sample = new CovidSample;
+            if($child->national_sample_id){
+                $child_sample = CovidSample::find($child->national_sample_id);
+            }else if($child->id && $child->lab_id){
+                $child_sample = CovidSample::where(['original_sample_id' => $child->id, 'lab_id' => $child->lab_id])->first();
+            } else{
+                $child_sample = new CovidSample;
+            }
+            if(!$child_sample) $child_sample = new CovidSample;
+
+            // $child_sample = new CovidSample;
             $child_sample->fill(get_object_vars($child));
             $child_sample->patient_id = $patient->id;
             $child_sample->cif_sample_id = $sample->cif_sample_id;
