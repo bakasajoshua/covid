@@ -47,6 +47,8 @@ $api->version('v1', function (Router $api) {
                 $api->post('cif', 'CovidSampleController@cif');
             });   
             $api->resource('covid_sample', 'CovidSampleController');
+            
+            $api->resource('quarantine_site', 'QuarantineSiteController');
 
             $api->group(['prefix' => 'update'], function(Router $api) {
 
