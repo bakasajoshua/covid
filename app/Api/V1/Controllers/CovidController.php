@@ -208,7 +208,13 @@ class CovidController extends Controller
             return $query->whereRaw($sql);
         })
         ->first();
-        if(!$patient) abort(404, "No records found");
+        // if(!$patient) abort(404, "No records found");
+        if(!$patient) {
+            return response()->json([
+                'status' => 'Not Data Found',
+            ], 200); 
+
+        }       
 
         $patient->load(['sample' => function($query) {
             return $query->where('repeatt', 0)->whereIn('result', [1,2]);
