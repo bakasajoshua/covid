@@ -211,7 +211,7 @@ class CovidController extends Controller
         // if(!$patient) abort(404, "No records found");
         if(!$patient) {
             return response()->json([
-                'status' => 'Not Data Found',
+                'status' => 'No Data Found',
             ], 200); 
 
         }       
