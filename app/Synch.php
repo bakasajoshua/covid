@@ -169,7 +169,7 @@ class Synch
 				$has_symptoms = 'Yes';
 				if($sample->symptoms && is_array($sample->symptoms)){
 					foreach ($sample->symptoms as $value) {
-						$symptoms .= $symptoms_array[$value] . ';';
+						$symptoms .= ($symptoms_array[$value] ?? null) . ';';
 					}
 				}
 			}
