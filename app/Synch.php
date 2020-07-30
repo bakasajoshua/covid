@@ -147,7 +147,7 @@ class Synch
 		}
 
 		foreach ($lookups['covid_symptoms'] as $key => $value) {
-			$symptoms_array[$key] = $value->name;
+			$symptoms_array[$value->id] = $value->name;
 		}
 
 		$client = new Client(['base_uri' => env('NPHL_URL')]);
@@ -169,7 +169,7 @@ class Synch
 				$has_symptoms = 'Yes';
 				if($sample->symptoms && is_array($sample->symptoms)){
 					foreach ($sample->symptoms as $value) {
-						$symptoms .= $symptoms_array[$value] . ';';
+						$symptoms .= ($symptoms_array[$value] ?? null) . ';';
 					}
 				}
 			}
