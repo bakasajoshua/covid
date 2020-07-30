@@ -16,14 +16,14 @@ class CovidPatientObserver
      */
     public function saving(CovidPatient $covidPatient)
     {
-        if($covidPatient->county){
+        if($covidPatient->county && !$covidPatient->county_id){
             $county = DB::table('countys')->where('name', $covidPatient->county)->first();
             $covidPatient->county_id = $county->id ?? null;
         }
-        if(!$covidPatient->county && $covidPatient->county_id){
+        /*if(!$covidPatient->county && $covidPatient->county_id){
             $county = DB::table('countys')->where('id', $covidPatient->county_id)->first();
             $covidPatient->county = $county->name ?? null;            
-        }
+        }*/
     }
 
     /**
