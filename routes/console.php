@@ -32,3 +32,13 @@ Artisan::command('nphl', function () {
 Artisan::command('kilifi', function () {
 	\App\Synch::kilifi_notification();
 })->describe('Send Kilifi notificaiton');
+
+Artisan::command('synch:covid', function(){
+    $str = \App\Synch::synch_covid();
+    $this->info($str);
+})->describe('Synch Covid');
+
+Artisan::command('synch:cif', function(){
+    $str = \App\Synch::synch_cif();
+    $this->info($str);
+})->describe('Synch back to CIF');
