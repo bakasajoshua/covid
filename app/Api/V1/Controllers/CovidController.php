@@ -4,6 +4,7 @@ namespace App\Api\V1\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\BlankRequest;
+use App\Api\V1\Requests\CovidApiRequest;
 use Illuminate\Support\Str;
 
 use App\CovidPatient;
@@ -95,7 +96,7 @@ class CovidController extends Controller
      * })
      * @Response(201)
      */
-    public function store(BlankRequest $request)
+    public function store(CovidApiRequest $request)
     {
         $lab = Lab::where(['apikey' => $request->headers->get('apikey')])->whereNotNull('apikey')->first();
         if(!$lab) abort(401);
