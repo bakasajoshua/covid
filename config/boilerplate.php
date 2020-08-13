@@ -61,4 +61,14 @@ return [
         ],
     ],
 
+
+    'covid_sample' => [
+        'identifier' => ['required', 'string'],
+        'patient_name' => ['required', 'string'],
+        'county' => ['required', 'string'],
+        'age' => ['required', 'integer'], 
+        'sex' => ['required', 'string', 'in:m,f,M,F'],
+        'datecollected' => ['required', 'before_or_equal:today', 'date_format:Y-m-d'],
+    ],
+
 ];
