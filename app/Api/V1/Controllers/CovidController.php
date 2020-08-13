@@ -121,6 +121,8 @@ class CovidController extends Controller
         $s->fill($request->only(['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected', 'datetested']));
         $s->patient_id = $p->id;
         $s->$sample_column = $request->input('specimen_id');
+
+        $s->datecollected = $s->datecollected ?? date('Y-m-d');
         
         $s->datedispatched = $s->datetested;
         $s->lab_id = $lab->id;
