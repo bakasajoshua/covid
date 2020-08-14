@@ -124,6 +124,7 @@ class CovidController extends Controller
         $s->$sample_column = $request->input('specimen_id');
 
         $s->datecollected = $s->datecollected ?? date('Y-m-d');
+        $s->sample_type = $s->sample_type ?? 1;
         
         $s->datedispatched = $s->datetested;
         $s->lab_id = $lab->id;
