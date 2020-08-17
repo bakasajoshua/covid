@@ -114,6 +114,7 @@ class CovidController extends Controller
         if(!$p) $p = new CovidPatient;
         $p->fill($request->only(['case_id', 'nationality', 'national_id', 'identifier_type', 'identifier', 'patient_name', 'justification', 'county', 'subcounty', 'phone_no', 'ward', 'residence', 'dob', 'sex', 'occupation', 'health_status', 'date_symptoms', 'date_admission', 'date_isolation', 'date_death']));
         $p->$patient_column = $request->input('patient_id');
+        $p->justification = $p->justification ?? 3;
         $p->facility_id = Facility::locate($request->input('facility'))->first()->id ?? null;
         $p->save();
 
@@ -128,6 +129,7 @@ class CovidController extends Controller
         
         $s->datedispatched = $s->datetested;
         $s->lab_id = $lab->id;
+        if($s->lab_id == 11) $s->lab_id = 101;
         $s->save();
 
         return response()->json([
