@@ -154,13 +154,13 @@ class CovidSampleController extends Controller
     }
 
     public function cif_samples(){        
-        $samples = CovidSample::where(['synched' => 0, 'lab_id' => 11])->where('created_at', '>', date('Y-m-d', strtotime('-7 days')))->whereNull('original_sample_id')->whereNull('receivedstatus')->with(['patient'])->get();
+        $samples = CovidSample::where(['synched' => 0])->whereIn('lab_id', [11, 101])->where('created_at', '>', date('Y-m-d', strtotime('-7 days')))->whereNull('original_sample_id')->whereNull('receivedstatus')->with(['patient'])->get();
         // $samples = CovidSample::whereNotNull('cif_sample_id')->with(['patient'])->get();
         return $samples;
     }
 
     public function cif(BlankRequest $request){
-        CovidSample::where(['synched' => 0, 'lab_id' => 11])->whereNull('original_sample_id')->whereNull('receivedstatus')->whereIn('lab_id', $request->input('samples'))->update(['lab_id' => $request->input('lab_id')]);
+        CovidSample::where(['synched' => 0])->whereIn('lab_id', [11, 101])->whereNull('original_sample_id')->whereNull('receivedstatus')->whereIn('lab_id', $request->input('samples'))->update(['lab_id' => $request->input('lab_id')]);
 
         return response()->json([
             'status' => 'ok',
