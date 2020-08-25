@@ -110,7 +110,7 @@ class CovidController extends Controller
             $sample_column = 'cif_sample_id';            
         }
 
-        $p = CovidPatient::where($request->only(['identifier']))->where($patient_column, $request->input('patient_id'))->first();
+        $p = CovidPatient::where($request->only(['identifier']))->where($patient_column, $request->input('patient_id'))->whereNotNull($patient_column)->first();
         if(!$p) $p = new CovidPatient;
         $p->fill($request->only(['case_id', 'nationality', 'national_id', 'identifier_type', 'identifier', 'patient_name', 'justification', 'county', 'subcounty', 'phone_no', 'ward', 'residence', 'dob', 'sex', 'occupation', 'health_status', 'date_symptoms', 'date_admission', 'date_isolation', 'date_death']));
         $p->$patient_column = $request->input('patient_id');
@@ -118,7 +118,7 @@ class CovidController extends Controller
         $p->facility_id = Facility::locate($request->input('facility'))->first()->id ?? null;
         $p->save();
 
-        $s = CovidSample::where(['lab_id' => $lab->id, $sample_column => $request->input('specimen_id')])->first();
+        $s = CovidSample::where(['lab_id' => $lab->id, $sample_column => $request->input('specimen_id')])->whereNotNull($sample_column)->first();
         if(!$s) $s = new CovidSample;
         $s->fill($request->only(['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected', 'datetested']));
         $s->patient_id = $p->id;
