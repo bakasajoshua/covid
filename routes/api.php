@@ -45,6 +45,12 @@ $api->version('v1', function (Router $api) {
                 $api->post('cif', 'CovidSampleController@cif');
             });   
             $api->resource('covid_sample', 'CovidSampleController');
+
+
+            $api->group(['prefix' => 'insert'], function(Router $api) {
+                $api->post('consumptions', 'ConsumptionsController@create');
+                $api->post('covidconsumption', 'ConsumptionsController@create_covid');
+            });
         });
 
         $api->group(['prefix' => 'covid'], function(Router $api) {
