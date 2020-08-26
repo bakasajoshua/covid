@@ -30,30 +30,6 @@ class ChartsController extends Controller
 		return view('pages.home', compact('positives', 'deceased', 'hospitalised', 'discharged'));
 	}
 
-	public function main()
-	{
-		$rows = CovidSample::leftJoin('countys', 'countys.id', '=', 'covid_samples.county_id')
-			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
-			->selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_samples.patient_id) as value")
-			->groupBy('county_id')
-			->get();
-
-		$data = [];
-		$positives = 0;
-
-		foreach ($rows as $key => $row) {
-			$data[] = [
-				'id' => $row->id,
-				'name' => $row->name,
-				'value' => (int) $row->value,
-			];
-			$positives += $row->value;
-		}
-
-		$total = CovidSample::selectRaw("count(covid_samples.id) as value")->first()->value;
-
-		return view('pages.data', compact('data', 'positives', 'total'));
-	}
 
 	public function test()
 	{
@@ -106,7 +82,7 @@ class ChartsController extends Controller
 		$chart['div'] = Str::random(15);
 
 		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
-			->join('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->join('countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
 			->groupBy('county_id')
 			->get();
@@ -229,7 +205,7 @@ class ChartsController extends Controller
 	public function map_data()
 	{
 		$rows = CovidSampleView::selectRaw("county_id as id, countys.name, COUNT(DISTINCT covid_sample_view.patient_id) as value")
-			->leftJoin('national_db.countys', 'countys.id', '=', 'covid_sample_view.county_id')
+			->leftJoin('countys', 'countys.id', '=', 'covid_sample_view.county_id')
 			->where(['repeatt' => 0, 'result' => 2, 'test_type' => 1])
 			->groupBy('county_id')
 			->get();
@@ -321,6 +297,77 @@ class ChartsController extends Controller
 		}
 		$data[] = $total_array;
 		return view('pages.labs', compact('data', 'samples'));		
+	}
+
+
+
+	public function dashboard_labs()
+	{
+		$prev_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', '<', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
+		->get();
+
+		$new_samples = CovidSample::selectRaw('lab_id, result, count(DISTINCT patient_id) as value')
+		->where(['repeatt' => 0])
+		->whereNotNull('result')
+		->where('datetested', date('Y-m-d'))
+		->groupBy('lab_id', 'result')
+		->orderBy('lab_id')
+		->get();
+
+		$pending_samples = CovidSample::selectRaw('lab_id, count(id) as value')
+		->where(['repeatt' => 0])
+		// ->whereNotNull('original_sample_id')
+		->whereNull('receivedstatus')
+		->groupBy('lab_id')
+		->orderBy('lab_id')
+		->get();
+
+
+		$labs = DB::table('labs')->where('id', '<', 10)->where('active', 1)->get();
+
+		$lab = null;
+		$data = [];
+		$total_array = ['lab' => 'Total', 'last_updated' => '', 'prev_pos' => 0, 'prev_total' => 0, 'new_pos' => 0, 'new_total' => 0, 'pos' => 0, 'pending' => 0, 'total' => 0];
+
+		foreach ($labs as $key => $value) {
+			$lab = $value->name;
+
+			$last_updated = CovidSample::where(['repeatt' => 0, 'lab_id' => $value->id])->whereNotNull('result')->orderBy('id', 'desc')->first()->datetested ?? '';
+
+			$prev_presumed_pos = $prev_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
+			$prev_pos = $prev_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$prev_pos += $prev_presumed_pos;
+			$prev_total = ($prev_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $prev_pos;
+
+			$new_presumed_pos = $new_samples->where('lab_id', $value->id)->where('result', 8)->first()->value ?? 0;
+			$new_pos = $new_samples->where('lab_id', $value->id)->where('result', 2)->first()->value ?? 0;
+			$new_pos += $new_presumed_pos;
+			$new_total = ($new_samples->where('lab_id', $value->id)->where('result', 1)->first()->value ?? 0) + $new_pos;
+
+			$pos = $prev_pos + $new_pos;
+			$total = $prev_total + $new_total;
+
+			$pending = $pending_samples->where('lab_id', $value->id)->first()->value ?? 0;
+
+			$data[] = compact('lab', 'prev_pos', 'prev_total', 'new_pos', 'new_total', 'pos', 'total', 'last_updated', 'pending');
+
+			$total_array['prev_pos'] += $prev_pos;
+			$total_array['prev_total'] += $prev_total;
+
+			$total_array['new_pos'] += $new_pos;
+			$total_array['new_total'] += $new_total;
+
+			$total_array['pos'] += $pos;			
+			$total_array['total'] += $total;			
+			$total_array['pending'] += $pending;			
+		}
+		$data[] = $total_array;
+		return view('tables.labs', compact('data', 'samples'));		
 	}
 
 }
