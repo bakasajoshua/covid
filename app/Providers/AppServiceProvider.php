@@ -29,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+        if (env('APP_ENV') != 'local')
+            \Illuminate\Support\Facades\URL::forceScheme('https');
         
         CovidPatient::observe(CovidPatientObserver::class);
         CovidSample::observe(CovidSampleObserver::class);
