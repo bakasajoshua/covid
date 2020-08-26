@@ -120,7 +120,7 @@ class CovidController extends Controller
 
         $s = CovidSample::where(['lab_id' => $lab->id, $sample_column => $request->input('specimen_id')])->whereNotNull($sample_column)->first();
         if(!$s) $s = new CovidSample;
-        $s->fill($request->only(['lab_id', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected', 'datetested']));
+        $s->fill($request->only(['lab_id', 'border_point', 'test_type', 'health_status', 'symptoms', 'temperature', 'observed_signs', 'underlying_conditions', 'result', 'datecollected', 'datetested']));
         $s->patient_id = $p->id;
         $s->$sample_column = $request->input('specimen_id');
 
