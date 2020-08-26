@@ -90,8 +90,15 @@
 
 							@endif
 
+<<<<<<< HEAD
 							@if(in_array(auth()->user()->user_type_id, [1, 4]))
 
+=======
+							@if(in_array(auth()->user()->user_type_id, [1]))
+								<li class="nav-item text-dark">
+									<a class="nav-link text-dark font-weight-bold" href="/kits/report/daily">Daily Reports</a>
+								</li>
+>>>>>>> 4427455c08cd5ef61592ba5aaff3b6a12884fa84
 								<li class="nav-item text-dark">
 									<a class="nav-link text-dark font-weight-bold" href="/user"> Users</a>
 								</li>

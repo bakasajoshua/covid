@@ -9,7 +9,10 @@ class CovidPatient extends BaseModel
 
 	protected $dates = ['dob', 'date_symptoms', 'date_admission', 'date_isolation', 'date_death', 'date_recovered'];
 
-
+    public function travel()
+    {
+        return $this->hasMany('App\CovidTravel', 'patient_id');
+    }
 
     public function travel()
     {

@@ -47,6 +47,7 @@ $api->version('v1', function (Router $api) {
                 $api->post('cif', 'CovidSampleController@cif');
             });   
             $api->resource('covid_sample', 'CovidSampleController');
+<<<<<<< HEAD
             
             $api->resource('quarantine_site', 'QuarantineSiteController');
 
@@ -55,6 +56,13 @@ $api->version('v1', function (Router $api) {
                 $api->post('covid_samples', 'CovidSampleController@update_samples');
                 $api->post('covid_patients', 'CovidSampleController@update_patients');
 
+=======
+
+
+            $api->group(['prefix' => 'insert'], function(Router $api) {
+                $api->post('consumptions', 'ConsumptionsController@create');
+                $api->post('covidconsumption', 'ConsumptionsController@create_covid');
+>>>>>>> 4427455c08cd5ef61592ba5aaff3b6a12884fa84
             });
         });
 
