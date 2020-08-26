@@ -42,4 +42,4 @@ class Machine extends Model
 
 //     	return (object)['EID' => $eid, 'VL' => $vl];
 //     }
-// }
+}
